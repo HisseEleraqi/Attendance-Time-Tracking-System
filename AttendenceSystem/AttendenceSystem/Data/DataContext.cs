@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Programs> Programs { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=.;database=Attendence;integrated security=true;trustservercertificate=true");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=.;database=AttendenceDB;integrated security=true;trustservercertificate=true");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
