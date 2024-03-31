@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Employee>Employees { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Intake> Intakes { get; set; }
+        public DbSet<Intake> Intake { get; set; }
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Programs> Programs { get; set; }
@@ -24,6 +24,8 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<User>(user =>
             user.UseTptMappingStrategy()
             );
+
         }
+
     }
 }

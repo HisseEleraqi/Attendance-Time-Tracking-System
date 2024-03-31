@@ -12,18 +12,18 @@ namespace AttendenceSystem.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Intakes",
+                name: "Intake",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Intakes", x => x.Id);
+                    table.PrimaryKey("PK_Intake", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,7 +32,7 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,7 +45,7 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,10 +58,10 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mobile = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -118,7 +118,7 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ProgramId = table.Column<int>(type: "int", nullable: false),
@@ -152,9 +152,9 @@ namespace AttendenceSystem.Migrations
                 {
                     table.PrimaryKey("PK_IntakeTrack", x => new { x.IntakeId, x.TracksId });
                     table.ForeignKey(
-                        name: "FK_IntakeTrack_Intakes_IntakeId",
+                        name: "FK_IntakeTrack_Intake_IntakeId",
                         column: x => x.IntakeId,
-                        principalTable: "Intakes",
+                        principalTable: "Intake",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -171,10 +171,10 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Degree = table.Column<int>(type: "int", nullable: false),
-                    Specification = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Specification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GraduationYear = table.Column<int>(type: "int", nullable: false),
-                    Faculty = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    University = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Faculty = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    University = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrackID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -185,7 +185,7 @@ namespace AttendenceSystem.Migrations
                         column: x => x.TrackID,
                         principalTable: "Tracks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Students_Users_Id",
                         column: x => x.Id,
@@ -233,7 +233,7 @@ namespace AttendenceSystem.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Intakes");
+                name: "Intake");
 
             migrationBuilder.DropTable(
                 name: "Tracks");

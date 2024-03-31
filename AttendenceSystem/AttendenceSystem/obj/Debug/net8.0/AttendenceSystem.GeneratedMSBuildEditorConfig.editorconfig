@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = F:\ITI Pd\c#\MVCProject\MVC-Attendance-Project\AttendenceSystem\AttendenceSystem
 build_property._RazorSourceGeneratorDebug = 
 
+[F:/ITI Pd/c\#/MVCProject/MVC-Attendance-Project/AttendenceSystem/AttendenceSystem/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/ITI Pd/c\#/MVCProject/MVC-Attendance-Project/AttendenceSystem/AttendenceSystem/Views/Admin/AddInstructor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkSW5zdHJ1Y3Rvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [F:/ITI Pd/c\#/MVCProject/MVC-Attendance-Project/AttendenceSystem/AttendenceSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -28,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [F:/ITI Pd/c\#/MVCProject/MVC-Attendance-Project/AttendenceSystem/AttendenceSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[F:/ITI Pd/c\#/MVCProject/MVC-Attendance-Project/AttendenceSystem/AttendenceSystem/Views/Shared/_mainLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9tYWluTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [F:/ITI Pd/c\#/MVCProject/MVC-Attendance-Project/AttendenceSystem/AttendenceSystem/Views/Shared/_ValidationScriptsPartial.cshtml]

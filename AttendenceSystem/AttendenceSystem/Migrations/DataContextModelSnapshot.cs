@@ -37,7 +37,6 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("StartDate")
@@ -45,7 +44,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Intakes");
+                    b.ToTable("Intake");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Programs", b =>
@@ -57,7 +56,6 @@ namespace AttendenceSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -74,7 +72,6 @@ namespace AttendenceSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("RoleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -97,7 +94,6 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProgramId")
@@ -124,18 +120,15 @@ namespace AttendenceSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Mobile")
-                        .HasColumnType("int");
+                    b.Property<string>("Mobile")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoleId")
@@ -196,21 +189,18 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Faculty")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GraduationYear")
                         .HasColumnType("int");
 
                     b.Property<string>("Specification")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrackID")
                         .HasColumnType("int");
 
                     b.Property<string>("University")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("TrackID");
