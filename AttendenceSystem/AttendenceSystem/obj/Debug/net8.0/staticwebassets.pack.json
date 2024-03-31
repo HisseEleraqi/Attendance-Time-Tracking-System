@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\Images\\undraw_remotely_2j6y.svg"
     },
     {
+      "Id": "C:\\Users\\Orginal\\Desktop\\MVC\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\wwwroot\\css\\AddInstructor.css",
+      "PackagePath": "staticwebassets\\css\\AddInstructor.css"
+    },
+    {
       "Id": "C:\\Users\\Orginal\\Desktop\\MVC\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },
