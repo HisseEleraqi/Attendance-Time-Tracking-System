@@ -7,6 +7,7 @@
        public int GraduationYear {  get; set; }
        public string Faculty { get; set; }
        public string University {  get; set; }
+       public bool IsAccepted { get; set; }
        public int TrackID {  get; set; }
        public virtual  Track Track { get; set; }
 

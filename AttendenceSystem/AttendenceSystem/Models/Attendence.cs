@@ -15,8 +15,7 @@
 
 
         // Foreign Key
-        public virtual Employee Employee { get; set; }
-
+        public int UserId {  get; set; }
         public virtual User User { get; set; }
 
 

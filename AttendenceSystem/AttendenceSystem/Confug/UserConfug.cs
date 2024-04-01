@@ -13,9 +13,7 @@ namespace AttendenceSystem.Confug
 
             builder.Property(u => u.Email).IsRequired().HasMaxLength(50);
             builder.HasIndex(u => u.Email).IsUnique();
-
-
-
         }
+     
     }
 }
