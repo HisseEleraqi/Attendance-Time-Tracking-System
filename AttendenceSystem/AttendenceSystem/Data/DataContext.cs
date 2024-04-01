@@ -1,4 +1,5 @@
-﻿using AttendenceSystem.Models;
+﻿using AttendenceSystem.Confug;
+using AttendenceSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
  namespace AttendenceSystem.Data
@@ -13,6 +14,13 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Programs> Programs { get; set; }
+        public DbSet<Permision> Permisions { get; set; }
+        public DbSet<Attendence> Attendences { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<InstructorTrack> instructorTracks { get; set; }
+
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=.;database=AttendenceDB;integrated security=true;trustservercertificate=true");
@@ -20,6 +28,11 @@ using Microsoft.EntityFrameworkCore;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.ApplyConfiguration(new InstructorConfig());
+            modelBuilder.ApplyConfiguration(new UserConfug());
+            modelBuilder.ApplyConfiguration(new InstructorTrackConfig());
+
+            //modelBuilder.ApplyConfiguration(new TrackConfig());
 
             modelBuilder.Entity<User>(user =>
             user.UseTptMappingStrategy()

@@ -9,6 +9,7 @@
         public DateOnly EndDate {  get; set; }
 
         public TimeOnly Time {  get; set; }
-        public virtual ICollection<Track> Tracks { get; set; }
+        public int TrackId {  get; set; }
+        public virtual Track Tracks { get; set; }
     }
 }
