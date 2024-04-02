@@ -1,74 +1,208 @@
-﻿@{
-    Layout = null;
+﻿@model InstructorTrackViewModel
+@{
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+    var Tracks = ViewBag.Track as List<Track>;
+    SelectList Track = new SelectList(Tracks, "Id", "Name");
 }
-<!DOCTYPE html>
-<html>
-<head>
-    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+    }
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/AddInstructor.css">
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-</head>
-<body>
-<div class="container">
-    <form>
+    .input-group {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        overflow: hidden;
+    }
+
+        .input-group .form-control {
+            flex: 1;
+            border: none;
+            padding: 10px;
+        }
+
+        .input-group .input-group-addon {
+            border: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-group .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(108, 67, 206, 0.25);
+        }
+
+    .btn-warning {
+        background-color: #575a89;
+        border-color: #6943ce;
+        color: aliceblue;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-warning:hover {
+            background-color: #5a37b5;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px / 1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        color: #ffc107;
+    }
+
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        background-color: #ffffff;
+        max-width: 730px;
+    }
+
+    hr {
+        margin-top: -0.6rem;
+        margin-left: -1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 157px;
+        border-radius: 6px;
+    }
+
+    .header {
+        padding: 6px;
+    }
+
+    .currency-symbol {
+        color: #ffc107; 
+        font-size: 1.2em;
+    }
+
+    .image{
+  
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+</style>
+<div class="form-container">
+    <div class="row header">
+        <div class="col">
+            <h3>Add Instructor</h3>
+            <hr />
+        </div>
+        <div class="col image">
+            <img src="~/Images/undraw_Add_user_re_5oib.png" style="width: 116px;height: 86px;" />
+        </div>
+        
+    </div>
+    <form method="post">
         <div class="row">
-            <h4>Account</h4>
-            <div class="input-group input-group-icon">
-                <input type="text" placeholder="Name" />
-                <div class="input-icon"><i class="fa fa-user"></i></div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <div class="input-group">
+                        <input asp-for="Name" type="text" class="form-control" name="Name" />
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
             </div>
-            <div class="input-group input-group-icon">
-                <input type="email" placeholder="Email Address" />
-                <div class="input-icon"><i class="fa fa-envelope"></i></div>
-            </div>
-            <div class="input-group input-group-icon">
-                <input type="password" placeholder="Password" />
-                <div class="input-icon"><i class="fa fa-key"></i></div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <input asp-for="Email" type="email" class="form-control" name="Email" />
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    @if (TempData["Error"] != null)
+                    {
+                        <span class="text-danger"> @TempData["Error"]</span>
+
+                    }
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-half">
-                <h4>Hire Date</h4>
-                <div class="input-group">
-                    <div class="col-third">
-                        <input type="text" placeholder="DD" />
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input asp-for="Password" type="password" class="form-control" name="Password" />
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                     </div>
-                    <div class="col-third">
-                        <input type="text" placeholder="MM" />
-                    </div>
-                    <div class="col-third">
-                        <input type="text" placeholder="YYYY" />
-                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-half">
-                <h4>Gender</h4>
-                <div class="input-group">
-                    <input id="gender-male" type="radio" name="gender" value="male" />
-                    <label for="gender-male">Male</label>
-                    <input id="gender-female" type="radio" name="gender" value="female" />
-                    <label for="gender-female">Female</label>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Salary" class="form-label">Salary</label>
+                    <div class="input-group">
+                        <input asp-for="Salary" type="text" class="form-control" name="Salary" />
+                        <span class="input-group-addon currency-symbol">$</span>
+                    </div>
+                    <span asp-validation-for="Salary" class="text-danger"></span>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="input-group input-group-icon">
-                <input type="text" placeholder="Salary" />
-                    <div class="input-icon"><i class="fa fa-money"></i></div>
-            </div>
-                <div class="input-group input-group-icon">
-                    <input type="text" placeholder="Mobile Number" />
-                    <div class="input-icon"><i class="fa fa-phone"></i></div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Mobile" class="form-label">Mobile</label>
+                    <div class="input-group">
+                        <input asp-for="Mobile" type="text" class="form-control" name="Mobile" />
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    </div>
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
                 </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="HireDate" class="form-label">Hire Date</label>
+                    <input asp-for="HireDate" type="date" class="form-control" name="HireDate" />
+                    <span asp-validation-for="HireDate" class="text-danger"></span>
+                </div>
+            </div>
+
         </div>
-       
+        <div class="form-group">
+            <label asp-for="Tracks" class="form-label">Track</label>
+            <div class="input-group">
+                <select asp-for="Tracks" class="form-control" asp-items="Track" id="TrackInstructors" name="Tracks">
+                </select>
+                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+            </div>
+            <span asp-validation-for="Tracks" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-warning">Submit</button>
     </form>
 </div>
-</body>
-</html>

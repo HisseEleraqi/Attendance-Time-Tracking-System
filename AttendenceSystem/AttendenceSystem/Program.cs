@@ -1,3 +1,6 @@
+using AttendenceSystem.IRepo;
+using AttendenceSystem.Repo;
+
 namespace AttendenceSystem
 {
     public class Program
@@ -8,6 +11,7 @@ namespace AttendenceSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
 
             var app = builder.Build();
 
