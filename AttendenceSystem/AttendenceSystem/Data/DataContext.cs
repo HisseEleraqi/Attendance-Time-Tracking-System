@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Programs> Programs { get; set; }
+
+       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=.;database=AttendenceDB;integrated security=true;trustservercertificate=true");

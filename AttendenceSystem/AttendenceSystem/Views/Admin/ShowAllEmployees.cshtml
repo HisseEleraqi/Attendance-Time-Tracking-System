@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Employee>;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowAllEmployees</title>
+</head>
+<body>
+    <h1>ShowAllEmployees</h1>
+    <table>
+        <tr>
+            <th>Employee Name</th>
+            <th>Employee Email</th>
+            <th>Employee Phone</th>
+            <th>Employee Type</th>
+            <th>Employee Role</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.Name</td>
+                <td>@emp.Email</td>
+                <td>@emp.Mobile</td>
+                <td>@emp.EmpType</td>
+                <td>@emp.RoleId</td>
+                <td>
+                    <a asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@emp.Id">Edit</a> 
+                    <a asp-action="DeleteEmployee" asp-route-id="@emp.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+   
+</body>
+</html>

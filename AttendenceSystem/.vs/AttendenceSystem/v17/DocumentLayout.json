@@ -3,32 +3,44 @@
   "WorkspaceRootPath": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\migrations\\20240331180023_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\migrations\\20240331180023_m1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\views\\admin\\editemployee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\views\\admin\\editemployee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\views\\admin\\showallemployees.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\views\\admin\\showallemployees.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\views\\admin\\addemployee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\views\\admin\\addemployee.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\confug\\userconfug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\confug\\userconfug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\attendencesystem\\models\\intake.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\models\\intake.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\attendencesystem\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\attendencesystem\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\attendencesystem\\attendencesystem.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\attendencesystem.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|f:\\iti pd\\c#\\mvcproject\\mvc-attendance-project\\attendencesystem\\attendencesystem\\migrations\\datacontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5866269-5CC4-4E14-91CB-68BBEBF43673}|AttendenceSystem\\AttendenceSystem.csproj|solutionrelative:attendencesystem\\migrations\\datacontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,96 +50,137 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "User.cs",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\User.cs",
-              "RelativeDocumentMoniker": "AttendenceSystem\\Models\\User.cs",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\User.cs",
-              "RelativeToolTip": "AttendenceSystem\\Models\\User.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAxwAsAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T01:47:57.981Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserConfug.cs",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Confug\\UserConfug.cs",
-              "RelativeDocumentMoniker": "AttendenceSystem\\Confug\\UserConfug.cs",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Confug\\UserConfug.cs",
-              "RelativeToolTip": "AttendenceSystem\\Confug\\UserConfug.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAwwA8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T04:32:48.227Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20240331180023_m1.cs",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Migrations\\20240331180023_m1.cs",
-              "RelativeDocumentMoniker": "AttendenceSystem\\Migrations\\20240331180023_m1.cs",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Migrations\\20240331180023_m1.cs",
-              "RelativeToolTip": "AttendenceSystem\\Migrations\\20240331180023_m1.cs",
-              "ViewState": "AQIAAL4AAAAAAAAAAAD4v8EAAAA8AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T18:00:23.253Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\Employee.cs",
-              "RelativeDocumentMoniker": "AttendenceSystem\\Models\\Employee.cs",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\Employee.cs",
-              "RelativeToolTip": "AttendenceSystem\\Models\\Employee.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T17:58:12.705Z",
+              "Title": "EditEmployee.cshtml",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Views\\Admin\\EditEmployee.cshtml",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Views\\Admin\\EditEmployee.cshtml",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Views\\Admin\\EditEmployee.cshtml",
+              "RelativeToolTip": "AttendenceSystem\\Views\\Admin\\EditEmployee.cshtml",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAAB4AAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-02T05:46:51.251Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "DataContext.cs",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Data\\DataContext.cs",
-              "RelativeDocumentMoniker": "AttendenceSystem\\Data\\DataContext.cs",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Data\\DataContext.cs",
-              "RelativeToolTip": "AttendenceSystem\\Data\\DataContext.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAIA5wAsAAAAbAAAA",
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Controllers\\HomeController.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "AttendenceSystem\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T04:47:33.875Z"
+              "WhenOpened": "2024-04-02T05:39:37.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "User.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\User.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Models\\User.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\User.cs",
+              "RelativeToolTip": "AttendenceSystem\\Models\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T04:59:14.948Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "AttendenceSystem",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
-              "RelativeDocumentMoniker": "AttendenceSystem\\AttendenceSystem.csproj",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
-              "RelativeToolTip": "AttendenceSystem\\AttendenceSystem.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-31T04:37:12.932Z"
+              "Title": "Employee.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Models\\Employee.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\Employee.cs",
+              "RelativeToolTip": "AttendenceSystem\\Models\\Employee.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T04:59:09.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AddEmployee.cshtml",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Views\\Admin\\AddEmployee.cshtml",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Views\\Admin\\AddEmployee.cshtml",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Views\\Admin\\AddEmployee.cshtml",
+              "RelativeToolTip": "AttendenceSystem\\Views\\Admin\\AddEmployee.cshtml",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAACUAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-02T04:57:51.512Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Intake.cs",
-              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\Intake.cs",
-              "RelativeDocumentMoniker": "AttendenceSystem\\Models\\Intake.cs",
-              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Models\\Intake.cs",
-              "RelativeToolTip": "AttendenceSystem\\Models\\Intake.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAXAAAA",
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Controllers\\AccountController.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "AttendenceSystem\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-29T01:48:16.166Z"
+              "WhenOpened": "2024-04-02T04:53:44.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ShowAllEmployees.cshtml",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Views\\Admin\\ShowAllEmployees.cshtml",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Views\\Admin\\ShowAllEmployees.cshtml",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Views\\Admin\\ShowAllEmployees.cshtml",
+              "RelativeToolTip": "AttendenceSystem\\Views\\Admin\\ShowAllEmployees.cshtml",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAACAAAABoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-02T04:52:06.589Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Controllers\\AdminController.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "AttendenceSystem\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAiwA4AAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T04:50:31.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Program.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Program.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Program.cs",
+              "RelativeToolTip": "AttendenceSystem\\Program.cs",
+              "ViewState": "AQIAABoAAADAMjMzMzMLwCUAAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T03:50:25.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DataContextModelSnapshot.cs",
+              "DocumentMoniker": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Migrations\\DataContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "AttendenceSystem\\Migrations\\DataContextModelSnapshot.cs",
+              "ToolTip": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\Migrations\\DataContextModelSnapshot.cs",
+              "RelativeToolTip": "AttendenceSystem\\Migrations\\DataContextModelSnapshot.cs",
+              "ViewState": "AQIAAJMAAAAAMDMzMzPjvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-02T04:01:04.107Z",
+              "EditorCaption": ""
             }
           ]
         }
