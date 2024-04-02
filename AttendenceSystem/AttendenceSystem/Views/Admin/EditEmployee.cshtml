@@ -1,0 +1,41 @@
+﻿@model Employee;
+@{
+    SelectList selectLists = new SelectList(Enum.GetValues(typeof(EmployeeType)));
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditEmployee</title>
+</head>
+<body>
+    <h1>EditEmployee</h1>
+    <form asp-action="EditEmployee" method="post">
+        <input type="hidden" asp-for="Id" />
+        <label>Employee Name</label>
+        <input asp-for="Name" ></input>
+        <br>
+        <label>Employee Email</label>
+        <input asp-for="Email" ></input>
+        <br>
+        <label>Employee Password</label>
+        <input asp-for="Password"></input>
+        <br>
+        <label>Employee Phone</label>
+        <input asp-for="Mobile" ></input>
+        <br>
+        <label>Employee Type</label>
+        <select asp-for="EmpType" asp-items="selectLists"></select>
+        
+        <br>
+        <label>EmployeeRole</label>
+        <input asp-for="RoleId" ></input>
+        <button type="submit" class="btn-primary">Edit Employee</button>
+        
+    </form>
+
+</body>
+</html>
