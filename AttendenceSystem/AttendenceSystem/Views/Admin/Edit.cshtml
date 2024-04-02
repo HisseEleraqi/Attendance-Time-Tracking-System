@@ -1,0 +1,255 @@
+﻿@model InstructorTrackViewModel
+@{
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+  
+}
+<style>
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        overflow: hidden;
+    }
+
+        .input-group .form-control {
+            flex: 1;
+            border: none;
+            padding: 10px;
+        }
+
+        .input-group .input-group-addon {
+            border: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-group .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(108, 67, 206, 0.25);
+        }
+
+    .btn-warning {
+        background-color: #575a89;
+        border-color: #6943ce;
+        color: aliceblue;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-warning:hover {
+            background-color: #5a37b5;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px / 1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        color: #ffc107;
+    }
+
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        background-color: #ffffff;
+        max-width: 730px;
+    }
+
+    hr {
+        margin-top: -0.6rem;
+        margin-left: -1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 157px;
+        border-radius: 6px;
+    }
+
+    .header {
+        padding: 6px;
+    }
+
+    .currency-symbol {
+        color: #ffc107;
+        font-size: 1.2em;
+    }
+
+    .image {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+</style>
+<div class="form-container">
+    <div class="row header">
+        <div class="col">
+            <h3>Edit Instructor</h3>
+            <hr />
+        </div>
+        <div class="col image">
+            <img src="~/Images/undraw_Add_user_re_5oib.png" style="width: 116px;height: 86px;" />
+        </div>
+
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <div class="input-group">
+                        <input asp-for="Name" type="text" class="form-control" name="Name" vaasp-controller="@Model.Name" />
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <input asp-for="Email" type="email" class="form-control" name="Email" value="@Model.Email" />
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    @if (TempData["Error"] != null)
+                    {
+                        <span class="text-danger"> @TempData["Error"]</span>
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input asp-for="Password" type="password" class="form-control" name="Password" value="@Model.Password"/>
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Salary" class="form-label">Salary</label>
+                    <div class="input-group">
+                        <input asp-for="Salary" type="text" class="form-control" name="Salary" value="@Model.Salary"/>
+                        <span class="input-group-addon currency-symbol">$</span>
+                    </div>
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Mobile" class="form-label">Mobile</label>
+                    <div class="input-group">
+                        <input asp-for="Mobile" type="text" class="form-control" name="Mobile" value="@Model.Mobile"/>
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    </div>
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="HireDate" class="form-label">Hire Date</label>
+                    <input asp-for="HireDate" type="date" class="form-control" name="HireDate" value="@Model.HireDate.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="HireDate" class="text-danger"></span>
+                </div> 
+            </div>
+
+
+        </div>
+        <div class="form-group">
+            <label class="form-label">Instructor Tracks</label>
+            <div class="input-group">
+                @if (ViewBag.InstructorTrack != null)
+                {
+                    <select class="form-control" id="InstructorTracks" size="5" multiple asp-for="Tracks" name="Tracks">
+                        @foreach (var track in ViewBag.InstructorTrack)
+                        {
+                            <option value="@track.Id">@track.Name</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <select class="form-control" id="InstructorTracks" size="1" multiple asp-for="Tracks" name="Tracks">
+                        <option value="">No Tracks available for this instructor</option>
+                    </select>
+                }
+            </div>
+        </div>
+
+
+        <button type="button" id="moveToAllTracks">>></button>
+        <button type="button" id="moveToInstructorTracks"><<</button>
+
+        <div class="form-group">
+            <label class="form-label">Tracks</label>
+            <div class="input-group">
+                <select class="form-control" id="AllTracks" size="5" multiple>
+                    @foreach (var track in ViewBag.Tracks)
+                    {
+                        <option value="@track.Id">@track.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+</div>
+@section Scripts2 {
+    <script>
+        $(document).ready(function () {
+            $('#moveToAllTracks').click(function () {
+                $('#InstructorTracks option:selected').each(function () {
+                    $('#AllTracks').append($(this).clone());
+                    $(this).remove();
+                });
+            });
+
+            $('#moveToInstructorTracks').click(function () {
+                $('#AllTracks option:selected').each(function () {
+                    $('#InstructorTracks').append($(this).clone());
+                    $(this).remove();
+                });
+            });
+
+        });
+    </script>
+}

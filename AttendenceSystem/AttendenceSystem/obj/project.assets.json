@@ -7917,11 +7917,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
+      "projectUniqueName": "E:\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
       "projectName": "AttendenceSystem",
-      "projectPath": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
+      "projectPath": "E:\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
       "packagesPath": "C:\\Users\\H2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\obj\\",
+      "outputPath": "E:\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\H2\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Instructor>
+﻿@model IEnumerable<InstructorDetails>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_mainLayout.cshtml";
@@ -132,6 +132,19 @@
     }
 
 </style>
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@if (ViewBag.DeleteErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.DeleteErrorMessage
+    </div>
+}
 <div class="row">
     <div class="col">
         <h1>Instructor</h1>
@@ -171,11 +184,11 @@
                     <td>@instructor.Name</td>
                     <td>@instructor.Email</td>
                     <td>@instructor.Salary$</td>
-                    <td class="late">1</td>
-                    <td class="Absent">2</td>
+                    <td class="late">@instructor.LateDays</td>
+                    <td class="Absent">@instructor.AbsentDays</td>
                     <td>@instructor.HireDate</td>
-                    <td><i class="fa fa-pencil"></i></td>
-                    <td><i class="fa fa-trash-o"></i></td>
+                    <td><a asp-action="Edit" asp-controller="Admin" asp-route-instructorid=@instructor.Id><i class="fa fa-pencil"></i></a></td>
+                    <td><a asp-action="Delete" asp-controller="Admin" asp-route-instructorid=@instructor.Id><i class="fa fa-trash-o"></i></a></td>
                     <td><a asp-action="Details" asp-controller="Admin" asp-route-instructorid=@instructor.Id><i class="fa fa-eye"></i></a></td>
                 </tr>
             }
