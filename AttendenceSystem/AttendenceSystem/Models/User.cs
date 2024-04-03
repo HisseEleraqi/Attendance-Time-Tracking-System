@@ -1,5 +1,12 @@
-﻿namespace AttendenceSystem.Models
+﻿using System.Reflection;
+
+namespace AttendenceSystem.Models
 {
+    public enum gender
+    {
+        female,
+        male
+    }
     public class User
     {
         // primary key property
@@ -11,10 +18,11 @@
         public string Password { get; set; }
         public string Mobile { get; set; }
 
+
         // Foreign key property for Role
-        public int RoleId { get; set; }
+
 
         // Navigation property for Role
-        public virtual Role Role { get; set; }
+        public virtual List<Role> Roles { get; set; } = new List<Role>();
     }
 }

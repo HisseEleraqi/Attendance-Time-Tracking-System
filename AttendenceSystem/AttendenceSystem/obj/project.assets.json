@@ -7913,19 +7913,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\H2\\.nuget\\packages\\": {}
+    "C:\\Users\\CRIZMA MEGA STORE\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
+      "projectUniqueName": "C:\\Users\\CRIZMA MEGA STORE\\Desktop\\MVC Project\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
       "projectName": "AttendenceSystem",
-      "projectPath": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
-      "packagesPath": "C:\\Users\\H2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\obj\\",
+      "projectPath": "C:\\Users\\CRIZMA MEGA STORE\\Desktop\\MVC Project\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
+      "packagesPath": "C:\\Users\\CRIZMA MEGA STORE\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\CRIZMA MEGA STORE\\Desktop\\MVC Project\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\H2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\CRIZMA MEGA STORE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7933,6 +7938,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

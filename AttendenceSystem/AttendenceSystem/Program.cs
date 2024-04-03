@@ -15,7 +15,9 @@ namespace AttendenceSystem
 
           
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

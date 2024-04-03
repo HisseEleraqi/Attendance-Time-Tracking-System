@@ -4,6 +4,7 @@ using AttendenceSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendenceSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240403011514_m2")]
+    partial class m2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,68 +164,6 @@ namespace AttendenceSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            RoleName = "Student"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            RoleName = "Security"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            RoleName = "Student_affairs"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            RoleName = "Instructor"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            RoleName = "Supervisor"
-                        });
-                });
-
-            modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<DateOnly>("EndDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date");
-
-                    b.Property<TimeOnly>("Time")
-                        .HasColumnType("time");
-
-                    b.Property<int>("TrackId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrackId");
-
-                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
@@ -300,13 +241,11 @@ namespace AttendenceSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
-                   
-
-                    b.Property<string>("Mobile")
+                    b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
-
-
 
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
@@ -323,10 +262,6 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
-
-
-                    b.HasIndex("RoleId");
-
 
                     b.ToTable("Users");
 
@@ -564,19 +499,6 @@ namespace AttendenceSystem.Migrations
                     b.Navigation("Schedules");
 
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>
-                {
-
-                    b.Navigation("TrackInstructors");
-
-                    b.Navigation("Instructors");
-
-                    b.Navigation("Schedules");
-
-                    b.Navigation("Students");
-
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>
