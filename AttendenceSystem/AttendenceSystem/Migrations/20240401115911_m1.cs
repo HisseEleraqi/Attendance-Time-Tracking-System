@@ -12,18 +12,18 @@ namespace AttendenceSystem.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Intakes",
+                name: "Intake",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Intakes", x => x.Id);
+                    table.PrimaryKey("PK_Intake", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,7 +32,7 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,7 +45,7 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,10 +58,10 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mobile = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -71,6 +71,31 @@ namespace AttendenceSystem.Migrations
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attendences",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    InTime = table.Column<TimeOnly>(type: "time", nullable: false),
+                    OutTime = table.Column<TimeOnly>(type: "time", nullable: false),
+                    IsPresent = table.Column<bool>(type: "bit", nullable: false),
+                    IsAbsent = table.Column<bool>(type: "bit", nullable: false),
+                    IsLate = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendences", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attendences_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,7 +143,7 @@ namespace AttendenceSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ProgramId = table.Column<int>(type: "int", nullable: false),
@@ -142,6 +167,30 @@ namespace AttendenceSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "instructorTracks",
+                columns: table => new
+                {
+                    TrackId = table.Column<int>(type: "int", nullable: false),
+                    InstructorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_instructorTracks", x => new { x.TrackId, x.InstructorId });
+                    table.ForeignKey(
+                        name: "FK_instructorTracks_Instructors_InstructorId",
+                        column: x => x.InstructorId,
+                        principalTable: "Instructors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_instructorTracks_Tracks_TrackId",
+                        column: x => x.TrackId,
+                        principalTable: "Tracks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "IntakeTrack",
                 columns: table => new
                 {
@@ -152,9 +201,9 @@ namespace AttendenceSystem.Migrations
                 {
                     table.PrimaryKey("PK_IntakeTrack", x => new { x.IntakeId, x.TracksId });
                     table.ForeignKey(
-                        name: "FK_IntakeTrack_Intakes_IntakeId",
+                        name: "FK_IntakeTrack_Intake_IntakeId",
                         column: x => x.IntakeId,
-                        principalTable: "Intakes",
+                        principalTable: "Intake",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -166,15 +215,39 @@ namespace AttendenceSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Schedules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Time = table.Column<TimeOnly>(type: "time", nullable: false),
+                    TrackId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Schedules_Tracks_TrackId",
+                        column: x => x.TrackId,
+                        principalTable: "Tracks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Degree = table.Column<int>(type: "int", nullable: false),
-                    Specification = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Specification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GraduationYear = table.Column<int>(type: "int", nullable: false),
-                    Faculty = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    University = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Faculty = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    University = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsAccepted = table.Column<bool>(type: "bit", nullable: false),
                     TrackID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -194,10 +267,54 @@ namespace AttendenceSystem.Migrations
                         onDelete: ReferentialAction.NoAction);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Permisions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permisions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Permisions_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attendences_UserId",
+                table: "Attendences",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_instructorTracks_InstructorId",
+                table: "instructorTracks",
+                column: "InstructorId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_IntakeTrack_TracksId",
                 table: "IntakeTrack",
                 column: "TracksId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Permisions_StudentId",
+                table: "Permisions",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedules_TrackId",
+                table: "Schedules",
+                column: "TrackId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_TrackID",
@@ -215,6 +332,12 @@ namespace AttendenceSystem.Migrations
                 column: "SupervisorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
                 table: "Users",
                 column: "RoleId");
@@ -224,16 +347,28 @@ namespace AttendenceSystem.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Attendences");
+
+            migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "instructorTracks");
 
             migrationBuilder.DropTable(
                 name: "IntakeTrack");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Permisions");
 
             migrationBuilder.DropTable(
-                name: "Intakes");
+                name: "Schedules");
+
+            migrationBuilder.DropTable(
+                name: "Intake");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Tracks");
