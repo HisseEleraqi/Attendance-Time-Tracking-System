@@ -1,7 +1,9 @@
-﻿using AttendenceSystem.Models;
+﻿using AttendenceSystem.Confug;
+using AttendenceSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.Arm;
 
- namespace AttendenceSystem.Data
+namespace AttendenceSystem.Data
 {
     public class DataContext:DbContext
     {
@@ -14,7 +16,13 @@ using Microsoft.EntityFrameworkCore;
         public DbSet<Student> Students { get; set; }
         public DbSet<Programs> Programs { get; set; }
 
-       
+
+
+        public DbSet<Permision> Permisions { get; set; }
+        public DbSet<Attendence> Attendences { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<InstructorTrack> instructorTracks { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +31,11 @@ using Microsoft.EntityFrameworkCore;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.ApplyConfiguration(new InstructorConfig());
+            modelBuilder.ApplyConfiguration(new UserConfug());
+            modelBuilder.ApplyConfiguration(new InstructorTrackConfig());
+
+            //modelBuilder.ApplyConfiguration(new TrackConfig());
 
             modelBuilder.Entity<User>(user =>
             user.UseTptMappingStrategy()
@@ -30,5 +43,9 @@ using Microsoft.EntityFrameworkCore;
 
         }
 
+        internal void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

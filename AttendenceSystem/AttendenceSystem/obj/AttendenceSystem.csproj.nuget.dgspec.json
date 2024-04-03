@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj": {}
+    "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj": {}
   },
   "projects": {
-    "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj": {
+    "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
+        "projectUniqueName": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
         "projectName": "AttendenceSystem",
-        "projectPath": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
-        "packagesPath": "C:\\Users\\CRIZMA MEGA STORE\\.nuget\\packages\\",
-        "outputPath": "F:\\ITI Pd\\c#\\MVCProject\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\obj\\",
+        "projectPath": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\AttendenceSystem.csproj",
+        "packagesPath": "C:\\Users\\H2\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\H2\\Desktop\\MVC1\\MVC-Attendance-Project\\AttendenceSystem\\AttendenceSystem\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\CRIZMA MEGA STORE\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\H2\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
