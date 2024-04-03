@@ -37,6 +37,18 @@ using Microsoft.EntityFrameworkCore;
             modelBuilder.Entity<User>(user =>
             user.UseTptMappingStrategy()
             );
+            modelBuilder.Entity<Role>(entity =>
+            entity.HasData(
+                new Role { Id = 1, RoleName = "Admin" },
+                new Role { Id = 2, RoleName = "Student" },
+                new Role { Id = 3, RoleName = "Security" },
+                new Role { Id = 4, RoleName = "Student_affairs" },
+                new Role { Id = 5, RoleName = "Instructor" },
+                new Role { Id = 6, RoleName = "Supervisor" }
+
+                )
+            );
+
 
         }
 
