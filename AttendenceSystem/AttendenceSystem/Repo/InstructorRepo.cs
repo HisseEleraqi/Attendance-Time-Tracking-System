@@ -1,4 +1,4 @@
-﻿using AttendenceSystem.Models;
+using AttendenceSystem.Models;
 using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.ViewModel;
@@ -43,7 +43,7 @@ namespace AttendenceSystem.Repo
         }
         public List<Track> GetAllTracks()
         {
-            var Tracks = context.Tracks.ToList();
+            var Tracks = context.Tracks.Where(t => t.IsActive == true).ToList();
             return Tracks;
         }
         public List<Track> GetInstructorTrack(int InstructorId)
@@ -53,7 +53,7 @@ namespace AttendenceSystem.Repo
             List<Track> result = new List<Track>();
             foreach (var item in tracks)
             {
-                var track = context.Tracks.FirstOrDefault(t => t.Id == item.TrackId);
+                var track = context.Tracks.FirstOrDefault(t => t.Id == item.TrackId && t.IsActive==true);
                 result.Add(track);
                 
             }
@@ -89,11 +89,11 @@ namespace AttendenceSystem.Repo
             var instructor = context.Instructors.FirstOrDefault(i => i.Id == instructorId);
             if (instructor == null || instructor.TrackInstructors == null || !instructor.TrackInstructors.Any())
             {
-                return context.Tracks.ToList();
+                return context.Tracks.Where(t => t.IsActive == true).ToList();
             }
             var allTracks = context.Tracks.ToList();
             var instructorTrackIds = instructor.TrackInstructors.Select(ti => ti.TrackId).ToList();
-            var tracksExceptInstructor = allTracks.Where(t => !instructorTrackIds.Contains(t.Id)).ToList();
+            var tracksExceptInstructor = allTracks.Where(t => !instructorTrackIds.Contains(t.Id) && t.IsActive==true).ToList();
             return tracksExceptInstructor;
         }
         public void EditInstructor(int id, InstructorTrackViewModel instructor)
