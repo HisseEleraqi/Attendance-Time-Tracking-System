@@ -23,7 +23,7 @@ using Microsoft.EntityFrameworkCore;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=.;database=AttendenceDB;integrated security=true;trustservercertificate=true");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("DefaultConnection");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,6 +48,7 @@ using Microsoft.EntityFrameworkCore;
 
                 )
             );
+
 
         }
 

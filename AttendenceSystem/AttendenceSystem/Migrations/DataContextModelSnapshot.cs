@@ -225,6 +225,36 @@ namespace AttendenceSystem.Migrations
                     b.ToTable("Schedules");
                 });
 
+            modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("Time")
+                        .HasColumnType("time");
+
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrackId");
+
+                    b.ToTable("Schedules");
+                });
+
             modelBuilder.Entity("AttendenceSystem.Models.Track", b =>
                 {
                     b.Property<int>("Id")
@@ -270,11 +300,13 @@ namespace AttendenceSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
 
-                    b.Property<string>("Img")
+                   
+
+                    b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
+
+
 
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
@@ -291,6 +323,10 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+
+                    b.HasIndex("RoleId");
+
 
                     b.ToTable("Users");
 
@@ -528,6 +564,19 @@ namespace AttendenceSystem.Migrations
                     b.Navigation("Schedules");
 
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>
+                {
+
+                    b.Navigation("TrackInstructors");
+
+                    b.Navigation("Instructors");
+
+                    b.Navigation("Schedules");
+
+                    b.Navigation("Students");
+
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>

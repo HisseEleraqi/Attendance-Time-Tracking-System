@@ -17,8 +17,7 @@ namespace AttendenceSystem.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Mobile { get; set; }
-        public string Img { get; set; }
-        public gender Gender { get; set; }
+
 
         // Foreign key property for Role
 
