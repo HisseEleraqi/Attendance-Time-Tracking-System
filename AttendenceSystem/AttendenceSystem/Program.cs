@@ -1,3 +1,6 @@
+using AttendenceSystem.IRepo;
+using AttendenceSystem.Repo;
+
 using AttendenceSystem.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +18,8 @@ namespace AttendenceSystem
 
           
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
+
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();

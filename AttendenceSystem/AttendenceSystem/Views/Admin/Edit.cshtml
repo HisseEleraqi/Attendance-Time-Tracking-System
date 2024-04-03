@@ -1,8 +1,7 @@
 ﻿@model InstructorTrackViewModel
 @{
     Layout = "~/Views/Shared/_mainLayout.cshtml";
-    var Tracks = ViewBag.Track as List<Track>;
-    SelectList Track = new SelectList(Tracks, "Id", "Name");
+  
 }
 <style>
     .form-container {
@@ -101,12 +100,11 @@
     }
 
     .currency-symbol {
-        color: #ffc107; 
+        color: #ffc107;
         font-size: 1.2em;
     }
 
-    .image{
-  
+    .image {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
@@ -115,13 +113,13 @@
 <div class="form-container">
     <div class="row header">
         <div class="col">
-            <h3>Add Instructor</h3>
+            <h3>Edit Instructor</h3>
             <hr />
         </div>
         <div class="col image">
             <img src="~/Images/undraw_Add_user_re_5oib.png" style="width: 116px;height: 86px;" />
         </div>
-        
+
     </div>
     <form method="post">
         <div class="row">
@@ -129,7 +127,7 @@
                 <div class="form-group">
                     <label asp-for="Name" class="form-label">Name</label>
                     <div class="input-group">
-                        <input asp-for="Name" type="text" class="form-control" name="Name" />
+                        <input asp-for="Name" type="text" class="form-control" name="Name" vaasp-controller="@Model.Name" />
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     </div>
                     <span asp-validation-for="Name" class="text-danger"></span>
@@ -140,7 +138,7 @@
                 <div class="form-group">
                     <label asp-for="Email" class="form-label">Email</label>
                     <div class="input-group">
-                        <input asp-for="Email" type="email" class="form-control" name="Email" />
+                        <input asp-for="Email" type="email" class="form-control" name="Email" value="@Model.Email" />
                         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                     </div>
                     <span asp-validation-for="Email" class="text-danger"></span>
@@ -157,7 +155,7 @@
                 <div class="form-group">
                     <label asp-for="Password" class="form-label">Password</label>
                     <div class="input-group">
-                        <input asp-for="Password" type="password" class="form-control" name="Password" />
+                        <input asp-for="Password" type="password" class="form-control" name="Password" value="@Model.Password"/>
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                     </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
@@ -167,7 +165,7 @@
                 <div class="form-group">
                     <label asp-for="Salary" class="form-label">Salary</label>
                     <div class="input-group">
-                        <input asp-for="Salary" type="text" class="form-control" name="Salary" />
+                        <input asp-for="Salary" type="text" class="form-control" name="Salary" value="@Model.Salary"/>
                         <span class="input-group-addon currency-symbol">$</span>
                     </div>
                     <span asp-validation-for="Salary" class="text-danger"></span>
@@ -179,7 +177,7 @@
                 <div class="form-group">
                     <label asp-for="Mobile" class="form-label">Mobile</label>
                     <div class="input-group">
-                        <input asp-for="Mobile" type="text" class="form-control" name="Mobile" />
+                        <input asp-for="Mobile" type="text" class="form-control" name="Mobile" value="@Model.Mobile"/>
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                     </div>
                     <span asp-validation-for="Mobile" class="text-danger"></span>
@@ -188,21 +186,70 @@
             <div class="col">
                 <div class="form-group">
                     <label asp-for="HireDate" class="form-label">Hire Date</label>
-                    <input asp-for="HireDate" type="date" class="form-control" name="HireDate" />
+                    <input asp-for="HireDate" type="date" class="form-control" name="HireDate" value="@Model.HireDate.ToString("yyyy-MM-dd")" />
                     <span asp-validation-for="HireDate" class="text-danger"></span>
-                </div>
+                </div> 
             </div>
+
 
         </div>
         <div class="form-group">
-            <label asp-for="Tracks" class="form-label">Track</label>
+            <label class="form-label">Instructor Tracks</label>
             <div class="input-group">
-                <select asp-for="Tracks" class="form-control" asp-items="Track" id="TrackInstructors" name="Tracks">
-                </select>
-                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
+                @if (ViewBag.InstructorTrack != null)
+                {
+                    <select class="form-control" id="InstructorTracks" size="5" multiple asp-for="Tracks" name="Tracks">
+                        @foreach (var track in ViewBag.InstructorTrack)
+                        {
+                            <option value="@track.Id">@track.Name</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <select class="form-control" id="InstructorTracks" size="1" multiple asp-for="Tracks" name="Tracks">
+                        <option value="">No Tracks available for this instructor</option>
+                    </select>
+                }
             </div>
-            <span asp-validation-for="Tracks" class="text-danger"></span>
         </div>
+
+
+        <button type="button" id="moveToAllTracks">>></button>
+        <button type="button" id="moveToInstructorTracks"><<</button>
+
+        <div class="form-group">
+            <label class="form-label">Tracks</label>
+            <div class="input-group">
+                <select class="form-control" id="AllTracks" size="5" multiple>
+                    @foreach (var track in ViewBag.Tracks)
+                    {
+                        <option value="@track.Id">@track.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-warning">Submit</button>
     </form>
 </div>
+@section Scripts2 {
+    <script>
+        $(document).ready(function () {
+            $('#moveToAllTracks').click(function () {
+                $('#InstructorTracks option:selected').each(function () {
+                    $('#AllTracks').append($(this).clone());
+                    $(this).remove();
+                });
+            });
+
+            $('#moveToInstructorTracks').click(function () {
+                $('#AllTracks option:selected').each(function () {
+                    $('#InstructorTracks').append($(this).clone());
+                    $(this).remove();
+                });
+            });
+
+        });
+    </script>
+}
