@@ -1,12 +1,138 @@
 @model IEnumerable<Employee>;
 @{
+    ViewData["Title"] = "Index";
 
- Layout = "~/Views/Shared/_mainLayout.cshtml";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
 
 
 }
 
+<style>
 
+    table tr th {
+        background-color: #FCFCFD;
+        color: #788193;
+        width: 167px;
+    }
+
+    table {
+        font-size: 0.9rem;
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        border-bottom: 1px solid #788193;
+    }
+
+    hr {
+        margin-top: -1rem;
+        margin-left: 1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 128px;
+        border-radius: 6px;
+    }
+
+    a {
+        color: black;
+    }
+
+    .fa-pencil {
+        color: #337f33;
+        font-size: 1.2rem;
+        background-color: #b7e1b6;
+        width: 100%;
+        text-align: center;
+        padding: 3px;
+        border-radius: 7px;
+    }
+
+    .fa-trash-o {
+        color: #ff5c80;
+        font-size: 1.2rem;
+        padding: 3px;
+        background-color: #fbcbd6;
+        text-align: center;
+        border-radius: 7px;
+        width: 100%;
+    }
+
+    .fa-eye {
+        color: #4789f7;
+        font-size: 1.2rem;
+        background-color: #dae6f9;
+        padding: 3px;
+        text-align: center;
+        border-radius: 7px;
+        width: 100%;
+    }
+
+    .late {
+        text-align: center;
+        color: #ffc107;
+    }
+
+    .Absent {
+        text-align: center;
+        color: #ff5c80;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .right {
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        display: flex;
+        justify-content: right;
+        color: black;
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .row.search {
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 17px;
+    }
+
+    .input-group {
+        position: relative;
+        width: 233px;
+    }
+
+    .input-group-append {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        background-color: #ffffff;
+        border: 1px solid #788193;
+        border-radius: 0 7px 7px 0;
+    }
+
+    .input-group-text {
+        background-color: transparent;
+        border: none;
+        color: #788193;
+        cursor: pointer;
+    }
+
+    .alert-danger {
+        text-align: center;
+    }
+</style>
 
 <!DOCTYPE html>
 
@@ -16,15 +142,33 @@
     <title>ShowAllEmployees</title>
 </head>
 <body>
-    <h1>ShowAllEmployees</h1>
-    <table>
+    <h1>AllEmployees</h1>
+    <div class="row">
+        <div class="col">
+            <hr />
+        </div>
+        <div class="col right">
+            <a class="btn btn-warning" asp-action="AddEmployee" asp-controller="Admin">Add + </a>
+        </div>
+    </div>
+    </br>
+    <div class="row search">
+        <div class="input-group">
+            <input type="text" id="searchText" class="form-control" placeholder="Search" />
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+        <div class="container">
+    <table class="tabel table-responsive-sm table-border table-hover ">
         <tr>
             <th>Employee Name</th>
             <th>Employee Email</th>
             <th>Employee Phone</th>
             <th>Employee Type</th>
-            <th>Employee Role</th>
-            <th>Action</th>
+                    <th style="width:71px">Edit</th>
+                    <th style="width:71px">Delete</th>
+                    <th style="width:71px">View</th>
         </tr>
         @foreach (var emp in Model)
         {
@@ -33,14 +177,51 @@
                 <td>@emp.Email</td>
                 <td>@emp.Mobile</td>
                 <td>@emp.EmpType</td>
-@*                 <td>@emp.RoleId</td>
- *@                <td>
-                    <a asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@emp.Id">Edit</a> 
-                    <a asp-action="DeleteEmployee" asp-route-id="@emp.Id">Delete</a>
+                  <td>
+                            <a asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@emp.Id"><i class="fa fa-pencil"></i></a>
+                        </td>
+
+                <td>
+                            <a asp-action="DeleteEmployee" asp-route-id="@emp.Id"><i class="fa fa-trash-o"></i></a>
                 </td>
+
+                <td>
+                            <a asp-action="DeatailsEmp" asp-route-id="@emp.Id"><i class="fa fa-eye"></i></a>
+                        </td>
+
             </tr>
         }
     </table>
+        </div>
    
 </body>
 </html>
+
+@section Scripts2 {
+    <script>
+        $(document).ready(function () {
+            $('#searchText').on('keyup', function () {
+                var searchText = $(this).val().toLowerCase();
+                var isAnyRowVisible = false;
+
+                $('tbody tr').each(function () {
+                    var rowData = $(this).text().toLowerCase();
+                    if (rowData.indexOf(searchText) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                        isAnyRowVisible = true;
+                    }
+                });
+
+
+                if (isAnyRowVisible) {
+                    $('#noDataMessage').hide();
+                } else {
+                    $('#noDataMessage').show();
+                }
+            });
+        });
+    </script>
+}
+

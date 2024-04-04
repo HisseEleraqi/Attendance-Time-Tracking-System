@@ -56,6 +56,8 @@ namespace AttendenceSystem.Repo
             db.SaveChanges();
         }
 
+        
+
 
 
     }

@@ -3,42 +3,195 @@
     /*var empType = (EmployeeType)Enum.Parse(typeof(EmployeeType), Model.EmpType);/**/
 
     SelectList selectLists = new SelectList(Enum.GetValues(typeof(EmployeeType)));
-    Layout = null;
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
     
 }
+<style>
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+    }
 
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-<!DOCTYPE html>
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AddEmployee</title>
-</head>
-<body>
-    <h1>AddEmployee</h1>
-    <form asp-action="AddEmployee" method="post">
+    .input-group {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        overflow: hidden;
+    }
+
+        .input-group .form-control {
+            flex: 1;
+            border: none;
+            padding: 10px;
+        }
+
+        .input-group .input-group-addon {
+            border: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-group .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(108, 67, 206, 0.25);
+        }
+
+    .btn-warning {
+        background-color: #575a89;
+        border-color: #6943ce;
+        color: aliceblue;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-warning:hover {
+            background-color: #5a37b5;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px / 1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        color: #ffc107;
+    }
+
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        background-color: #ffffff;
+        max-width: 730px;
+    }
+
+    hr {
+        margin-top: -0.6rem;
+        margin-left: -1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 157px;
+        border-radius: 6px;
+    }
+
+    .header {
+        padding: 6px;
+    }
+
+    .currency-symbol {
+        color: #ffc107; 
+        font-size: 1.2em;
+    }
+
+    .image{
+  
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+</style>
+<div class="form-container">
+    <div class="row header">
+        <div class="col">
+            <h3>Add Employee</h3>
+            <hr />
+        </div>
+        <div class="col image">
+            <img src="~/Images/undraw_Add_user_re_5oib.png" style="width: 116px;height: 86px;" />
+        </div>
         
-        <label>Employee Name</label>
-        <input asp-for="Name" ></input>
-        <br>
-        <label>Employee Email</label>
-        <input asp-for="Email" ></input>
-        <br>
-        <label>Employee Password</label>
-        <input asp-for="Password"></input>
-        <br>
-        <label>Employee Phone</label>
-        <input asp-for="Mobile" ></input>
-        <br>
-        <label>Employee Type</label>
-        <select asp-for="EmpType" asp-items="selectLists"></select>
-        <br>
-        @* <label>EmployeeRole</label>
-        <input asp-for="Roles" ></input>*@
-         <button type="submit" class="btn-primary">Add Employee</button> 
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <div class="input-group">
+                        <input asp-for="Name" type="text" class="form-control" name="Name" />
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <input asp-for="Email" type="email" class="form-control" name="Email" />
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    @if (TempData["Error"] != null)
+                    {
+                        <span class="text-danger"> @TempData["Error"]</span>
+
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input asp-for="Password" type="password" class="form-control" name="Password" />
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="EmpType" class="form-label">Employee Type</label>
+                    <div class="form-select">
+
+                           <select asp-for="EmpType" class="form-control" asp-items="selectLists"></select>
+                        <span class="input-group-addon currency-symbol">Type</span>
+                    </div>
+                    <span asp-validation-for="EmpType" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Mobile" class="form-label">Mobile</label>
+                    <div class="input-group">
+                        <input asp-for="Mobile" type="text" class="form-control" name="Mobile" />
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    </div>
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+            </div>
+           
+
+        </div>
         
+        <button type="submit" class="btn btn-warning">Submit</button>
     </form>
-
-</body>
-</html>
+</div>

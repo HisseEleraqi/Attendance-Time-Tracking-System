@@ -44,7 +44,7 @@ namespace AttendenceSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=AddEmployee}");
+                pattern: "{controller=Admin}/{action=ShowAllEmployees}");
 
             app.Run();
         }

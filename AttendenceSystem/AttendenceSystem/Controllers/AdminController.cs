@@ -64,10 +64,10 @@ namespace AttendenceSystem.Controllers
         {return View(EmpRepo.GetAllEmployees());}
 
 
-        public IActionResult GetEmployeeById(int id)
+        public IActionResult DeatailsEmp(int id)
         {
-                EmpRepo.GetEmployeeById(id);
-                return View();
+              
+                return View(EmpRepo.GetEmployeeById(id));
         }
 
         [HttpGet]
