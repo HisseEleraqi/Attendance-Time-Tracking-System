@@ -4,7 +4,6 @@ using AttendenceSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendenceSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240403011514_m2")]
-    partial class m2
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,14 +115,14 @@ namespace AttendenceSystem.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -164,6 +161,38 @@ namespace AttendenceSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "Student"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Security"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoleName = "Student_affairs"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            RoleName = "Instructor"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            RoleName = "Supervisor"
+                        });
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
@@ -177,13 +206,10 @@ namespace AttendenceSystem.Migrations
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("EndDate")
-                        .HasColumnType("date");
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time");
 
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date");
-
-                    b.Property<TimeOnly>("Time")
+                    b.Property<TimeOnly>("StartTime")
                         .HasColumnType("time");
 
                     b.Property<int>("TrackId")
@@ -241,13 +267,8 @@ namespace AttendenceSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Mobile")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -256,6 +277,7 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -285,13 +307,13 @@ namespace AttendenceSystem.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.Property<int>("RolesId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.HasKey("RolesId", "UsersId");
+                    b.HasKey("RoleId", "UsersId");
 
                     b.HasIndex("UsersId");
 
@@ -441,7 +463,7 @@ namespace AttendenceSystem.Migrations
                 {
                     b.HasOne("AttendenceSystem.Models.Role", null)
                         .WithMany()
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

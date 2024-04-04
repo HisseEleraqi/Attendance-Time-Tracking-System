@@ -17,6 +17,7 @@ namespace AttendenceSystem.IRepo
         public bool ISEmailExistE(int id, string email);
         public void EditInstructor(int id, InstructorTrackViewModel instructor);
         public void DeleteInstructor(int instructorid);
+        public int GetRole();
 
 
     }

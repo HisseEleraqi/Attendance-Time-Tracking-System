@@ -1,7 +1,12 @@
 @model IEnumerable<Employee>;
 @{
-    Layout = null;
+
+ Layout = "~/Views/Shared/_mainLayout.cshtml";
+
+
 }
+
+
 
 <!DOCTYPE html>
 
@@ -28,8 +33,8 @@
                 <td>@emp.Email</td>
                 <td>@emp.Mobile</td>
                 <td>@emp.EmpType</td>
-                <td>@emp.RoleId</td>
-                <td>
+@*                 <td>@emp.RoleId</td>
+ *@                <td>
                     <a asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@emp.Id">Edit</a> 
                     <a asp-action="DeleteEmployee" asp-route-id="@emp.Id">Delete</a>
                 </td>

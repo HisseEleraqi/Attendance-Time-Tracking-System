@@ -10,6 +10,7 @@ namespace AttendenceSystem.Repo
     {
         private readonly DataContext context=new DataContext();
 
+        
         public List<Instructor> GetAllInstructors()
         {
            var instructors= context.Instructors.ToList();
@@ -25,11 +26,24 @@ namespace AttendenceSystem.Repo
                 Salary = instructor.Salary,
                 HireDate = instructor.HireDate,
                 Password = instructor.Password,
-                RoleId = context.Roles.FirstOrDefault(r => r.RoleName == "Instructor").Id
-            };
+                Roles = new List<Role>
+                {
+                    new Role
+                    {
+                        RoleName = "Instructor"
+                    }
+                }
+
+        };
+
+         
+
             context.Instructors.Add(newInstructor);
             context.SaveChanges();
+
             int instructorId = newInstructor.Id;
+            
+            
             foreach (var trackId in instructor.Tracks)
             {
                 InstructorTrack instructorTrack = new InstructorTrack
@@ -155,5 +169,16 @@ namespace AttendenceSystem.Repo
             context.Instructors.Remove(instructor);
             context.SaveChanges();
         }
+
+        public int GetRole() {
+
+            var role = context.Roles.FirstOrDefault(r => r.RoleName == "Instructor");
+            return role.Id;
+            
+        
+        
+        }
     }
+
+  
 }

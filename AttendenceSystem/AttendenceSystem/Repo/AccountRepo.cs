@@ -14,7 +14,7 @@ namespace AttendenceSystem.Repo
     }
     public class AccountRepo : IAccountRepo
     {
-        DataContext db = new DataContext();
+       private readonly DataContext db =new DataContext();
         public User GetUser(LoginViewModel model)
         {
             var user = db.Users.FirstOrDefault(a => a.Email == model.Email && a.Password == model.Password);

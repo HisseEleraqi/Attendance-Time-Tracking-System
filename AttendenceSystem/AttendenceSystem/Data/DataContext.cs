@@ -22,11 +22,14 @@ namespace AttendenceSystem.Data
         public DbSet<Attendence> Attendences { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<InstructorTrack> instructorTracks { get; set; }
+        
+      
+        
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("DefaultConnection");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server =.; database = AttendenceDB; integrated security = true; trustservercertificate = true");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,10 +47,11 @@ namespace AttendenceSystem.Data
             entity.HasData(
                 new Role { Id = 1, RoleName = "Admin" },
                 new Role { Id = 2, RoleName = "Student" },
-                new Role { Id = 3, RoleName = "Security" },
-                new Role { Id = 4, RoleName = "Student_affairs" },
-                new Role { Id = 5, RoleName = "Instructor" },
-                new Role { Id = 6, RoleName = "Supervisor" }
+                //new Role { Id = 3, RoleName = "Security" },
+               // new Role { Id = 4, RoleName = "Student_affairs" },
+                new Role {Id=3,RoleName="Employee"},
+                new Role { Id = 4, RoleName = "Instructor" },
+                new Role { Id = 5, RoleName = "Supervisor" }
 
                 )
             );
@@ -55,9 +59,6 @@ namespace AttendenceSystem.Data
 
         }
 
-        internal void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

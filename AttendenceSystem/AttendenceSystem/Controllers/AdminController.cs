@@ -1,7 +1,6 @@
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.Data;
-using AttendenceSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
@@ -11,9 +10,12 @@ namespace AttendenceSystem.Controllers
     public class AdminController : Controller
     {
         private readonly InstructorIRepo Instructor;
-        public AdminController(InstructorIRepo Repo)
+        private readonly IEmpRepo EmpRepo;
+        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo)
         {
-            Instructor=Repo;
+            Instructor = Repo;
+            EmpRepo = empRepo;
+
         }
         public IActionResult Index()
         {
@@ -52,22 +54,28 @@ namespace AttendenceSystem.Controllers
         public IActionResult AddInstructor()
         {
             ViewBag.Track = Instructor.GetAllTracks();
-        DataContext db = new DataContext();
-
+            return View();
+        }
 
 
         [HttpGet]
-     public IActionResult ShowAllEmployees() {return View(db.Employees.ToList());}
+     public IActionResult ShowAllEmployees()
+        
+        {return View(EmpRepo.GetAllEmployees());}
+
+
         public IActionResult GetEmployeeById(int id)
         {
-            db.Employees.Find(id);
-            return View();
+                EmpRepo.GetEmployeeById(id);
+                return View();
         }
 
         [HttpGet]
         public IActionResult AddEmployee()
         {  
             ViewBag.EmpType = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(Enum.GetValues(typeof(EmployeeType)));
+
+            
             return View();
         }
         [HttpPost]
@@ -107,16 +115,16 @@ namespace AttendenceSystem.Controllers
             {
                 tracks.Add(item.Id);
             }
-            InstructorTrackViewModel existInstructor =new InstructorTrackViewModel 
-            {   Email = instructor.Email,
+            InstructorTrackViewModel existInstructor = new InstructorTrackViewModel
+            { Email = instructor.Email,
                 Name = instructor.Name,
-                Id=instructor.Id,
-                Salary=instructor.Salary,
-                HireDate=instructor.HireDate,
-                Mobile=instructor.Mobile,
-                Password=instructor.Password,
-                RoleId=instructor.RoleId,
-                Tracks=tracks,
+                Id = instructor.Id,
+                Salary = instructor.Salary,
+                HireDate = instructor.HireDate,
+                Mobile = instructor.Mobile,
+                Password = instructor.Password,
+                RoleId= Instructor.GetRole(),
+                Tracks =tracks,
             };
             return View(existInstructor);
 
@@ -162,8 +170,8 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult AddEmployee(Employee emp)
         {
-            db.Employees.Add(emp);
-            db.SaveChanges();
+            
+            EmpRepo.AddEmployee(emp);
             return RedirectToAction("ShowAllEmployees");
         }
         [HttpGet]
@@ -173,27 +181,24 @@ namespace AttendenceSystem.Controllers
             {
                 return BadRequest();
             }
-            Employee emp = db.Employees.Find(id);
-            if (emp == null)
+           var emp= EmpRepo.GetEmployeeById(id.Value);
+                if (emp == null)
             {
                 return NotFound();
             }
-               db.Employees.ToList();
-            return View(emp);
+              EmpRepo.GetAllEmployees();
+             return View(emp);
         }
 
-        [HttpPost]
-        public IActionResult EditEmployee(Employee emp)
+            [HttpPost]
+            public IActionResult EditEmployee(Employee emp)
         {
-            db.Employees.Update(emp);
-            db.SaveChanges();
+            EmpRepo.UpdateEmployee(emp);
             return RedirectToAction("ShowAllEmployees");
         }
         public IActionResult DeleteEmployee(int id)
         {
-            Employee emp = db.Employees.Find(id);
-            db.Employees.Remove(emp);
-            db.SaveChanges();
+            EmpRepo.DeleteEmployee(id);   
             return RedirectToAction("ShowAllEmployees");
         }
 
