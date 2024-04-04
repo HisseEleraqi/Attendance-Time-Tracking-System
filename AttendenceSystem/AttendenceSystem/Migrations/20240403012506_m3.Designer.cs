@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendenceSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240401115911_m1")]
-    partial class m1
+    [Migration("20240403012506_m3")]
+    partial class m3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -164,6 +164,38 @@ namespace AttendenceSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "Student"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Security"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoleName = "Student_affairs"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            RoleName = "Instructor"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            RoleName = "Supervisor"
+                        });
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
@@ -241,6 +273,12 @@ namespace AttendenceSystem.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Img")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
 
@@ -252,15 +290,10 @@ namespace AttendenceSystem.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
 
@@ -280,6 +313,21 @@ namespace AttendenceSystem.Migrations
                     b.HasIndex("TracksId");
 
                     b.ToTable("IntakeTrack");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("RolesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Employee", b =>
@@ -406,17 +454,6 @@ namespace AttendenceSystem.Migrations
                     b.Navigation("Supervisor");
                 });
 
-            modelBuilder.Entity("AttendenceSystem.Models.User", b =>
-                {
-                    b.HasOne("AttendenceSystem.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("IntakeTrack", b =>
                 {
                     b.HasOne("AttendenceSystem.Models.Intake", null)
@@ -428,6 +465,21 @@ namespace AttendenceSystem.Migrations
                     b.HasOne("AttendenceSystem.Models.Track", null)
                         .WithMany()
                         .HasForeignKey("TracksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.HasOne("AttendenceSystem.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AttendenceSystem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -470,11 +522,6 @@ namespace AttendenceSystem.Migrations
             modelBuilder.Entity("AttendenceSystem.Models.Programs", b =>
                 {
                     b.Navigation("Tracks");
-                });
-
-            modelBuilder.Entity("AttendenceSystem.Models.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Track", b =>
