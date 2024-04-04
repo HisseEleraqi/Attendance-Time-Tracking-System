@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/mainLayout.css">
+    <link rel="stylesheet" href="~//css/mainLayout.css">
     @RenderSection("Header", required: false)
   </head>
   <body>	
@@ -30,10 +30,12 @@
                 </li>
 	            </ul>
 	          </li>
+
 	          <li>
-              <a href="#">Profile</a>
+              <a href="/profile">Profile</a>
 	          </li>
-	          <li>
+                    @RenderSection("SideBar", required: false)
+	          <li>           
               <a asp-action="Login" asp-controller="Account">Log Out</a>
 	          </li>
 	        </ul>
@@ -52,6 +54,7 @@
           </div>
         </nav>
             @RenderBody()
+          
 
 		</div>
     </div>  
@@ -64,3 +67,4 @@
 <script src="~/js/mainLayout.js"></script>
   </body>
 </html>
+

@@ -1,0 +1,87 @@
+﻿@model Instructor
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Instructor Details</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>InstructorId</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>InstructorName</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+
+   
+
+    @{
+        string trackNames = string.Join(", ", Model.TrackInstructors.Select(ti => ti.Track.Name));
+    }
+
+    <tr>
+        <th>Tracks</th>
+        <td>@trackNames</td>
+    </tr>
+
+
+    @* @{
+        string trackSupervisor = string.Join(", ", Model.TrackInstructors.Select(ti => ti.Track.SupervisorId));
+    }
+
+    <tr>
+        <th>Tracks</th>
+        <td>@trackSupervisor</td>
+    </tr>
+       *@
+    
+
+
+   @*  <tr>
+        <th>Track</th>
+        <td>@Model.TrackInstructors</td>
+    </tr> *@
+    <tr>
+        <th>HireDate</th>
+        <td>@Model.HireDate</td>
+    </tr>
+    <tr>
+        <th>Salary</th>
+        <td>@Model.Salary</td>
+    </tr>
+
+    @{
+        var matchedTrackInstructors = Model.TrackInstructors
+        .Where(ti => ti.Track.SupervisorId == ti.Instructor.Id);
+        string trackSupervisor = string.Join(", ", matchedTrackInstructors.Select(ti => ti.Track.Name));
+    }
+    @if (trackSupervisor.Length > 1)
+    {
+        <tr>
+            <th>Supervisor On Track</th>
+            <td>@trackSupervisor</td>
+        </tr>
+    }
+
+
+   
+
+</table>
+
+    <a asp-action="ViewProfile" asp-controller="Instructor" asp-route-id="@Model.Id" class="btn btn-primary">Back</a>
+@section SideBar {
+    
+    <li>
+        <a href="/Permissions">Permissions</a>
+    </li>
+    <li>
+        <a href="/Schedules">Schedule</a>
+    </li>
+
+}

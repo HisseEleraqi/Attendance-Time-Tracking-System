@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AttendenceSystem.Models.Schedule>
+
+@{
+    string TrackName = ViewData["TrackName"] as string;
+    ViewData["Title"] = "Index";
+}
+
+<h1>@TrackName</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Date
+            </th>
+            <th>
+               StartTime
+            </th>
+            <th>
+               EndTime
+            </th>
+  
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @item.StartTime
+            </td>
+            <td>
+                @item.EndTime
+            </td>
+      
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section SideBar {
+
+    <li>
+        <a href="/Permissions">Permissions</a>
+    </li>
+    <li>
+        <a href="/Schedules">Schedule</a>
+    </li>
+
+}
