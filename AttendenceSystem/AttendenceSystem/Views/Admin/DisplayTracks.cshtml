@@ -200,7 +200,12 @@
                         }
                     <td>
                         <div class="form-check form-switch" style="text-align:center">
-                            <input class="form-check-input track-activity" type="checkbox" data-track-id="@Track.Id" id="isActiveSwitch_@Track.Id" @(Track.IsActive ? "checked" : "")>
+                            <input class="form-check-input track-activity"
+                                   type="checkbox"
+                                   data-track-id="@Track.Id"
+                                   id="isActiveSwitch_@Track.Id"
+                            @(Track.IsActive ? "checked" : "")
+                            @(ViewBag.numberofstudent.ContainsKey(Track.Id) && ViewBag.numberofstudent[Track.Id] > 0 ? "disabled" : "")>
                         </div>
 
                     </td>
@@ -213,6 +218,7 @@
     <div class="alert alert-danger" id="noDataMessage" style="display: none;">No data found.</div>
 
 </div>
+
 @section Scripts2 {
     <script>
         $(document).ready(function () {
@@ -225,7 +231,6 @@
                     url: '/Admin/EditTrackSupervisor',
                     data: { TrackId: trackId, SupervisorId: supervisorId },
                     success: function (response) {
-                        location.reload();
                         $('#supervisorName_' + trackId).text(response.newSupervisorName);
                     },
                     error: function (xhr, status, error) {
@@ -243,8 +248,7 @@
                     url: '/Admin/EditTrackActive',
                     data: { TrackId: trackId, ActiveState: isActive },
                     success: function (response) {
-                        location.reload();
-
+ 
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
