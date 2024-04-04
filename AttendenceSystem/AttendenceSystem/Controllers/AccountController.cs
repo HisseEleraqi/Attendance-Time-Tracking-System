@@ -50,8 +50,8 @@ namespace AttendenceSystem.Controllers
             claim3 = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
               
             var userRole = user.Roles; // Assuming the role is stored in the user object
-
-            var userRoles = user.Roles.Select(r => r.RoleName).ToList(); // Get all role names associated with the user
+           
+            var userRoles = user.Roles.Select(r => r.Role.RoleName).ToList(); // Get all role names associated with the user
 
             if (userRoles.Contains("Student"))
             {

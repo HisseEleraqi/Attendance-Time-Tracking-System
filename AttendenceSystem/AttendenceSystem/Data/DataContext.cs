@@ -17,7 +17,7 @@ namespace AttendenceSystem.Data
         public DbSet<Programs> Programs { get; set; }
 
 
-
+        public DbSet<UserRole> UserRoles { get; set; }  
         public DbSet<Permision> Permisions { get; set; }
         public DbSet<Attendence> Attendences { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
@@ -37,6 +37,7 @@ namespace AttendenceSystem.Data
             //modelBuilder.ApplyConfiguration(new InstructorConfig());
             modelBuilder.ApplyConfiguration(new UserConfug());
             modelBuilder.ApplyConfiguration(new InstructorTrackConfig());
+            modelBuilder.ApplyConfiguration(new UserRoles());   
 
             //modelBuilder.ApplyConfiguration(new TrackConfig());
 
