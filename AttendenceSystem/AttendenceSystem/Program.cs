@@ -3,6 +3,7 @@ using AttendenceSystem.Repo;
 
 using AttendenceSystem.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace AttendenceSystem
 {
@@ -19,6 +20,7 @@ namespace AttendenceSystem
           
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
+            builder.Services.AddTransient<IEmpRepo, EmpRepo>();
 
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddSession();
@@ -42,7 +44,7 @@ namespace AttendenceSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=AddEmployee}");
+                pattern: "{controller=Admin}/{action=ShowAllEmployees}");
 
             app.Run();
         }

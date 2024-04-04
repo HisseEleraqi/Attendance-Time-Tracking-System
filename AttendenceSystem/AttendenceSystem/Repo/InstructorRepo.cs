@@ -10,13 +10,17 @@ namespace AttendenceSystem.Repo
     {
         private readonly DataContext context=new DataContext();
 
+        
         public List<Instructor> GetAllInstructors()
         {
            var instructors= context.Instructors.ToList();
             return instructors;
         }
+
+        
         public void AddInstructor(InstructorTrackViewModel instructor)
         {
+            var InstRole = context.Roles.FirstOrDefault(r => r.RoleName == "Instructor");
             Instructor newInstructor = new Instructor
             {
                 Name = instructor.Name,
@@ -25,11 +29,18 @@ namespace AttendenceSystem.Repo
                 Salary = instructor.Salary,
                 HireDate = instructor.HireDate,
                 Password = instructor.Password,
-                RoleId = context.Roles.FirstOrDefault(r => r.RoleName == "Instructor").Id
-            };
+
+
+                
+        }; 
             context.Instructors.Add(newInstructor);
             context.SaveChanges();
+
             int instructorId = newInstructor.Id;
+            context.UserRoles.Add(new UserRole { UserId = newInstructor.Id, RoleId = InstRole.Id });
+            context.SaveChanges();
+
+
             foreach (var trackId in instructor.Tracks)
             {
                 InstructorTrack instructorTrack = new InstructorTrack
@@ -59,6 +70,7 @@ namespace AttendenceSystem.Repo
             }
             return result;
         }
+       
         public Instructor GetInstructor(int InstructorId)
         {
            return  context.Instructors.FirstOrDefault(i => i.Id == InstructorId);
@@ -155,5 +167,16 @@ namespace AttendenceSystem.Repo
             context.Instructors.Remove(instructor);
             context.SaveChanges();
         }
+
+        public int GetRole() {
+
+            var role = context.Roles.FirstOrDefault(r => r.RoleName == "Instructor");
+            return role.Id;
+            
+        
+        
+        }
     }
+
+  
 }

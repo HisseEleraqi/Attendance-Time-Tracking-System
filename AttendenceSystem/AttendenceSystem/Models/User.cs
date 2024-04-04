@@ -22,8 +22,9 @@ namespace AttendenceSystem.Models
         [Required(ErrorMessage = "Please enter a mobile number")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number")]
         public string Mobile { get; set; }
-        public int RoleId { get; set; }
 
-        public virtual Role Role { get; set; }
+        
+        public virtual ICollection<UserRole> Roles { get; set; }=new List<UserRole>();
+
     }
 }

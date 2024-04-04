@@ -20,13 +20,13 @@
 	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
 	            <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Instructors</a>
+                    <a asp-action="Index" asp-controller="Admin">Instructors</a>
                 </li>
                 <li>
                     <a href="#">Students</a>
                 </li>
                 <li>
-                    <a href="#">Employees</a>
+                    <a asp-action="ShowAllEmployees" asp-controller="Admin">Employees</a>
                 </li>
 	            </ul>
 	          </li>
@@ -36,7 +36,7 @@
 	          </li>
                     @RenderSection("SideBar", required: false)
 	          <li>           
-              <a href="#">Log Out</a>
+              <a asp-action="Login" asp-controller="Account">Log Out</a>
 	          </li>
 	        </ul>
 	      </div>
