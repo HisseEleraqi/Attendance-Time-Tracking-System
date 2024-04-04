@@ -11,12 +11,16 @@ namespace AttendenceSystem.Controllers
     {
         private readonly InstructorIRepo Instructor;
         private readonly IEmpRepo EmpRepo;
-        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo)
+        private readonly TrackIRepo Track;
+
+        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo)
         {
             Instructor = Repo;
             EmpRepo = empRepo;
+            Track = trackrepo;
 
         }
+        //display the instructor Data
         public IActionResult Index()
         {
             var instructors = Instructor.GetAllInstructors(); 
@@ -50,6 +54,7 @@ namespace AttendenceSystem.Controllers
             }
             return View(instructorDetails);
         }
+        //Add Instructor
         [HttpGet]
         public IActionResult AddInstructor()
         {
@@ -78,6 +83,7 @@ namespace AttendenceSystem.Controllers
             
             return View();
         }
+        //Add Instructor
         [HttpPost]
         public IActionResult AddInstructor(InstructorTrackViewModel instructor)
         {
@@ -97,6 +103,7 @@ namespace AttendenceSystem.Controllers
             }
             return View(instructor);
         }
+        //Display the details for each instructor
         [HttpGet]
         public IActionResult Details(int instructorid)
         {
@@ -104,6 +111,7 @@ namespace AttendenceSystem.Controllers
             ViewBag.Tracks=Instructor.GetInstructorTrack(instructorid);        
             return View(instructor);
         }
+        //edit the instructor
         [HttpGet]
         public IActionResult Edit(int instructorid)
         {
@@ -129,6 +137,7 @@ namespace AttendenceSystem.Controllers
             return View(existInstructor);
 
         }
+        //edit the instructor
         [HttpPost]
         public IActionResult Edit(int instructorid,InstructorTrackViewModel instructor)
         {
@@ -150,6 +159,7 @@ namespace AttendenceSystem.Controllers
             return View(instructor);
 
         }
+        //delete instrcuctor
         public IActionResult Delete(int instructorid)
         {
             var instructor = Instructor.GetInstructor(instructorid);
@@ -201,9 +211,56 @@ namespace AttendenceSystem.Controllers
             EmpRepo.DeleteEmployee(id);   
             return RedirectToAction("ShowAllEmployees");
         }
+        //display the data of tracks
+        public IActionResult DisplayTracks()
+        {
+            var tracks = Track.GetAllTracks();
+            ViewBag.supervisors = Instructor.GetAllInstructors();
+            var numberofstudent = new Dictionary<int, int>();
+            foreach (var track in tracks)
+            {
+                var TrackStudentNumber = Track.NumberStudentRoledInTrack(track.Id);
+                numberofstudent.Add(track.Id, TrackStudentNumber);
+            }
+            ViewBag.numberofstudent = numberofstudent;
+            return View(tracks);
+        }
 
+        public IActionResult TrackDetails(int TrackId)
+        {
+            ViewBag.Instructors = Track.GetTrackInstructors(TrackId);
+            var track = Track.GetTrackById(TrackId);
+            return View(track);
+        }
 
+        public IActionResult EditTrackSupervisor(int TrackId, int SupervisorId)
+        {
+            var result = Track.EditSupervisor(TrackId, SupervisorId);
+            if (result == 0)
+            {
+                TempData["FaildEdit"] = "Error occurred. Please try again later.";
+            }
+            else
+            {
+                TempData["SuccessEdit"] = "Supervisor updated successfully.";
+            }
+            return RedirectToAction("DisplayTracks");
+        }
 
+        public IActionResult EditTrackActive(int TrackId, bool ActiveState)
+        {
+            var TrackStudentNumber = Track.NumberStudentRoledInTrack(TrackId);
+            if (TrackStudentNumber > 0 && ActiveState == false)
+            {
+                TempData["FaildEdit"] = "The track already has enrolled students, so you cannot deactivate it.";
+            }
+            else
+            {
+                Track.EditeActiveState(TrackId, ActiveState);
+                TempData["SuccessEdit"] = "The active state updated successfully.";
+            }
+            return RedirectToAction("DisplayTracks");
+        }
 
     }
 }
