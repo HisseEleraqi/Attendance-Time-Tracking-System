@@ -47,6 +47,9 @@ namespace AttendenceSystem.Controllers
             var claimsIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             claim1 = new Claim(ClaimTypes.Email, user.Email);
             claim2 = new Claim(ClaimTypes.Name, user.Name);
+
+
+
             claim3 = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
             claim4 = new Claim(ClaimTypes.Role, user.Roles.ToString());
             claimsIdentity.AddClaim(claim1);

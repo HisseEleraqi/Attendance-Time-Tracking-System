@@ -12,16 +12,12 @@ namespace AttendenceSystem.Repo
 
           public Student GetStudentById(int userId)
         {
+
             return context.Students.FirstOrDefault(s => s.Id == userId);
 
         }
 
-        public Student StudentDetails(int id)
-        {
-
-            return context.Students.FirstOrDefault(s => s.Id == id);
-
-        }
+       
 
         public Student StudentSchedule(int id)
         {
@@ -33,10 +29,8 @@ namespace AttendenceSystem.Repo
 
         }
 
-        ///how to get the student id from the session 
-        ///
+        
 
-        public int Id { get; set; }
         
 
 
