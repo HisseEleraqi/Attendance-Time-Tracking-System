@@ -22,6 +22,8 @@ namespace AttendenceSystem
             builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
             builder.Services.AddTransient<IEmpRepo, EmpRepo>();
             builder.Services.AddTransient<TrackIRepo, TrackRepo>();
+            builder.Services.AddTransient<StudentIRepo, StudentRepo>();
+
 
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddSession();
