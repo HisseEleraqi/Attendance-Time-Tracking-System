@@ -20,11 +20,14 @@ namespace AttendenceSystem.Controllers
         }
 
 
-        public IActionResult AttendenceDetails(int StudentID)
+        public IActionResult AttendenceDetails()
         {
-            ViewBag.LateDays= Student.GetStudentLateDays(6);
-            ViewBag.AbsentDays = Student.GetStudentAbsentDays(6);
-            ViewBag.Degree = Student.GetStudentDegrees(6);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = int.Parse(userIdClaim);
+
+            ViewBag.LateDays= studentRepo.GetStudentLateDays(userId);
+            ViewBag.AbsentDays = studentRepo.GetStudentAbsentDays(userId);
+            ViewBag.Degree = studentRepo.GetStudentDegrees(userId);
             ViewBag.CurrentDate = DateTime.Today.ToShortDateString();
              return View();
         }

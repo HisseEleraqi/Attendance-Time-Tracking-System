@@ -8,6 +8,17 @@ namespace AttendenceSystem.IRepo
         public Student StudentSchedule(int id);
 
         public Student GetStudentById(int userId);
+
+        public int GetStudentLateDays(int id);
+
+        public int GetStudentAbsentDays(int id);
+
+
+        public int GetStudentDegrees(int id);
+
+        
+
+
     }
 
 }
