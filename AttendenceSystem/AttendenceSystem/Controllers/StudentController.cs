@@ -1,12 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AttendenceSystem.IRepo;
+using AttendenceSystem.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
     public class StudentController : Controller
     {
-        public IActionResult Index()
+        private readonly IStudentRepo studentRepo;
+
+        public StudentController(IStudentRepo _studentRepo)
+
         {
-            return View();
+            studentRepo = _studentRepo;
         }
+        public IActionResult  Index()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = int.Parse(userIdClaim);
+
+            var user = studentRepo.GetStudentById(userId);
+
+            
+
+            return View(user);
+
+        }
+
+
+  
+
+
+        
+
     }
 }
