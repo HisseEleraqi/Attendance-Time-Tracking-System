@@ -1,0 +1,161 @@
+﻿@model Permision
+
+@{
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<style>
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        overflow: hidden;
+    }
+
+        .input-group .form-control {
+            flex: 1;
+            border: none;
+            padding: 10px;
+        }
+
+        .input-group .input-group-addon {
+            border: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-group .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(108, 67, 206, 0.25);
+        }
+
+    .btn-warning {
+        background-color: #575a89;
+        border-color: #6943ce;
+        color: aliceblue;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-warning:hover {
+            background-color: #5a37b5;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px / 1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        color: #ffc107;
+    }
+
+    .form-container {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        background-color: #ffffff;
+        max-width: 730px;
+    }
+
+    hr {
+        margin-top: -0.6rem;
+        margin-left: -1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 157px;
+        border-radius: 6px;
+    }
+
+    .header {
+        padding: 6px;
+    }
+
+    .currency-symbol {
+        color: #ffc107;
+        font-size: 1.2em;
+    }
+
+    .image {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+</style>
+
+<div class="form-container">
+    <div class="row header">
+        <div class="col">
+            <h3>Add Permission</h3>
+            <hr />
+        </div>
+        <div class="col image">
+            <img src="~/Images/undraw_subscriptions_re_k7jj.png" style="width: 116px;height: 86px;" />
+
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Date" class="form-label">Date</label>
+                    <input asp-for="Date" type="date" class="form-control" name="Date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Reason" class="form-label">Reason</label>
+                    <input asp-for="Reason" type="text" class="form-control" name="Reason" />
+                    <span asp-validation-for="Reason" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Type" class="form-label">Status</label>
+                    <select asp-for="Type" class="form-control" name="Type">
+                        <option value="Absence">Absence</option>
+                        <option value="Late">Late</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <input type="text" hidden asp-for="StudentId" value="@ViewBag.StudentId" />
+        <input type="text" hidden asp-for="IsApproved" value="false" />
+        <input type="text" hidden asp-for="Status" value="Pending" />
+
+        <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+</div>

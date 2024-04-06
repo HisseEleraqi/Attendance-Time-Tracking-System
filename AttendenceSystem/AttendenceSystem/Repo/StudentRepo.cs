@@ -48,11 +48,27 @@ namespace AttendenceSystem.Repo
             var AbsentMinus=GetStudentAbsentDays(StudentId)*10;
             return degree - (LateMinus + AbsentMinus);
         }
+        public List<Permision>GetStudentPermision(int StudentId)
+        {
+           return context.Permisions.Where(p=>p.StudentId==StudentId).ToList();
+
+        }
+        public void Addnewpermision(Permision newpermision)
+        {
+            context.Permisions.Add(newpermision);
+            context.SaveChanges();
+
+        }
+
+        public void Deletpermision(int permisionId)
+        {
+            var permision=context.Permisions.FirstOrDefault(p => p.Id == permisionId);
+            context.Permisions.Remove(permision);
+            context.SaveChanges();
+        }
 
 
-        
 
-        
 
 
 
