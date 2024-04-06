@@ -47,7 +47,7 @@ namespace AttendenceSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=login}");
+                pattern: "{controller=Student}/{action=StudentScdule}");
 
             app.Run();
         }

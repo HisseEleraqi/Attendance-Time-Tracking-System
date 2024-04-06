@@ -19,16 +19,18 @@ namespace AttendenceSystem.Repo
 
         }
 
-       
 
-        public Student StudentSchedule(int id)
+
+        public Schedule StudentSchedule(int studentId)
         {
-           
-            var StudentSchedule =context.Students.Include(d=>d.Track.Schedules).FirstOrDefault(s => s.Id == id);
+            var schedule = context.Students
+                                  .Where(s => s.Id == studentId)
+                                  .SelectMany(s => s.Track.Schedules)
+                                 
+                                  .OrderByDescending(sch => sch.Date)
+                                  .FirstOrDefault(); 
 
-            return StudentSchedule;
-      
-
+            return schedule;
         }
         public int GetStudentLateDays(int studentId)
         {
