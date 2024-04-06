@@ -15,9 +15,12 @@ namespace AttendenceSystem.IRepo
 
 
         public int GetStudentDegrees(int id);
+        public List<Permision> GetStudentPermision(int StudentId);
 
-        
+        public void Addnewpermision(Permision newpermision);
 
+
+        public void Deletpermision(int permisionId);
 
     }
 
