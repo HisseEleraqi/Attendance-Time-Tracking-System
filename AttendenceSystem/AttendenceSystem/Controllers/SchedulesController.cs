@@ -22,7 +22,7 @@ namespace AttendenceSystem.Controllers
         }
         private void RetrieveTrackInfo()
         {
-            int id = 2; // Get the id from the session
+            int id = 3; // Get the id from the session
             string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
             _trackName = trackName;
@@ -61,7 +61,7 @@ namespace AttendenceSystem.Controllers
         // GET: Schedules/Create
         public IActionResult Create()
         {
-            int id = 2; // Get the id from the session
+            int id = 3; // Get the id from the session
             // Get its track
             string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             ViewData["TrackName"] = trackName;
@@ -73,7 +73,7 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult Create(Schedule schedule)
         {
-            int id = 2; // Get the id from the session
+            int id = 3; // Get the id from the session
             string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             ViewData["TrackName"] = trackName;
 
@@ -108,7 +108,7 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult Edit(int id, Schedule schedule)
         {
-            int Insid = 2; // Get the id from the session
+            int Insid = 3; // Get the id from the session
             string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == Insid).Name;
             ViewData["TrackName"] = trackName;
 
