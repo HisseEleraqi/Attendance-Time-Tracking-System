@@ -10,6 +10,7 @@ namespace AttendenceSystem.Repo
 
     {
         private readonly DataContext context = new DataContext();
+
         private readonly TrackIRepo trackIRepo;
         public StudentRepo( TrackIRepo _trackIRepo)
         {
@@ -45,22 +46,27 @@ namespace AttendenceSystem.Repo
             context.SaveChanges();
         }
 
+
           public Student GetStudentById(int userId)
         {
 
             return context.Students.FirstOrDefault(s => s.Id == userId);
 
         }
-        
-       
 
-        public Student StudentSchedule(int id)
+
+
+
+        public Schedule StudentSchedule(int studentId)
         {
-           
-            var StudentSchedule =context.Students.Include(d=>d.Track.Schedules).FirstOrDefault(s => s.Id == id);
+            var schedule = context.Students
+                                  .Where(s => s.Id == studentId)
+                                  .SelectMany(s => s.Track.Schedules)
+                                 
+                                  .OrderByDescending(sch => sch.Date)
+                                  .FirstOrDefault(); 
 
-            return StudentSchedule;
-      
+            return schedule;
 
         }
         public int GetStudentLateDays(int studentId)

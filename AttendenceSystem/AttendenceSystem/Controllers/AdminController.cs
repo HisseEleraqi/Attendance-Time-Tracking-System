@@ -12,15 +12,18 @@ namespace AttendenceSystem.Controllers
         private readonly InstructorIRepo Instructor;
         private readonly IEmpRepo EmpRepo;
         private readonly TrackIRepo Track;
+
         private readonly IStudentRepo studentRepo;
 
 
         public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo, IStudentRepo _studentRepo)
+
         {
             Instructor = Repo;
             EmpRepo = empRepo;
             Track = trackrepo;
             studentRepo = _studentRepo;
+
 
         }
         //display the instructor Data
@@ -264,8 +267,6 @@ namespace AttendenceSystem.Controllers
             }
             return RedirectToAction("DisplayTracks");
         }
-        
-        
-       
+
     }
 }

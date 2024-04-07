@@ -1,7 +1,9 @@
 ﻿using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
+
 using Microsoft.EntityFrameworkCore;
+
 using System.Diagnostics.Contracts;
 
 namespace AttendenceSystem.Repo
@@ -14,6 +16,7 @@ namespace AttendenceSystem.Repo
            return context.Tracks.ToList();
 
         }
+
         public List<Track> GetActiveTracks()
         {
             return context.Tracks.Where(t => t.IsActive).ToList();

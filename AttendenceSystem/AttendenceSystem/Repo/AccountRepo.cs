@@ -9,7 +9,7 @@ namespace AttendenceSystem.Repo
     public interface IAccountRepo
     {
         public User GetUser(LoginViewModel model);
-        
+
 
 
     }
@@ -28,7 +28,7 @@ namespace AttendenceSystem.Repo
                 return null;
             }
         }
-        
+
     }
 
 

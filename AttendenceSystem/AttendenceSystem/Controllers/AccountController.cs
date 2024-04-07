@@ -7,14 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 
+
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.EntityFrameworkCore;
 using AttendenceSystem.IRepo;
+
+
 namespace AttendenceSystem.Controllers
 {
     public class AccountController : Controller
     {
         IAccountRepo loginRepo;
+
        
         
        private readonly TrackIRepo trackIRepo;
@@ -28,6 +32,7 @@ namespace AttendenceSystem.Controllers
             trackIRepo = _trackIRepo;
         }
        
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -76,6 +81,7 @@ namespace AttendenceSystem.Controllers
 
             if (userRoles.Contains("Student"))
             {
+
                 var student = studentRepo.GetStudentById(user.Id); // Implement a method to retrieve student by email
                 if (student != null && student.IsAccepted)
                 {
@@ -85,6 +91,7 @@ namespace AttendenceSystem.Controllers
                 {
                     return RedirectToAction("PendingRegistration", "Account"); // Redirect to a page indicating pending registration
                 }
+
             }
             else if (userRoles.Contains("Supervisor") && userRoles.Contains("Instructor"))
             {
@@ -116,6 +123,7 @@ namespace AttendenceSystem.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
         public IActionResult Signup()
         {
             // Fetch active tracks from the database and pass them to the view
@@ -139,16 +147,19 @@ namespace AttendenceSystem.Controllers
             ViewBag.ActiveTracks = trackIRepo.GetActiveTracks() ?? new List<Track>();
             return View(student);
         }
+
         public async Task<IActionResult> LogOut()
 
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
         public IActionResult PendingRegistration()
         {
             return View();
         }
+
     }
 }
  

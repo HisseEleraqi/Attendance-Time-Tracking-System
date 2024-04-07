@@ -4,10 +4,13 @@ namespace AttendenceSystem.IRepo
 {
     public interface IStudentRepo
     {
+
        
         public void AddStudent(Student student);
 
-        public Student StudentSchedule(int id);
+  
+        public Schedule StudentSchedule(int id);
+
 
         public Student GetStudentById(int userId);
 

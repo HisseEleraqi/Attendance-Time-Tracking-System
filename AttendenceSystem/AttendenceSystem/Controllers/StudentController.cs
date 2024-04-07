@@ -18,7 +18,7 @@ namespace AttendenceSystem.Controllers
         {
             studentRepo = _studentRepo;
         }
-       
+
 
         public IActionResult AttendenceDetails()
         {

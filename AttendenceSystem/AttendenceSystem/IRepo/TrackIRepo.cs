@@ -6,7 +6,10 @@ namespace AttendenceSystem.IRepo
     public interface TrackIRepo
     {
         public List<Track> GetAllTracks();
+
         public List<Track> GetActiveTracks();
+
+
         public int NumberStudentRoledInTrack(int TrackId);
         public List<Student> GetTrackStudents(int TrackId);
         public List<Instructor> GetTrackInstructors(int TrackId);
