@@ -24,6 +24,8 @@ namespace AttendenceSystem
             builder.Services.AddTransient<TrackIRepo, TrackRepo>();
 
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+            builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+            
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             var app = builder.Build();
@@ -45,7 +47,7 @@ namespace AttendenceSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=ShowAllEmployees}");
+                pattern: "{controller=Student}/{action=StudentScdule}");
 
             app.Run();
         }

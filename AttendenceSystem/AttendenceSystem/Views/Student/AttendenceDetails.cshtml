@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+<style>
+
+    .header {
+        padding: 6px;
+        background-color: #fff;
+        border: 2px solid #575a89;
+        border-radius: 43px;
+        margin-bottom: 20px;
+    }
+
+    .fa-volume-up {
+        color: #575a89;
+    }
+
+    .summary-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .summary-item {
+        width: 30%;
+        margin: 10px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .summary-item h4 {
+            margin-bottom: 10px;
+            color: #575a89;
+        }
+
+        .summary-item p {
+            font-size: 24px;
+            color: black;
+        }
+
+    .today {
+        color: #ffc107;
+        font-size: 2.3rem;
+    }
+
+    .fa-clock-o {
+        color: #4789f7;
+    }
+
+    .fa-calendar-times-o {
+        color: #ff5c80; 
+    }
+
+    .fa-graduation-cap {
+        color: #79a779;
+    }
+
+</style>
+
+@if ((int)ViewBag.Degree < 120)
+{
+    <div class="alert alert-warning">
+        Warning: Your degree is below 120.
+    </div>
+}
+<div class="row">
+    <div class="col">
+        <h3>
+            <i class="fa fa-volume-up"></i><span class="today">Today</span>, <span id="currentDate"> @ViewBag.CurrentDate</span>
+        </h3>
+        <p>This show summarizes your attendance.</p>
+        <hr />
+    </div>
+</div>
+
+<div class="summary-container">
+    <div class="summary-item">
+        <h4> <i class="fa fa-clock-o"></i> Late Days</h4>
+        <p>@ViewBag.LateDays</p>
+    </div>
+    <div class="summary-item">
+        <h4><i class="fa fa-calendar-times-o"></i> Absent Days </h4>
+        <p>@ViewBag.AbsentDays</p>
+    </div>
+    <div class="summary-item">
+        <h4><i class="fa fa-graduation-cap"> </i> Degree</h4>
+        <p>@ViewBag.Degree</p>
+    </div>
+</div>
