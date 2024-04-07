@@ -1,0 +1,68 @@
+﻿@model List<AttendenceSystem.Models.Permision>
+
+ @{
+    string TrackName = ViewData["TrackName"] as string;
+  }
+ 
+<h5>Students Permissions in track:@TrackName</h5>
+
+    
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Permission Type</th>
+            <th>Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var permission in Model)
+        {
+            <tr>
+                <td>@permission.Student.Name</td>
+                <td>@permission.Type</td>
+                <td>@permission.Date.ToString("MM/dd/yyyy")</td>
+                <td>@permission.Reason</td>
+                <td>@permission.Status</td>
+               
+    <td>
+
+        
+          
+    @if (permission.Status == PermisionStatus.Pending)
+    {
+
+                <form asp-action="AcceptPermission" asp-route-permissionId="@permission.Id" method="post" style="display: inline;">
+                        <button class=" btn shadow-none border-none" type="submit"><i class="fa fa-check text-success"></i></button>
+                </form>
+
+
+                <form asp-action="RejectPermission" asp-route-permissionId="@permission.Id" method="post" style="display: inline;">
+                <button class=" btn shadow-none border-none" type="submit"><i class="fa fa-x text-danger"></i></button>
+                </form>
+        
+    }
+
+    </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+@section Header {
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+    
+}
+@section Scripts{
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
+}
+

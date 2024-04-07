@@ -8,7 +8,13 @@ namespace AttendenceSystem.Controllers
     {
         private readonly DataContext _db=new DataContext();
 
-      
+        public IActionResult Index()
+        {
+
+            return View("Profile");
+           
+        }
+
         public IActionResult Profile()
         {
             int id = 2; // Get the id from the session
@@ -17,7 +23,8 @@ namespace AttendenceSystem.Controllers
             var model = _db.Instructors.FirstOrDefault(a => a.Id == id);
             if (model == null)
                 return NotFound();
-            return View(model);
+            return View("profile",model);
         }
+
     }
 }
