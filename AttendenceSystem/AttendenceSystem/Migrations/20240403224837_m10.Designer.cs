@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendenceSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240328223544_m1")]
-    partial class m1
+    [Migration("20240403224837_m10")]
+    partial class m10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,57 @@ namespace AttendenceSystem.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AttendenceSystem.Models.Attendence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("InTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsAbsent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPresent")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeOnly>("OutTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attendences");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.InstructorTrack", b =>
+                {
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrackId", "InstructorId");
+
+                    b.HasIndex("InstructorId");
+
+                    b.ToTable("instructorTracks");
+                });
+
             modelBuilder.Entity("AttendenceSystem.Models.Intake", b =>
                 {
                     b.Property<int>("Id")
@@ -40,7 +91,6 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("StartDate")
@@ -48,7 +98,40 @@ namespace AttendenceSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Intakes");
+                    b.ToTable("Intake");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Permision", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Permisions");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Programs", b =>
@@ -60,7 +143,6 @@ namespace AttendenceSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -77,12 +159,70 @@ namespace AttendenceSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("RoleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleName = "Student"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Security"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            RoleName = "Student_affairs"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            RoleName = "Instructor"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            RoleName = "Supervisor"
+                        });
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrackId");
+
+                    b.ToTable("Schedules");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Track", b =>
@@ -100,7 +240,6 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProgramId")
@@ -128,25 +267,26 @@ namespace AttendenceSystem.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Mobile")
-                        .HasColumnType("int");
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
 
@@ -166,6 +306,21 @@ namespace AttendenceSystem.Migrations
                     b.HasIndex("TracksId");
 
                     b.ToTable("IntakeTrack");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Employee", b =>
@@ -199,26 +354,78 @@ namespace AttendenceSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Faculty")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GraduationYear")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Specification")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TrackID")
                         .HasColumnType("int");
 
                     b.Property<string>("University")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("TrackID");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Attendence", b =>
+                {
+                    b.HasOne("AttendenceSystem.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.InstructorTrack", b =>
+                {
+                    b.HasOne("AttendenceSystem.Models.Instructor", "Instructor")
+                        .WithMany("TrackInstructors")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AttendenceSystem.Models.Track", "Track")
+                        .WithMany("Instructors")
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("Track");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Permision", b =>
+                {
+                    b.HasOne("AttendenceSystem.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Schedule", b =>
+                {
+                    b.HasOne("AttendenceSystem.Models.Track", "Tracks")
+                        .WithMany("Schedules")
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tracks");
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Track", b =>
@@ -240,17 +447,6 @@ namespace AttendenceSystem.Migrations
                     b.Navigation("Supervisor");
                 });
 
-            modelBuilder.Entity("AttendenceSystem.Models.User", b =>
-                {
-                    b.HasOne("AttendenceSystem.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("IntakeTrack", b =>
                 {
                     b.HasOne("AttendenceSystem.Models.Intake", null)
@@ -262,6 +458,21 @@ namespace AttendenceSystem.Migrations
                     b.HasOne("AttendenceSystem.Models.Track", null)
                         .WithMany()
                         .HasForeignKey("TracksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.HasOne("AttendenceSystem.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AttendenceSystem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -306,14 +517,18 @@ namespace AttendenceSystem.Migrations
                     b.Navigation("Tracks");
                 });
 
-            modelBuilder.Entity("AttendenceSystem.Models.Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("AttendenceSystem.Models.Track", b =>
                 {
+                    b.Navigation("Instructors");
+
+                    b.Navigation("Schedules");
+
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>
+                {
+                    b.Navigation("TrackInstructors");
                 });
 #pragma warning restore 612, 618
         }

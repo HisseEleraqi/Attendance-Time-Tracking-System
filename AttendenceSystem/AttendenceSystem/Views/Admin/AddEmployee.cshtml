@@ -1,8 +1,10 @@
-﻿@model InstructorTrackViewModel
+@model Employee;
 @{
+    /*var empType = (EmployeeType)Enum.Parse(typeof(EmployeeType), Model.EmpType);/**/
+
+    SelectList selectLists = new SelectList(Enum.GetValues(typeof(EmployeeType)));
     Layout = "~/Views/Shared/_mainLayout.cshtml";
-    var Tracks = ViewBag.Track as List<Track>;
-    SelectList Track = new SelectList(Tracks, "Id", "Name");
+    
 }
 <style>
     .form-container {
@@ -115,7 +117,7 @@
 <div class="form-container">
     <div class="row header">
         <div class="col">
-            <h3>Add Instructor</h3>
+            <h3>Add Employee</h3>
             <hr />
         </div>
         <div class="col image">
@@ -165,12 +167,12 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label asp-for="Salary" class="form-label">Salary</label>
-                    <div class="input-group">
-                        <input asp-for="Salary" type="text" class="form-control" name="Salary" />
-                        <span class="input-group-addon currency-symbol">$</span>
+                    <label asp-for="EmpType" class="form-label">Employee Type</label>
+                    <div class="form-select">
+
+                           <select asp-for="EmpType" class="form-control" asp-items="selectLists"></select>
                     </div>
-                    <span asp-validation-for="Salary" class="text-danger"></span>
+                    <span asp-validation-for="EmpType" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -185,24 +187,10 @@
                     <span asp-validation-for="Mobile" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <label asp-for="HireDate" class="form-label">Hire Date</label>
-                    <input asp-for="HireDate" type="date" class="form-control" name="HireDate" />
-                    <span asp-validation-for="HireDate" class="text-danger"></span>
-                </div>
-            </div>
+           
 
         </div>
-        <div class="form-group">
-            <label asp-for="Tracks" class="form-label">Track</label>
-            <div class="input-group">
-                <select asp-for="Tracks" class="form-control" asp-items="Track" id="TrackInstructors" name="Tracks">
-                </select>
-                <span class="input-group-addon"><i class="fa fa-cog"></i></span>
-            </div>
-            <span asp-validation-for="Tracks" class="text-danger"></span>
-        </div>
+        
         <button type="submit" class="btn btn-warning">Submit</button>
     </form>
 </div>

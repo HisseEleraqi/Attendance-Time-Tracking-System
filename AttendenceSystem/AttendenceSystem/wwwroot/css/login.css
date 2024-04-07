@@ -4,13 +4,14 @@
 }
 
 p {
-    color: #b3b3b3;
+    color: #6c63ff;
     font-weight: 300;
 }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Roboto", sans-serif;
+    color: #575a89;
 }
 
 a {
@@ -47,13 +48,13 @@ h2 {
     }
 }
 
+
 .content .contents .form-group, .content .bg .form-group {
     overflow: hidden;
     margin-bottom: 0;
     padding: 15px 15px;
     border-bottom: none;
     position: relative;
-    background: #edf2f5;
     border-bottom: 1px solid #e6edf1;
 }
 
@@ -86,7 +87,7 @@ h2 {
         font-size: 12px;
         display: block;
         margin-bottom: 0;
-        color: #b3b3b3;
+        color: #575a89;
     }
 
     .content .contents .form-group.focus, .content .bg .form-group.focus {
@@ -129,16 +130,9 @@ h2 {
 }
 
 .btn-primary:hover {
-    background-color: #bfcde0 !important;
-    border-color: #bfcde0 !important;
+    background-color: #6c63ff !important;
+    border-color: #6c63ff !important;
 }
-
-.content .forgot-pass {
-    position: relative;
-    top: 2px;
-    font-size: 14px;
-}
-
 
 .control {
     display: block;
@@ -167,8 +161,12 @@ h2 {
     background-color: transparent;
     outline: none;
 }
+
+#togglePassword .fa-eye:hover,
+#togglePassword .fa-eye-slash:hover {
+    color: #575a89;
+}
     #togglePassword .fa-eye,
     #togglePassword .fa-eye-slash {
         color: #888;
     }
-

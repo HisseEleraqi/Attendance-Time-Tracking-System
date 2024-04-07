@@ -1,0 +1,140 @@
+﻿@model Student
+@{
+    Layout=null;
+    var tracks = ViewBag.ActiveTracks as List<Track>;
+    SelectList activetracks = new SelectList(tracks, "Id", "Name");
+
+}
+
+
+<html>
+<head>
+    <title>Student Signup</title>
+    <link href="/css/signup.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+</head>
+<body class="for-signup">
+    <div class="main-signup-container">
+        <div class="signup-img">
+            <img src="~/images/undraw_remotely_2j6y.svg" alt="signup" />
+        </div>
+
+        <div class="signup-form">
+
+            <h2 class="text-center">Attendance System</h2>
+            <h3>Create account</h3>
+            <form asp-action="Signup" method="post" asp-controller="account" enctype="multipart/form-data">
+
+                <div class="display-two-per-row">
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="Name">Name</label>
+                        <input class="custome-input" asp-for="Name" />
+
+                    </div>
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="Email">Email</label>
+                        <input class="custome-input" asp-for="Email" />
+
+                    </div>
+                </div>
+                <div class="display-two-per-row">
+
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="Password">Password</label>
+                        <div>
+                        <input class="custome-input" type="password" asp-for="Password" id="password" />
+                        <span class="eye-icon">
+                            <i id="togglePassword" class="fa fa-eye"></i>
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="Mobile">Mobile</label>
+                        <input class="custome-input" asp-for="Mobile" />
+
+                    </div>
+                </div>
+
+                <div class="display-two-per-row">
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="University">University</label>
+                        <input class="custome-input" asp-for="University" />
+
+                    </div>
+
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="Faculty"> Faculty</label>
+                        <input class="custome-input" asp-for="Faculty" />
+
+                    </div>
+                </div>
+
+                <div class="display-two-per-row">
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="Specification"> Specification</label>
+                        <input class="custome-input" asp-for="Specification" />
+
+                    </div>
+
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="TrackID">Track</label>
+                        <select asp-for="TrackID" class="custome-input" name="TrackId" >
+                            <option value="">Select Track</option>
+                            @if (ViewBag.ActiveTracks != null)
+                            {
+                                foreach (var track in activetracks)
+                                {
+                                    <option value="@track.Value">track.Text</option>
+                                }
+                            }
+
+                        </select>
+
+                        
+                    </div>
+
+                </div>
+                <div class="display-two-per-row">
+
+                    <div class="custom-form-control">
+                        <label class="custome-label" asp-for="GraduationYear">Graduation Year</label>
+                        <input class="custome-input" asp-for="GraduationYear" />
+
+                    </div>
+
+                </div>
+                <input type="hidden" asp-for="Degree" value="255" />
+
+                <div asp-validation-summary="All" class="text-danger alert-danger"></div>
+                <span id="capacityErrorMessage" class="text-danger alert-danger"></span>
+                <input type="submit" value="Create" class="btn btn-custom" />
+            </form>
+
+        </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#togglePassword').on('click', function () {
+                var passwordField = $('#password');
+                var passwordFieldType = passwordField.attr('type');
+                if (passwordFieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordField.attr('type', 'password');
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

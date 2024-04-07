@@ -4,12 +4,10 @@
   	<title>Sidebar</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/mainLayout.css">
-
+    <link rel="stylesheet" href="/css/mainLayout.css">
+    @RenderSection("Header", required: false)
   </head>
   <body>	
 		<div class="wrapper d-flex align-items-stretch">
@@ -22,21 +20,24 @@
 	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
 	            <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="#">Instructors</a>
+                    <a asp-action="Index" asp-controller="Admin">Instructors</a>
                 </li>
                 <li>
-                    <a href="#">Students</a>
+                  <a asp-action="ShowStudents" asp-controller="Admin">Students</a>
                 </li>
                 <li>
-                    <a href="#">Employees</a>
+                    <a asp-action="ShowAllEmployees" asp-controller="Admin">Employees</a>
                 </li>
+                            <li>
+                                <a asp-action="DisplayTracks" asp-controller="Admin">Track</a>
+                            </li>
 	            </ul>
 	          </li>
 	          <li>
               <a href="#">Profile</a>
 	          </li>
 	          <li>
-              <a href="#">Log Out</a>
+              <a asp-action="Login" asp-controller="Account">Log Out</a>
 	          </li>
 	        </ul>
 	      </div>
@@ -50,15 +51,19 @@
               <i class="fa fa-bars"></i>
               <span class="sr-only">Toggle Menu</span>
             </button>
+                   
           </div>
         </nav>
+            @RenderBody()
+
 		</div>
-    </div>
-    </div>
-    @RenderBody()
+    </div>  
+ @RenderSection("Scripts", required: false)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@RenderSection("Scripts2", required: false)
+
 <script src="~/js/mainLayout.js"></script>
   </body>
 </html>

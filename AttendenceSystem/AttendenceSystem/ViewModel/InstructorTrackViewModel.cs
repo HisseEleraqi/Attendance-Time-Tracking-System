@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace AttendenceSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+using AttendenceSystem.Models;
+namespace AttendenceSystem.ViewModel
 {
-   
-    public class User
+    public class InstructorTrackViewModel
     {
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a name")]
@@ -22,9 +22,17 @@ namespace AttendenceSystem.Models
         [Required(ErrorMessage = "Please enter a mobile number")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number")]
         public string Mobile { get; set; }
+        public int RoleId { get; set; }
 
-        
-        public virtual ICollection<UserRole> Roles { get; set; }=new List<UserRole>();
+        public virtual Role Role { get; set; }
+        [Required(ErrorMessage = "Please Enter Hire dAte")]
+        public DateOnly HireDate { get; set; }
 
+        [Required(ErrorMessage = "Please Enter Slarary")]
+        [Range(1000, 10000, ErrorMessage = "Salary must be between 1000 and 10000")]
+        public int Salary { get; set; }
+        [Required(ErrorMessage = "Please Enter Tracks for Instructor")]
+        public virtual List<int> Tracks { get; set; } = new List<int>();
     }
 }
+    

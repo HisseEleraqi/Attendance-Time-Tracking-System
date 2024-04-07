@@ -1,0 +1,43 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Degree)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+           
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => modelItem.Name)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => modelItem.Degree)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => modelItem.Email)
+                    </td>
+                   
+                </tr>
+            
+        </tbody>
+    </table>
+</div>
