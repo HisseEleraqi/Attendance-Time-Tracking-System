@@ -45,10 +45,10 @@ namespace AttendenceSystem.Controllers
 
         public IActionResult StudentScdule()
         {
-           var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-           var userId = int.Parse(userIdClaim);
-           var user=studentRepo.StudentSchedule(userId);
-           return View(user);
+           //var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+           //var userId = int.Parse(userIdClaim);
+           //var user=studentRepo.StudentSchedule(userId);
+           return View();
            
         }
 

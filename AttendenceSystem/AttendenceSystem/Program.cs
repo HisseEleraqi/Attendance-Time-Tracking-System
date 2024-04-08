@@ -20,8 +20,11 @@ namespace AttendenceSystem
           
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
+
             builder.Services.AddTransient<IEmpRepo, EmpRepo>();
             builder.Services.AddTransient<TrackIRepo, TrackRepo>();
+
+
 
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IStudentRepo, StudentRepo>();
