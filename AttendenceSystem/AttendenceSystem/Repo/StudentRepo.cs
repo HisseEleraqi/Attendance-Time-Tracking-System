@@ -1,6 +1,7 @@
 ﻿using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
+using AttendenceSystem.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace AttendenceSystem.Repo
@@ -29,6 +30,7 @@ namespace AttendenceSystem.Repo
         {
        
             student.IsAccepted = false;
+            student.Degree = 255;
             
             context.Students.Add(student);
              context.SaveChanges();
@@ -107,7 +109,53 @@ namespace AttendenceSystem.Repo
         }
 
 
+      
 
+        public List<Attendence> GetAttendancesByStudentId(int studentId)
+        {
+            return context.Attendences.Where(a => a.UserId == studentId).ToList();
+        }
+
+        public Permision GetPermissionByStudentId(int studentId)
+        {
+            return context.Permisions.FirstOrDefault(p => p.StudentId == studentId);
+        }
+
+        public List<Attendence> GetStudentAttendances(int studentId, DateOnly date)
+        {
+            
+            List<Attendence> attendances = context.Attendences.Where(a => a.UserId == studentId && a.Date == date).ToList();
+
+            return attendances;
+        }
+        public StudentAttendanceViewModel UpdateStudentDegree(int id, int newDegree)
+        {
+            var existingStudent = context.Students.FirstOrDefault(s => s.Id == id);
+
+            if (existingStudent != null)
+            {
+                existingStudent.Degree = newDegree;
+                context.SaveChanges();
+
+                var viewModel = new StudentAttendanceViewModel
+                {
+                    Id = existingStudent.Id,
+                    Name = existingStudent.Name,
+                    Email = existingStudent.Email,
+                    Mobile = existingStudent.Mobile,
+                    University = existingStudent.University,
+                    Faculty = existingStudent.Faculty,
+                    GraduationYear = existingStudent.GraduationYear,
+                    Degree = existingStudent.Degree, // Update the Degree property
+                    TrackName = existingStudent.Track?.Name, // Access track name if it's available
+                   
+                };
+
+                return viewModel;
+            }
+
+            return null; // Return null if student not found
+        }
 
 
 

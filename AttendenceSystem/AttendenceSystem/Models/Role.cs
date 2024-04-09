@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AttendenceSystem.Models
 {
@@ -6,6 +7,7 @@ namespace AttendenceSystem.Models
     {
         public int Id { get; set; } 
         public string RoleName { get; set; }
+        [JsonIgnore]
         public virtual ICollection<UserRole> Users { get; set; } = new List<UserRole>();
 
 

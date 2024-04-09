@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AttendenceSystem.Models
 {
@@ -33,7 +34,7 @@ namespace AttendenceSystem.Models
         public string Reason { get; set; }
         public PermisionStatus Status { get; set; }
         public int StudentId { get; set; }
-
+        [JsonIgnore]
         public virtual Student Student { get; set; }
     }
 }

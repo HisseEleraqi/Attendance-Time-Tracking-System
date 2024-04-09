@@ -1,0 +1,61 @@
+﻿@model Student
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    hr {
+        margin-top: -1rem;
+        margin-left: 1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 128px;
+        border-radius: 6px;
+    }
+
+    .student-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .btn-submit {
+        background-color: #575a89;
+        border-color: #6943ce;
+        color: #fff;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #5a37b5;
+        }
+
+    .alert {
+        margin-top: 20px;
+    }
+</style>
+<div class="container">
+    <h1 class="mb-4">Edit Degree</h1>
+    <hr />
+    <div class="form-group">
+        <label class="font-weight-bold">Name:</label>
+        <div class="student-name">@Model.Name</div>
+    </div>
+    <form asp-action="EditDegree" asp-controller="StudentAffair" method="post">
+        <div class="form-group">
+            <label for="Degree" class="font-weight-bold">New Degree:</label>
+            <input type="text" id="Degree" name="Degree" class="form-control" />
+            <span asp-validation-for="Degree" class="text-danger"></span>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-submit">Submit</button>
+    </form>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger mt-3">
+            <strong>Validation Error:</strong> Please correct the errors and try again.
+        </div>
+    }
+</div>

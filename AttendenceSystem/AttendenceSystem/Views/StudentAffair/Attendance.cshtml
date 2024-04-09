@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Track>
+
+@{
+    ViewData["Title"] = "Student Attendance";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+<style>
+    hr {
+        margin-top: -1rem;
+        margin-left: 1px;
+        border: 0;
+        border-top: 11px solid #ffc107;
+        width: 128px;
+        border-radius: 6px;
+    }
+
+    .inline-selects > div {
+        display: inline-block;
+        margin-right: 20px; /* Adjust as needed */
+        width: 200px; /* Set a fixed width */
+    }
+
+    .inline-selects label {
+        display: block; /* Ensure label is displayed above the input/select */
+        margin-bottom: 5px; /* Add some space between label and input/select */
+    }
+
+    .inline-selects select,
+    .inline-selects input[type="date"] {
+        width: 100%; /* Fill the available width */
+        padding: 6px 12px; /* Add padding to match the form-control style */
+        font-size: 14px; /* Set font size */
+        line-height: 1.42857143; /* Set line height */
+        color: #555; /* Set text color */
+        background-color: #fff; /* Set background color */
+        background-image: none; /* Remove background image */
+        border: 1px solid #ccc; /* Add border */
+        border-radius: 4px; /* Add border radius */
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); /* Add box shadow */
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075); /* Add box shadow */
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s; /* Add transition */
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; /* Add transition */
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; /* Add transition */
+    }
+
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<h1>Student Attendance</h1>
+<hr />
+
+<div class="inline-selects">
+    <div>
+        <label for="trackSelect">Select Track:</label>
+        <select id="trackSelect">
+            <option value="">Select a Track</option>
+            @foreach (var track in Model)
+            {
+                <option value="@track.Id">@track.Name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="dateSelect">Select Date:</label>
+        <input type="date" id="dateSelect" />
+    </div>
+</div>
+
+
+<div id="trackStudent"></div>
+
+@section Scripts {
+    <script>
+        $('#trackSelect, #dateSelect').change(function () {
+            var trackId = $('#trackSelect').val();
+            var date = $('#dateSelect').val(); // Get the date from the input field
+
+            if (!date) {
+                return; // Exit function if date is not selected
+            }
+
+            var formattedDate = formatDate(date); // Format the date
+
+            console.log("Selected trackId: " + trackId);
+            console.log("Selected date: " + formattedDate);
+
+            $.ajax({
+                url: '/StudentAffair/StudentAttendanceAtTrack',
+                type: 'GET',
+                data: { trackId: trackId, date: formattedDate }, // Pass the formatted date
+                dataType: 'html', // Expect HTML response for PartialView
+                success: function (data) {
+                    $('#trackStudent').html(data); // Replace the content of trackStudent with the PartialView result
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        // Function to format the date as YYYY-MM-DD
+        function formatDate(inputDate) {
+            var date = new Date(inputDate);
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1).toString().padStart(2, '0');
+            var day = date.getDate().toString().padStart(2, '0');
+            return year + '-' + day + '-' + month;
+        }
+       
+    </script>
+}

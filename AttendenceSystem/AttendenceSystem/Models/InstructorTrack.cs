@@ -1,12 +1,16 @@
-﻿namespace AttendenceSystem.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AttendenceSystem.Models
 {
     public class InstructorTrack
     {
             public int TrackId { get; set; }
-            public virtual Track Track { get; set; }
+        [JsonIgnore]
+        public virtual Track Track { get; set; }
 
             public int InstructorId { get; set; }
-            public virtual Instructor Instructor { get; set; }
+        [JsonIgnore]
+        public virtual Instructor Instructor { get; set; }
       
     }
 }

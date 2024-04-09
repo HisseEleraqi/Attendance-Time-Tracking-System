@@ -26,8 +26,10 @@ namespace AttendenceSystem
 
             builder.Services.AddTransient<IAccountRepo, AccountRepo>();
             builder.Services.AddTransient<IStudentRepo, StudentRepo>();
+            builder.Services.AddTransient<IStudentService, StudentService>();
 
-            
+
+
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             var app = builder.Build();

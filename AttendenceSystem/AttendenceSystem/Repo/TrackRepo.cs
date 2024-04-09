@@ -1,7 +1,7 @@
 ﻿using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
-
+using AttendenceSystem.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 using System.Diagnostics.Contracts;
@@ -74,6 +74,27 @@ namespace AttendenceSystem.Repo
                 return 0;
             }
         }
+        //public List<StudentAttendanceViewModel> GetTrackAttendance(int trackId)
+        //{
+        //    // Retrieve all students in the given track
+        //    List<Student> students = GetTrackStudents(trackId);
+
+        //    // Create a list to store attendance view models
+        //    List<StudentAttendanceViewModel> viewModels = new List<StudentAttendanceViewModel>();
+
+        //    // Iterate through each student to retrieve their attendance information
+        //    foreach (var student in students)
+        //    {
+        //        // Retrieve the attendance information for the current student
+        //        StudentAttendanceViewModel viewModel = studentService.GetStudentAttendance(student.Id);
+
+        //        // Add the attendance view model to the list
+        //        viewModels.Add(viewModel);
+        //    }
+
+        //    return viewModels;
+        //}
+
 
     }
 

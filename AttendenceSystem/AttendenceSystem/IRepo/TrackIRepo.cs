@@ -1,5 +1,6 @@
 ﻿using AttendenceSystem.Data;
 using AttendenceSystem.Models;
+using AttendenceSystem.ViewModel;
 
 namespace AttendenceSystem.IRepo
 {
@@ -16,6 +17,8 @@ namespace AttendenceSystem.IRepo
         public Track GetTrackById(int TrackId);
         public int EditSupervisor(int TrackId, int SupervisorId);
         public int EditeActiveState(int TrackId, bool ActiveState);
+
+        //public List<StudentAttendanceViewModel> GetTrackAttendance(int trackId);
 
 
 

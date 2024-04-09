@@ -1,4 +1,6 @@
-﻿namespace AttendenceSystem.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AttendenceSystem.Models
 {
     public class Student:User
     {
@@ -9,7 +11,8 @@
        public string University {  get; set; }
        public bool IsAccepted { get; set; }
        public int TrackID {  get; set; }
-       public virtual  Track Track { get; set; }
+        [JsonIgnore]
+        public virtual  Track Track { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace AttendenceSystem.Models
 {
@@ -22,8 +23,8 @@ namespace AttendenceSystem.Models
         [Required(ErrorMessage = "Please enter a mobile number")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number")]
         public string Mobile { get; set; }
+        [JsonIgnore]
 
-        
         public virtual ICollection<UserRole> Roles { get; set; }=new List<UserRole>();
 
     }

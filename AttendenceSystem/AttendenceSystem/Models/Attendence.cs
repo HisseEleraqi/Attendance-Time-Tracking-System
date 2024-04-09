@@ -1,4 +1,6 @@
-﻿namespace AttendenceSystem.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AttendenceSystem.Models
 {
     public class Attendence
     {
@@ -13,7 +15,7 @@
 
         public bool IsLate {  get; set; }
 
-
+        [JsonIgnore]
         // Foreign Key
         public int UserId {  get; set; }
         public virtual User User { get; set; }
