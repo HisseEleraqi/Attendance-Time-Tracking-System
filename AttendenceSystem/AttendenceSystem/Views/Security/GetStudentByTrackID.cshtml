@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Student>
+
+@{
+    ViewData["Title"] = "GetStudentByTrackID";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<h1>GetStudentByTrackID</h1>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+
+</head>
+<body>
+
+
+    @{
+        ViewBag.Title = "Attendance";
+    }
+
+
+    <div class="container mt-5">
+        <h1>Students Exist In this Department</h1>
+
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Enter student name..." class="form-control form-control-lg mr-sm-2 ">
+    </div>
+    <table id="attendanceTable" class="table table-bordered table-hover m-3">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>TrackId</th>
+
+        <th>InTime</th>
+        <th>Late</th>
+        <th>Absent</th>
+        <th>Leaved</th>
+
+
+
+
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="5">NO Students Exists</td>
+                    <a href="c:\users\sherif\desktop\webdemo2\webdemo2\webdemo2\controllers\departmentcontroller.cs">c:\users\sherif\desktop\webdemo2\webdemo2\webdemo2\controllers\departmentcontroller.cs</a>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr >
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.TrackID</td>
+                        <td colspan="4">
+                            <a class="btn btn-info m-3" asp-action="" asp-controller="Security"> Confirm</a>
+                        </td>
+
+                        
+
+
+
+                    </tr>
+                }
+            }
+
+        </tbody>
+
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    <script>
+        function filterTable() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("attendanceTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Assuming second column contains student names
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+
+    @*  <a asp-action="create" class="btn btn-success m-3">Add Student</a>*@
+    <a class="btn btn-info m-3" asp-action="" asp-controller="Security"> Tracks</a>
+
+</body>
+</html>
