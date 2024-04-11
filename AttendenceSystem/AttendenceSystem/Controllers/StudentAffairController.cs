@@ -64,17 +64,16 @@ namespace AttendenceSystem.Controllers
         }
 
         [HttpPost]
+      
         public IActionResult EditDegree(int id, Student viewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(viewModel); // Return to edit view with validation errors
-            }
+           
 
             studentRepo.UpdateStudentDegree(id, viewModel.Degree);
 
-            return View("StudentAffair", "Attendance");
+            return RedirectToAction("Attendance", "StudentAffair");
         }
+
 
 
     }

@@ -135,6 +135,7 @@ namespace AttendenceSystem.Repo
             if (existingStudent != null)
             {
                 existingStudent.Degree = newDegree;
+                context.Students.Update(existingStudent);
                 context.SaveChanges();
 
                 var viewModel = new StudentAttendanceViewModel
