@@ -70,6 +70,18 @@ namespace AttendenceSystem.Repo
         }
 
 
+        public void AddUser(User user)
+        {
+            context.Users.Add(user);    
+            context.SaveChanges();  
+        }
+
+        public void AddStudent(Student user)
+        {
+            context.Students.Add(user);
+            context.SaveChanges();
+        }
+
 
 
 

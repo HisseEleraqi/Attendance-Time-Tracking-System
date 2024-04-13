@@ -50,8 +50,8 @@ namespace AttendenceSystem
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Student}/{action=StudentScdule}");
+            name: "default",
+            pattern: "{controller=Student}/{action=StudentScdule}/{id?}");
 
             app.Run();
         }

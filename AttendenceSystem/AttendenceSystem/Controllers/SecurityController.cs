@@ -40,15 +40,15 @@ namespace AttendenceSystem.Controllers
             return View(students);
         }
 
-        [HttpGet("ConfirmStudent/{studentId}")]
-        public IActionResult ConfirmStudentAttendace([FromRoute]int studentId)
+        [HttpPost]
+        public IActionResult ConfirmStudentAttendace([FromRoute]int Id)
         {
             DateTime studentDate = DateTime.Now;
             DateTime dateOnly = studentDate.Date;
             string studentTime = studentDate.ToString("hh:mm:ss");
             string correctTime = String.Format("09:00:00");
 
-            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = 2 };
+            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id};
 
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
@@ -71,7 +71,7 @@ namespace AttendenceSystem.Controllers
             }
            _attendance.ConfirmStudentAttendance(studentAttendance);
 
-            return View();  
+            return RedirectToAction("GetAllTracks");
             
 
         }

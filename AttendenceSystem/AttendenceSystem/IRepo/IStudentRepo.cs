@@ -21,6 +21,8 @@ namespace AttendenceSystem.IRepo
 
 
         public void Deletpermision(int permisionId);
+        public void AddUser(User user);
+        public void AddStudent(Student user);
 
     }
 

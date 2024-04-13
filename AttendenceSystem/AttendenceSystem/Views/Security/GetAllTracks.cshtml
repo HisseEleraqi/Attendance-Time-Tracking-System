@@ -45,7 +45,7 @@
                         <td>@item.Capacity</td>
                         <td>
                             @*  send data asp-route-xyz=value *@
-                            <a class="btn btn-secondary m-3" asp-action="GetStudentByTrackID/{@item.Id}">All Students</a>
+                            <a class="btn btn-secondary m-3" asp-action="GetStudentByTrackID" asp-controller="Security" asp-route-id="@item.Id">All Students</a>
 
 
 
