@@ -2,6 +2,7 @@
 
 
 using AttendenceSystem.Models;
+using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using System.Security.Claims;
@@ -121,7 +122,6 @@ namespace AttendenceSystem.Controllers
                     var userEmail= worksheet.Cells[row, 3].Value?.ToString();
                     var userMobile = worksheet.Cells[row, 4].Value?.ToString();
 
-                    //var user = new User() {Name = userName , Password = userPassword , Email = userEmail , Mobile = userMobile};
 
                     //studentRepo.AddUser(user);
 
