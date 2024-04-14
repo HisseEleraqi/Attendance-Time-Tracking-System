@@ -20,11 +20,17 @@ namespace AttendenceSystem
           
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
-            builder.Services.AddTransient<IEmpRepo, EmpRepo>();
-            builder.Services.AddTransient<TrackIRepo, TrackRepo>();
+
+            builder.Services.AddScoped<IEmpRepo, EmpRepo>();
+            builder.Services.AddScoped<TrackIRepo, TrackRepo>();
+            builder.Services.AddScoped<IAttendance , Attendance>();         
+
+
 
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+
+            builder.Services.AddScoped<IReportService, ReportService>();
             
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
@@ -46,8 +52,8 @@ namespace AttendenceSystem
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Student}/{action=StudentScdule}");
+            name: "default",
+            pattern: "{controller=Student}/{action=StudentScdule}/{id?}");
 
             app.Run();
         }

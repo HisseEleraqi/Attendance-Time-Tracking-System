@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Track>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head class="">
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+
+
+
+</head>
+<body>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <div class="container mt-5">
+        <h1>Search For Track Here</h1>
+
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Enter department name..." class="form-control form-control-lg mr-sm-2 ">
+    </div>
+    <table id="departmentTable" class="table table-bordered table-hover m-3">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Capacity</th>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="4">NO Tracks Exists</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Capacity</td>
+                        <td>
+                            @*  send data asp-route-xyz=value *@
+                            <a class="btn btn-secondary m-3" asp-action="GetTrackInstructors" asp-controller="Security" asp-route-id="@item.Id">Instructors</a>
+
+
+
+                        </td>
+
+                    </tr>
+                }
+            }
+
+        </tbody>
+
+
+    </table>
+
+
+
+
+    <script>
+        function filterTable() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("departmentTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Assuming second column contains student names
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+    @* <a href="/department/Create" class="btn btn-info">Add Department </a> *@
+
+    @*<a class="btn btn-info m-3" asp-action="Create" asp-controller="department">Add Department</a>
+
+    <br />
+
+    <div id="data">
+
+    </div>*@
+    @* <script src="/lib/jquery/dist/jquery.min.js"> </script>
+
+
+    <script>
+
+    Function ShowData(id){
+    $("#data").load("/department/detailsAjax/ " + id)
+    }
+
+    </script> *@
+
+</body>
+</html>

@@ -4,6 +4,8 @@ using AttendenceSystem.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
+using AspNetCore.Reporting;
+using AttendenceSystem.Repo;
 
 namespace AttendenceSystem.Controllers
 {
@@ -18,6 +20,15 @@ namespace AttendenceSystem.Controllers
             Instructor = Repo;
             EmpRepo = empRepo;
             Track = trackrepo;
+
+        }
+
+        [HttpGet("PrintStudentReport/{renderType}/{TrackId}")]
+
+        public async Task<IActionResult> PrintStudentReport(RenderType renderType, int TrackId)
+        {
+            var students = await Instructor.PrintStudentReport(renderType, TrackId);
+            return File(students, "APPLICATION/octet-stream", "StudentReport.");
 
         }
         //display the instructor Data

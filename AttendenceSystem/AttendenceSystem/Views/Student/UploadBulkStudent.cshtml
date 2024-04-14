@@ -1,0 +1,11 @@
+﻿@model IFormFile
+
+<h2>Upload Excel File</h2>
+
+
+@using (Html.BeginForm("UploadBulkStudent", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="excelFile" accept=".xlsx" />
+    <input type="submit" value="Upload" />
+}
+

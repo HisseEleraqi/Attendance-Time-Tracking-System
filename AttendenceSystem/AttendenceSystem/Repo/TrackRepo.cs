@@ -66,6 +66,13 @@ namespace AttendenceSystem.Repo
             }
         }
 
+        public List<Student> GetStudentsByTrackId(int trackId)
+        {
+
+            var students = context.Students.Where(s=>s.TrackID == trackId).ToList();
+            return students;
+        }
+
     }
 
 }

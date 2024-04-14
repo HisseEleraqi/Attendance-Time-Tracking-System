@@ -36,6 +36,22 @@
 	          <li>
               <a href="#">Profile</a>
 	          </li>
+              <li>
+                  <a asp-action="GetAllTracks" asp-controller="Security">Student Attendance</a>
+
+              </li>
+               <li>
+                        <a asp-action="GetAllInstructorsTracks" asp-controller="Security">Instructor Attendance</a>
+
+              </li>
+               <li>
+                  <a asp-action="UploadBulkStudent" asp-controller="Student">Add Bulk of Student</a>
+
+              </li>
+                    <li>
+                        <a asp-action="PrintStudentReport" asp-controller="Admin">Student Report</a>
+
+                    </li>
 	          <li>
               <a asp-action="Login" asp-controller="Account">Log Out</a>
 	          </li>

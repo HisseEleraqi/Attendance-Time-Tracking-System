@@ -1,0 +1,36 @@
+﻿@model List<Student> // Assuming StudentReportModel is the model returned by the PrintStudentReport method
+
+@{
+    ViewBag.Title = "Student Report";
+}
+
+<h2>Student Report</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Grade</th>
+                <th>Attendance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Item in Model)
+            {
+                <tr>
+                    <td>@Item.Id</td>
+                    <td>@Item.Name</td>
+                    <td>@Item.Track</td>
+                    <td>@Item.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No student records found.</p>
+}
