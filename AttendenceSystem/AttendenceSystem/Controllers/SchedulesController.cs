@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using AttendenceSystem.Data;
 using AttendenceSystem.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AttendenceSystem.Controllers
 {
+    //Only Supervisor
+    [Authorize(Roles = "Supervisor")]
     public class SchedulesController : Controller
     {
         DataContext db = new DataContext();
@@ -22,7 +25,10 @@ namespace AttendenceSystem.Controllers
         }
         private void RetrieveTrackInfo()
         {
-            int id = 3; // Get the id from the session
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return;
+            int id = int.Parse(userIdClaim);
             string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
             _trackName = trackName;
@@ -35,7 +41,7 @@ namespace AttendenceSystem.Controllers
        
             ViewData["TrackName"] = _trackName;
 
-            var Schedules = db.Schedules.Include(s => s.Tracks).ToList();
+            var Schedules = db.Schedules.Include(s => s.Tracks).Where(a => a.TrackId == _trackId).ToList();
             return View(Schedules);
         }
 
@@ -61,10 +67,8 @@ namespace AttendenceSystem.Controllers
         // GET: Schedules/Create
         public IActionResult Create()
         {
-            int id = 3; // Get the id from the session
-            // Get its track
-            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
-            ViewData["TrackName"] = trackName;
+
+            ViewData["TrackName"] = _trackName;
 
             return View();
         }
@@ -73,19 +77,17 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult Create(Schedule schedule)
         {
-            int id = 3; // Get the id from the session
-            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
-            ViewData["TrackName"] = trackName;
+          
+            ViewData["TrackName"] = _trackName;
 
-            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
-            schedule.TrackId = trackId;
+            schedule.TrackId = _trackId;
             if (ModelState.IsValid)
             {   
                 db.Add(schedule);
                 db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TrackName"] = trackName;
+            ViewData["TrackName"] = _trackName;
             return View(schedule);
         }
 
@@ -108,17 +110,15 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult Edit(int id, Schedule schedule)
         {
-            int Insid = 3; // Get the id from the session
-            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == Insid).Name;
-            ViewData["TrackName"] = trackName;
+            
+            ViewData["TrackName"] = _trackName;
 
-            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == Insid).Id;
 
             if (id != schedule.Id)
             {
                 return NotFound();
             }
-            schedule.TrackId = trackId;
+            schedule.TrackId = _trackId;
             if (ModelState.IsValid)
             {
                 try
