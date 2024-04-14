@@ -1,10 +1,14 @@
 ﻿using AttendenceSystem.Data;
 using AttendenceSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
+using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
+    //Only Supervisor
+    [Authorize(Roles = "Supervisor")]
     public class PermissionController : Controller
 
 
@@ -19,7 +23,10 @@ namespace AttendenceSystem.Controllers
         }
         private void RetrieveTrackInfo()
         {
-            int id = 3; // Get the id from the session
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return;
+            int id = int.Parse(userIdClaim);
             string trackName = _db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             int trackId = _db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
             _trackName = trackName;
@@ -30,21 +37,8 @@ namespace AttendenceSystem.Controllers
         
         public IActionResult StudentPermissions()
         {
-            /* _db.Permisions.Add(new Permision
-             {
-                 Type=PermisionType.Late,
-                 Status=PermisionStatus.Pending,
-                 StudentId =5,
-                 IsApproved=false,
-                 Date=new DateOnly (2024,4,5),
-                 Reason="maryam"
-
-             });
-             _db.SaveChanges();*/
-            // Retrieve student permissions from the database
-
             ViewData["TrackName"] = _trackName;
-            var studentPermissions = _db.Permisions.ToList();
+            var studentPermissions = _db.Permisions.Where(p => p.Student.TrackID == _trackId).ToList();
 
             return View(studentPermissions);
         }
