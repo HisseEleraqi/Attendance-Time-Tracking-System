@@ -29,6 +29,8 @@ namespace AttendenceSystem
 
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+
+            builder.Services.AddScoped<IReportService, ReportService>();
             
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();

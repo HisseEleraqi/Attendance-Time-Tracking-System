@@ -1,7 +1,10 @@
-﻿using AttendenceSystem.Data;
+﻿using AspNetCore.Reporting;
+using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 
 namespace AttendenceSystem.Repo
 {
@@ -9,6 +12,11 @@ namespace AttendenceSystem.Repo
     public class StudentRepo:IStudentRepo
 
     {
+        private readonly IReportService _reportService;
+        public StudentRepo(IReportService reportService)
+        {
+            _reportService = reportService;
+        }
         private readonly DataContext context = new DataContext();
 
 
@@ -82,9 +90,11 @@ namespace AttendenceSystem.Repo
             context.SaveChanges();
         }
 
-
-
-
-
+        public async Task<byte[]> PrintStudentReport(RenderType rendertype, int TrackId)
+        {
+            var students =  context.Students.Where(s => s.TrackID == TrackId).ToList();
+            var report = await _reportService.DownloadReport(students.ToList(), "StudentReport", rendertype);
+            return report.MainStream;
+        }
     }
 }

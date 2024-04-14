@@ -53,7 +53,7 @@ namespace AttendenceSystem.Controllers
            return View();
            
         }
-
+        
 
         public IActionResult PermisonDisplay()
         {

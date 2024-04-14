@@ -1,4 +1,5 @@
-﻿using AttendenceSystem.Models;
+﻿using AspNetCore.Reporting;
+using AttendenceSystem.Models;
 
 namespace AttendenceSystem.IRepo
 {
@@ -23,7 +24,7 @@ namespace AttendenceSystem.IRepo
         public void Deletpermision(int permisionId);
         public void AddUser(User user);
         public void AddStudent(Student user);
-
+        Task<byte[]> PrintStudentReport(RenderType rendertype,int TrackId);
     }
 
 }

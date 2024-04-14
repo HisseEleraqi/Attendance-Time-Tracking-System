@@ -1,4 +1,5 @@
-﻿using AttendenceSystem.Models;
+﻿using AspNetCore.Reporting;
+using AttendenceSystem.Models;
 using AttendenceSystem.ViewModel;
 
 namespace AttendenceSystem.IRepo
@@ -18,6 +19,7 @@ namespace AttendenceSystem.IRepo
         public void EditInstructor(int id, InstructorTrackViewModel instructor);
         public void DeleteInstructor(int instructorid);
         public int GetRole();
+        Task<byte[]> PrintStudentReport(RenderType rendertype, int TrackId);
 
 
     }

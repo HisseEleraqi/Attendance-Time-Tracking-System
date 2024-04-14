@@ -1,7 +1,9 @@
-﻿using AttendenceSystem.IRepo;
+﻿using AspNetCore.Reporting;
+using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.DependencyResolver;
 
 namespace AttendenceSystem.Controllers
 {
@@ -38,6 +40,15 @@ namespace AttendenceSystem.Controllers
         {
             var students = _trackIRepo.GetStudentsByTrackId(id);
             return View(students);
+        }
+
+        [HttpGet("PrintStudentReport/{renderType}/{TrackId}")]
+
+        public async Task<IActionResult> PrintStudentReport(RenderType renderType,int TrackId)
+        {
+            var students = await _studentRepo.PrintStudentReport(renderType, TrackId);
+             return File(students, "APPLICATION/octet-stream", "StudentReport.");
+
         }
 
         [HttpPost]

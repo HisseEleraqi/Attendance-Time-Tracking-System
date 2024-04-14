@@ -4,13 +4,25 @@ using AttendenceSystem.IRepo;
 using AttendenceSystem.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using AspNetCore.Reporting;
 namespace AttendenceSystem.Repo
 {
     public class InstructorRepo: InstructorIRepo
     {
         private readonly DataContext context=new DataContext();
+        private readonly IReportService _ReportService;
 
-        
+        public InstructorRepo(IReportService reportService)
+        {
+            _ReportService = reportService;
+        }
+        public async Task<byte[]> PrintStudentReport(RenderType rendertype, int TrackId)
+        {
+            var students = context.Students.Where(s => s.TrackID == TrackId).ToList();
+            var report = await _ReportService.DownloadReport(students.ToList(), "StudentReport", rendertype);
+            return report.MainStream;
+        }
+
         public List<Instructor> GetAllInstructors()
         {
            var instructors= context.Instructors.ToList();
