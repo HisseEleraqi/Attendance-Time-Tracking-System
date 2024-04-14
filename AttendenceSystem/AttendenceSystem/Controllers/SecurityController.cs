@@ -60,14 +60,14 @@ namespace AttendenceSystem.Controllers
             {
 
                 //var Students = _trackIRepo.GetStudentsByTrackId(ID);
-                var Students = context.Attendences.AsNoTracking().Include(a=>a.User).Where(a=>a.TrackId==5);
+                var Students = _attendance.GetAttendencesTrackId(ID, UserTypeEnum.Student);
 
                 List<string> Header = new List<string>();
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 using (ExcelPackage package = new ExcelPackage(new FileInfo("StudentReport.xlsx")))
                 {
 
-                    var worksheet = package.Workbook.Worksheets.Add("Sheet14");
+                    var worksheet = package.Workbook.Worksheets.Add("Sheet1");
                     Header.Add("Id");
 
                     Header.Add("Date");
@@ -121,7 +121,7 @@ namespace AttendenceSystem.Controllers
             string studentTime = studentDate.ToString("hh:mm:ss");
             string correctTime = String.Format("09:00:00");
 
-            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id};
+            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id,UserType= UserTypeEnum.Student };
 
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
@@ -179,7 +179,7 @@ namespace AttendenceSystem.Controllers
             string studentTime = instructortDate.ToString("hh:mm:ss");
             string correctTime = String.Format("09:00:00");
 
-            Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id };
+            Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Student };
 
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);

@@ -1,5 +1,6 @@
 ﻿using AttendenceSystem.Confug;
 using AttendenceSystem.Models;
+using AttendenceSystem.Repo;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Intrinsics.Arm;
 
@@ -37,9 +38,10 @@ namespace AttendenceSystem.Data
             //modelBuilder.ApplyConfiguration(new InstructorConfig());
             modelBuilder.ApplyConfiguration(new UserConfug());
             modelBuilder.ApplyConfiguration(new InstructorTrackConfig());
-            modelBuilder.ApplyConfiguration(new UserRoles());   
+            modelBuilder.ApplyConfiguration(new UserRoles());
 
             //modelBuilder.ApplyConfiguration(new TrackConfig());
+        
 
             modelBuilder.Entity<User>(user =>
             user.UseTptMappingStrategy()

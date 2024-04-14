@@ -73,6 +73,7 @@ namespace AttendenceSystem.Repo
             var students = context.Students.AsNoTracking().Where(s=>s.TrackID == trackId).ToList();
             return students;
         }
+        
 
     }
 

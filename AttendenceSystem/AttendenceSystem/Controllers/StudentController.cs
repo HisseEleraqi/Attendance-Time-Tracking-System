@@ -1,9 +1,11 @@
-﻿using AttendenceSystem.IRepo;
+﻿using AttendenceSystem.Data;
+using AttendenceSystem.IRepo;
 
 
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using System.Security.Claims;
 
@@ -14,11 +16,16 @@ namespace AttendenceSystem.Controllers
     {
 
         private readonly IStudentRepo studentRepo;
+        private readonly IAttendance _attendance;
 
-        public StudentController(IStudentRepo _studentRepo)
+        private readonly DataContext context = new DataContext();
+
+        public StudentController(IStudentRepo _studentRepo, IAttendance attendance)
 
         {
             studentRepo = _studentRepo;
+            _attendance = attendance;
+
         }
 
 
@@ -53,7 +60,14 @@ namespace AttendenceSystem.Controllers
            return View();
            
         }
-        
+        public IActionResult PrintStudentReport22([FromRoute] int Id)
+        {
+            //var Students = context.Attendences.AsNoTracking().Include(a => a.User).Where(a => a.TrackId == Id);
+            var Students = _attendance.GetAttendencesTrackId(Id, UserTypeEnum.Student);
+            ViewBag.ID = Id;
+            return View(Students);
+
+        }
 
         public IActionResult PermisonDisplay()
         {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
 using AspNetCore.Reporting;
 using AttendenceSystem.Repo;
+using OfficeOpenXml;
 
 namespace AttendenceSystem.Controllers
 {
@@ -14,22 +15,82 @@ namespace AttendenceSystem.Controllers
         private readonly InstructorIRepo Instructor;
         private readonly IEmpRepo EmpRepo;
         private readonly TrackIRepo Track;
+        private readonly IAttendance _attendance;
 
-        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo)
+        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo, IAttendance attendance)
         {
             Instructor = Repo;
             EmpRepo = empRepo;
             Track = trackrepo;
-
+            _attendance = attendance;
         }
 
-        [HttpGet("PrintStudentReport/{renderType}/{TrackId}")]
-
-        public async Task<IActionResult> PrintStudentReport(RenderType renderType, int TrackId)
+        public IActionResult GetAllAttendanceInstructor([FromRoute] int Id)
         {
-            var students = await Instructor.PrintStudentReport(renderType, TrackId);
-            return File(students, "APPLICATION/octet-stream", "StudentReport.");
+            var Instructor = _attendance.GetAttendencesTrackId(Id, UserTypeEnum.Instructor);
+            ViewBag.ID = Id;
+            return View(Instructor);
 
+        }
+        [HttpPost("ExportToExcel/{ID}")]
+        public ActionResult ExportToExcel(int ID)
+        {
+            try
+            {
+                var Instructors = _attendance.GetAttendencesTrackId(ID, UserTypeEnum.Instructor);
+
+                List<string> Header = new List<string>();
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage package = new ExcelPackage(new FileInfo("InstructorReport.xlsx")))
+                {
+
+                    var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                    Header.Add("Id");
+
+                    Header.Add("Date");
+                    Header.Add("InTime");
+                    Header.Add("OutTime");
+                    Header.Add("Name");
+
+                    var headerRow = new List<string[]>()
+                    {
+                      Header.ToArray()
+                    };
+
+                    string headerRange = "A1:" + Char.ConvertFromUtf32(Header[0].Length + 64) + "1";
+                    worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+
+                    int InsertRowIndex = 1;
+                    foreach (var item in Instructors)
+                    {
+                        InsertRowIndex++;
+                        worksheet.Cells[string.Format("A{0}", InsertRowIndex)].Value = item.Date;
+                        worksheet.Cells[string.Format("B{0}", InsertRowIndex)].Value = item.InTime;
+                        worksheet.Cells[string.Format("C{0}", InsertRowIndex)].Value = item.OutTime;
+                        worksheet.Cells[string.Format("D{0}", InsertRowIndex)].Value = item.User?.Name;
+
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        package.SaveAs(stream);
+
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "InstructorReport.xlsx");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+        }
+        public IActionResult PrintStudentReport()
+        {
+
+            var tracks = Track.GetAllTracks();
+            return View(tracks);
         }
         //display the instructor Data
         public IActionResult Index()
