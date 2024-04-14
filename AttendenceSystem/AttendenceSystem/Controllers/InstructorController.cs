@@ -3,46 +3,60 @@ using AttendenceSystem.Data;
 using System.Linq;
 using AttendenceSystem.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
+    //Authorize For Instructor Or SuperVisor
     public class InstructorController : Controller
     {
         private readonly DataContext _db=new DataContext();
-        
+        private int userId;
+        //list of String of Roles
+        private List<string> roles;
+
+
         public IActionResult Index()
         {
-            int id = 3; // Get the id from the session
-            if (id == null)
-                return BadRequest();
-            var model = _db.Instructors.FirstOrDefault(a => a.Id == id);
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            userId = int.Parse(userIdClaim);
+            // Get User with userId
+            var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+            // Get Roles of User
+            roles = user.Roles.Select(r => r.Role.RoleName).ToList();
+            var userRoleClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+
+            var model = _db.Instructors.FirstOrDefault(a => a.Id == userId);
             if (model == null)
                 return NotFound();
+
             return View(model);
         }
-
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit()
         {
-            var instructor = _db.Instructors.FirstOrDefault(a => a.Id == id);
-            /*if (instructor == null)
-            {
-                return NotFound();
-            }*/
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            userId = int.Parse(userIdClaim);
+            // Get User with userId
+            var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+            // Get Roles of User
+            roles = user.Roles.Select(r => r.Role.RoleName).ToList();
+
+            var instructor = _db.Instructors.FirstOrDefault(a => a.Id == userId);
             return View(instructor);
         }
-        [HttpPost]
-        /* public IActionResult Edit(Instructor instructor)
-         {
-             _db.Entry(instructor).State = EntityState.Modified;
-             _db.SaveChanges();
 
-             return View(instructor);
-
-         }*/
         [HttpPost]
         public IActionResult Edit(Instructor instructor)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            userId = int.Parse(userIdClaim);
+            // Get User with userId
+            var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+            // Get Roles of User
+            roles = user.Roles.Select(r => r.Role.RoleName).ToList();
+
             //get instructor from db
             var instructorFromDb = _db.Instructors.FirstOrDefault(a => a.Id == instructor.Id);
             //update the instructor (Name, Email, Password)
@@ -54,18 +68,39 @@ namespace AttendenceSystem.Controllers
             return RedirectToAction("Index");
         }
 
-        //instructor/student
         public IActionResult Student()
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            userId = int.Parse(userIdClaim);
+            // Get User with userId
+            var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+            // Get Roles of User
+            roles = user.Roles.Select(r => r.Role.RoleName).ToList();
 
-            var Student = _db.Students.ToList();
+            // Only if Roles Contain SuperVisior
+            if (!roles.Contains("Supervisor"))
+            {
+                //return Access Denied
+                return NotFound();
+               
+            }
+            int SuperVisorTrackId= _db.Tracks.FirstOrDefault(a => a.SupervisorId == userId).Id;
+            var Student = _db.Students.Where(a => a.TrackID == SuperVisorTrackId).ToList();
             return View("student",Student);
         }
 
-
+        //Only Supervisor
+        [Authorize(Roles = "Supervisor")]
         [HttpGet]
         public IActionResult EditDegree(int id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            userId = int.Parse(userIdClaim);
+            // Get User with userId
+            var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+            // Get Roles of User
+            roles = user.Roles.Select(r => r.Role.RoleName).ToList();
+
             var student = _db.Students.FirstOrDefault(a => a.Id == id);
             if (student == null)
             {
@@ -73,10 +108,19 @@ namespace AttendenceSystem.Controllers
             }
             return View(student);
         }
-        //instructor/EditDegree
+
+        //Only Supervisor
+        [Authorize(Roles = "Supervisor")]
         [HttpPost]
         public IActionResult EditDegree(Student student)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            userId = int.Parse(userIdClaim);
+            // Get User with userId
+            var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+            // Get Roles of User
+            roles = user.Roles.Select(r => r.Role.RoleName).ToList();
+
             var StudentFromDb = _db.Students.FirstOrDefault(a => a.Id == student.Id);
             StudentFromDb.Degree = student.Degree;
 
