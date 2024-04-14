@@ -58,7 +58,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Attendences");
+                    b.ToTable("Attendences", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.InstructorTrack", b =>
@@ -73,7 +73,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("InstructorId");
 
-                    b.ToTable("instructorTracks");
+                    b.ToTable("instructorTracks", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Intake", b =>
@@ -95,7 +95,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Intake");
+                    b.ToTable("Intake", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Permision", b =>
@@ -128,7 +128,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Permisions");
+                    b.ToTable("Permisions", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Programs", b =>
@@ -144,7 +144,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Programs");
+                    b.ToTable("Programs", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Role", b =>
@@ -160,7 +160,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -214,7 +214,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("TrackId");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Schedules", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Track", b =>
@@ -246,7 +246,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("SupervisorId");
 
-                    b.ToTable("Tracks");
+                    b.ToTable("Tracks", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.User", b =>
@@ -280,7 +280,7 @@ namespace AttendenceSystem.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -297,7 +297,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("IntakeTrack", b =>
@@ -312,7 +312,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("TracksId");
 
-                    b.ToTable("IntakeTrack");
+                    b.ToTable("IntakeTrack", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Employee", b =>
@@ -322,7 +322,7 @@ namespace AttendenceSystem.Migrations
                     b.Property<int>("EmpType")
                         .HasColumnType("int");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>
@@ -335,7 +335,7 @@ namespace AttendenceSystem.Migrations
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
-                    b.ToTable("Instructors");
+                    b.ToTable("Instructors", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Student", b =>
@@ -365,7 +365,7 @@ namespace AttendenceSystem.Migrations
 
                     b.HasIndex("TrackID");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("AttendenceSystem.Models.Attendence", b =>

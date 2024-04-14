@@ -1,9 +1,12 @@
 ﻿using AspNetCore.Reporting;
+using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
+using OfficeOpenXml;
 
 namespace AttendenceSystem.Controllers
 {
@@ -14,7 +17,7 @@ namespace AttendenceSystem.Controllers
         private readonly TrackIRepo _trackIRepo;
         private readonly IAttendance _attendance;
         private readonly InstructorIRepo _instructorIRepo;
-
+        private readonly DataContext context = new DataContext();
         public SecurityController(IStudentRepo studentRepo, TrackIRepo trackIRepo , IAttendance attendance , InstructorIRepo instructorIRepo)
         {
 
@@ -46,9 +49,66 @@ namespace AttendenceSystem.Controllers
         public IActionResult GetStudentByTrackID([FromRoute] int id)
         {
             var students = _trackIRepo.GetStudentsByTrackId(id);
+            ViewBag.ID = id;
             return View(students);
         }
 
+        [HttpPost("ExportToExcel/{ID}")]
+        public ActionResult ExportToExcel(int ID)
+        {
+            try
+            {
+
+                //var Students = _trackIRepo.GetStudentsByTrackId(ID);
+                var Students = context.Attendences.AsNoTracking().Include(a=>a.User).Where(a=>a.TrackId==5);
+
+                List<string> Header = new List<string>();
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage package = new ExcelPackage(new FileInfo("StudentReport.xlsx")))
+                {
+
+                    var worksheet = package.Workbook.Worksheets.Add("Sheet14");
+                    Header.Add("Id");
+
+                    Header.Add("Date");
+                    Header.Add("InTime");
+                    Header.Add("OutTime");
+                    Header.Add("Name");
+
+                    var headerRow = new List<string[]>()
+                    {
+                      Header.ToArray()
+                    };
+
+                    string headerRange = "A1:" + Char.ConvertFromUtf32(Header[0].Length + 64) + "1";
+                    worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+
+                    int InsertRowIndex = 1;
+                    foreach (var item in Students)
+                    {
+                        InsertRowIndex++;
+                        worksheet.Cells[string.Format("A{0}", InsertRowIndex)].Value = item.Date;
+                        worksheet.Cells[string.Format("B{0}", InsertRowIndex)].Value = item.InTime;
+                        worksheet.Cells[string.Format("C{0}", InsertRowIndex)].Value = item.OutTime;
+                        worksheet.Cells[string.Format("D{0}", InsertRowIndex)].Value = item.User?.Name;
+
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        package.SaveAs(stream);
+                        
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "StudentReport.xlsx");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+        }
 
         // Student confirmation attendance
 

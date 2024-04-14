@@ -1,6 +1,7 @@
 ﻿using AttendenceSystem.Data;
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Contracts;
 
 namespace AttendenceSystem.Repo
@@ -69,7 +70,7 @@ namespace AttendenceSystem.Repo
         public List<Student> GetStudentsByTrackId(int trackId)
         {
 
-            var students = context.Students.Where(s=>s.TrackID == trackId).ToList();
+            var students = context.Students.AsNoTracking().Where(s=>s.TrackID == trackId).ToList();
             return students;
         }
 
