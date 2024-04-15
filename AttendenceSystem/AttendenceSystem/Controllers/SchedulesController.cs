@@ -19,26 +19,19 @@ namespace AttendenceSystem.Controllers
         DataContext db = new DataContext();
         private string _trackName;
         private int _trackId;
-        public SchedulesController()
-        {
-            RetrieveTrackInfo();
-        }
-        private void RetrieveTrackInfo()
+
+        // GET: Schedules
+        public IActionResult Index()
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return;
+                return NotFound();
             int id = int.Parse(userIdClaim);
             string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
             _trackName = trackName;
             _trackId = trackId;
 
-        }
-        // GET: Schedules
-        public IActionResult Index()
-        {
-       
             ViewData["TrackName"] = _trackName;
 
             var Schedules = db.Schedules.Include(s => s.Tracks).Where(a => a.TrackId == _trackId).ToList();
@@ -48,6 +41,14 @@ namespace AttendenceSystem.Controllers
         // GET: Schedules/Details/id
         public IActionResult Details(int? id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id2 = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Id;
+            _trackName = trackName;
+            _trackId = trackId;
             if (id == null)
             {
                 return NotFound();
@@ -67,6 +68,14 @@ namespace AttendenceSystem.Controllers
         // GET: Schedules/Create
         public IActionResult Create()
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
+            _trackName = trackName;
+            _trackId = trackId;
 
             ViewData["TrackName"] = _trackName;
 
@@ -77,7 +86,15 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult Create(Schedule schedule)
         {
-          
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
+            _trackName = trackName;
+            _trackId = trackId;
+
             ViewData["TrackName"] = _trackName;
 
             schedule.TrackId = _trackId;
@@ -94,6 +111,14 @@ namespace AttendenceSystem.Controllers
         // GET: Schedules/Edit/id
         public IActionResult Edit(int? id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id2 = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Id;
+            _trackName = trackName;
+            _trackId = trackId;
             if (id == null)
             {
                 return NotFound();
@@ -110,7 +135,15 @@ namespace AttendenceSystem.Controllers
         [HttpPost]
         public IActionResult Edit(int id, Schedule schedule)
         {
-            
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id2 = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Id;
+            _trackName = trackName;
+            _trackId = trackId;
+
             ViewData["TrackName"] = _trackName;
 
 
@@ -145,6 +178,14 @@ namespace AttendenceSystem.Controllers
         // GET: Schedules/Delete/5
         public IActionResult Delete(int? id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id2 = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Id;
+            _trackName = trackName;
+            _trackId = trackId;
             if (id == null)
             {
                 return NotFound();
@@ -164,6 +205,14 @@ namespace AttendenceSystem.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return NotFound();
+            int id2 = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Id;
+            _trackName = trackName;
+            _trackId = trackId;
             var schedule =  db.Schedules.Find(id);
             if (schedule != null)
             {
@@ -176,6 +225,14 @@ namespace AttendenceSystem.Controllers
 
         private bool ScheduleExists(int id)
         {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return false;
+            int id2 = int.Parse(userIdClaim);
+            string trackName = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Name;
+            int trackId = db.Tracks.FirstOrDefault(a => a.SupervisorId == id2).Id;
+            _trackName = trackName;
+            _trackId = trackId;
             return db.Schedules.Any(e => e.Id == id);
         }
     }
