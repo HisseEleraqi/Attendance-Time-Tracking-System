@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace AttendenceSystem.Controllers
 {
     //Only Supervisor
-    [Authorize(Roles = "Supervisor")]
+   [Authorize(Roles = "Supervisor")]
     public class PermissionController : Controller
 
 
@@ -17,26 +17,18 @@ namespace AttendenceSystem.Controllers
         private readonly DataContext _db = new DataContext();
         private string _trackName;
         private int _trackId;
-        public PermissionController()
-        {
-            RetrieveTrackInfo();
-        }
-        private void RetrieveTrackInfo()
+
+        
+        public IActionResult StudentPermissions()
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             if (userIdClaim == null)
-                return;
+                return NotFound();
             int id = int.Parse(userIdClaim);
             string trackName = _db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Name;
             int trackId = _db.Tracks.FirstOrDefault(a => a.SupervisorId == id).Id;
             _trackName = trackName;
             _trackId = trackId;
-
-        }
-
-        
-        public IActionResult StudentPermissions()
-        {
             ViewData["TrackName"] = _trackName;
             var studentPermissions = _db.Permisions.Where(p => p.Student.TrackID == _trackId).ToList();
 
