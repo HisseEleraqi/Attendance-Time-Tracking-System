@@ -22,6 +22,9 @@
         <h1>Search For Track Here</h1>
 
         <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Enter department name..." class="form-control form-control-lg mr-sm-2 ">
+        <form method="post" action="@Url.Action("ExportToExcel", "Student", new { ID = ID })">
+            <button type="submit" class="btn btn-success" style="margin-top:20px;">Export to Excel</button>
+        </form>
     </div>
     <table id="departmentTable" class="table table-bordered table-hover m-3">
         <thead>
@@ -105,8 +108,6 @@
     }
 
     </script> *@
-    <form method="post" action="@Url.Action("ExportToExcel", "Student", new { ID = ID })">
-        <button type="submit" class="btn btn-success" style="margin-top:20px;">Export to Excel</button>
-    </form>
+    
 </body>
 </html>

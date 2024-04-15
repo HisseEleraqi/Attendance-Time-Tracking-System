@@ -114,14 +114,14 @@ namespace AttendenceSystem.Controllers
 
 
         [HttpPost]
-        public IActionResult ConfirmStudentAttendace([FromRoute]int Id)
+        public IActionResult ConfirmStudentAttendace([FromRoute]int Id,int id2)
         {
             DateTime studentDate = DateTime.Now;
             DateTime dateOnly = studentDate.Date;
             string studentTime = studentDate.ToString("hh:mm:ss");
             string correctTime = String.Format("09:00:00");
 
-            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id,UserType= UserTypeEnum.Student };
+            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id,UserType= UserTypeEnum.Student,TrackId=id2 };
 
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
@@ -143,16 +143,17 @@ namespace AttendenceSystem.Controllers
                 studentAttendance.IsPresent = true;
             }
            _attendance.ConfirmStudentAttendance(studentAttendance);
-
+           
             return RedirectToAction("GetAllTracks");
             
 
         }
 
 
+        // Student Leaving Action
 
         [HttpPost]
-        public IActionResult ConfirmLeaving( [FromRoute] int id)
+        public IActionResult ConfirmStudentLeaving( [FromRoute] int id)
         {
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
@@ -184,6 +185,7 @@ namespace AttendenceSystem.Controllers
         public IActionResult GetTrackInstructors([FromRoute] int id)
         {
             var instructors = _trackIRepo.GetTrackInstructors(id);
+            ViewBag.ID = id;
             return View(instructors);
         }
 
@@ -191,15 +193,18 @@ namespace AttendenceSystem.Controllers
         // Instructor confirmation attendance
 
         [HttpPost("ConfirmInstructorAttendance/{Id}")]
-        public IActionResult ConfirmInstructorAttendance([FromRoute] int Id)
+        public IActionResult ConfirmInstructorAttendance([FromRoute] int Id, int id2)
         {
             DateTime instructortDate = DateTime.Now;
             DateTime dateOnly = instructortDate.Date;
             string studentTime = instructortDate.ToString("hh:mm:ss");
             string correctTime = String.Format("09:00:00");
 
-            Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Student };
+            Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
+            //if ()
+            //{
 
+            //}
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
             TimeSpan correctTimeSpan = TimeSpan.Parse(correctTime);
@@ -226,11 +231,32 @@ namespace AttendenceSystem.Controllers
 
         }
 
+        // Instructor Leaving
+
+        [HttpPost("ConfirmInstructorLeaving/{Id}")]
+        public IActionResult ConfirmInstructorLeaving(int Id)
+        {
+            DateTime date = DateTime.Now;
+            DateTime currentdate = date.Date;
+            var attendance = _attendance.GetStudentAttendence(Id, currentdate);
+            if (attendance != null)
+            {
+                attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm:ss"));
+                _attendance.SaveChanges();
+            }
+
+            return RedirectToAction("GetAllInstructorsTracks");
+
+
+        }
 
     }
 
 
-    }
+    
+
+}
+
 
 
 

@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "GetStudentByTrackID";
     Layout = "~/Views/Shared/_mainLayout.cshtml";
-    var ID = ViewBag.ID;
+    
 }
 
 <h1>GetStudentByTrackID</h1>
 
 @{
     Layout = null;
+    var ID = ViewBag.ID;
 }
 
 <!DOCTYPE html>
@@ -62,14 +63,20 @@
                         <td>@item.Id</td>
                         <td>@item.Name</td>
                         <td>@item.Email</td>
+
                         <td align="center">
-                            <form method="post" asp-action="ConfirmStudentAttendace" asp-controller="Security" asp-route-id="@item.Id">
+                           
+                            <form method="post" asp-action="ConfirmStudentAttendace" asp-controller="Security" asp-route-id="@item.Id" asp-route-id2="@item.TrackID">
                                 <button type="submit" class="btn btn-outline-primary m-3">Confirm Attendance</button>
                             </form>
+                            
+                            @* <form method="post" action="@Url.Action("ConfirmStudentAttendace", "Security", new { Id = @item.Id,ID = ID })">
+                                <button type="submit" class="btn btn-success" style="margin-top:20px;">Confirm Attendance</button>
+                            </form> *@
                         </td>
 
                         <td align="center">
-                            <form method="post" asp-action="ConfirmLeaving" asp-controller="Security" asp-route-id="@item.Id">
+                            <form method="post" asp-action="ConfirmStudentLeaving" asp-controller="Security" asp-route-id="@item.Id"asp-route-id2="@item.TrackID">
                                 <button type="submit" class="btn btn-outline-primary m-3">Confirm Leave</button>
                             </form>
                         </td>
@@ -92,7 +99,33 @@
 
 
     <script>
-        
+
+        // function change () {
+        //     debugger;
+        //     showButton = false; // Initial value of the flag
+        //     if (showButton) {
+        //         console.log('Flag is true');
+        //     } else {
+        //         console.log('Flag is false');
+        //     }
+
+        //     // // Attach a click event handler to the button
+        //     // $('#myButton').click(function () {
+        //     //     flag = true; // Set the flag to true when the button is clicked
+        //     //     console.log('Flag is now true');
+        //     // });
+
+        //     // You can use the flag variable elsewhere in your code
+        //     // For example, you can check its value in another event handler
+
+        //     // $('#anotherElement').click(function () {
+        //     //     if (flag) {
+        //     //         console.log('Flag is true');
+        //     //     } else {
+        //     //         console.log('Flag is false');
+        //     //     }
+        //     // });
+        // };
 
         function filterTable() {
             // Declare variables

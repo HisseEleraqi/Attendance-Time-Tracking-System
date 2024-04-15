@@ -77,7 +77,7 @@ namespace AttendenceSystem.Controllers
         }
 
 
-        [HttpPost("ExportToExcel/{ID}")]
+        [HttpPost("ExportToExcel")]
         public ActionResult ExportToExcel(int ID)
         {
             try
@@ -92,7 +92,6 @@ namespace AttendenceSystem.Controllers
                 {
 
                     var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-                    Header.Add("Id");
 
                     Header.Add("Date");
                     Header.Add("InTime");
@@ -215,9 +214,9 @@ namespace AttendenceSystem.Controllers
                     var studentFaculty= worksheet.Cells[row, 8].Value?.ToString();
                     var studentUniversity = worksheet.Cells[row, 9].Value?.ToString();
                     var studentIsAccepted= bool.Parse(worksheet.Cells[row, 10].Value?.ToString());
-                    var studentTrackId= int.Parse(worksheet.Cells[row, 11].Value?.ToString());
+                   // var studentTrackId= int.Parse(worksheet.Cells[row, 11].Value?.ToString());
 
-                    Student student =  new Student() { Name = userName  , Password = userPassword , Email = userEmail , Mobile = userMobile , Degree = studentDegree , Specification = studentSpec , GraduationYear = graduation , Faculty = studentFaculty , University = studentUniversity  , IsAccepted = studentIsAccepted , TrackID = studentTrackId};
+                    Student student =  new Student() { Name = userName  , Password = userPassword , Email = userEmail , Mobile = userMobile , Degree = studentDegree , Specification = studentSpec , GraduationYear = graduation , Faculty = studentFaculty , University = studentUniversity  , IsAccepted = studentIsAccepted};
                       studentRepo.AddStudent(student);
 
                 }

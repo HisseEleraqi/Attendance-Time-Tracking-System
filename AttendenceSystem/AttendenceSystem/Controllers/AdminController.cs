@@ -53,7 +53,7 @@ namespace AttendenceSystem.Controllers
                 {
 
                     var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-                    Header.Add("Id");
+                    
 
                     Header.Add("Date");
                     Header.Add("InTime");
