@@ -123,9 +123,6 @@
     @*  <a asp-action="create" class="btn btn-success m-3">Add Student</a>*@
     <a class="btn btn-outline-primary m-3" asp-action="GetAllTracks" asp-controller="Security"> Tracks</a>
 
-    <form method="post" action="@Url.Action("ExportToExcel", "Security", new { ID = ID })">
-    <button type="submit" class="btn btn-success" style="margin-top:20px;">Export to Excel</button>
-</form>
-
+    
 </body>
 </html>
