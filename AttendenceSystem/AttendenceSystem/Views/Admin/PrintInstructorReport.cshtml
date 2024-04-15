@@ -1,7 +1,6 @@
-﻿@model IEnumerable<Attendence>
+﻿@model IEnumerable<Track>
 @{
     Layout = null;
-    var ID = ViewBag.ID;
 }
 
 <!DOCTYPE html>
@@ -25,10 +24,9 @@
     </div>
     <table id="departmentTable" class="table table-bordered table-hover m-3">
         <thead>
-        <th>Date</th>
-        <th>InTime</th>
-        <th>OutTime</th>
-        <th>UserName</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Capacity</th>
         </thead>
         <tbody>
             @if (Model.Count() == 0)
@@ -42,11 +40,16 @@
                 foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.Date</td>
-                        <td>@item.InTime</td>
-                        <td>@item.OutTime</td>
-                        <td>@item.User?.Name</td>
-                       
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Capacity</td>
+                        <td>
+                            @*  send data asp-route-xyz=value *@
+                            <a class="btn btn-secondary m-3" asp-action="GetAllAttendanceInstructor" asp-controller="Admin" asp-route-id="@item.Id">All Instructors</a>
+
+
+
+                        </td>
 
                     </tr>
                 }
@@ -105,8 +108,6 @@
     }
 
     </script> *@
-    <form method="post" action="@Url.Action("ExportToExcel", "Student", new { ID = ID })">
-        <button type="submit" class="btn btn-success" style="margin-top:20px;">Export to Excel</button>
-    </form>
+
 </body>
 </html>

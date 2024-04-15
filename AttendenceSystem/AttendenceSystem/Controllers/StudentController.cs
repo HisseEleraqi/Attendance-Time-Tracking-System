@@ -60,6 +60,13 @@ namespace AttendenceSystem.Controllers
            return View();
            
         }
+
+
+
+
+        //student attendance report ****//
+
+
         public IActionResult PrintStudentReport22([FromRoute] int Id)
         {
             //var Students = context.Attendences.AsNoTracking().Include(a => a.User).Where(a => a.TrackId == Id);
@@ -68,6 +75,69 @@ namespace AttendenceSystem.Controllers
             return View(Students);
 
         }
+
+
+        [HttpPost("ExportToExcel/{ID}")]
+        public ActionResult ExportToExcel(int ID)
+        {
+            try
+            {
+
+                //var Students = _trackIRepo.GetStudentsByTrackId(ID);
+                var Students = _attendance.GetAttendencesTrackId(ID, UserTypeEnum.Student);
+
+                List<string> Header = new List<string>();
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage package = new ExcelPackage(new FileInfo("StudentReport.xlsx")))
+                {
+
+                    var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+                    Header.Add("Id");
+
+                    Header.Add("Date");
+                    Header.Add("InTime");
+                    Header.Add("OutTime");
+                    Header.Add("Name");
+
+                    var headerRow = new List<string[]>()
+                    {
+                      Header.ToArray()
+                    };
+
+                    string headerRange = "A1:" + Char.ConvertFromUtf32(Header[0].Length + 64) + "1";
+                    worksheet.Cells[headerRange].LoadFromArrays(headerRow);
+
+                    int InsertRowIndex = 1;
+                    foreach (var item in Students)
+                    {
+                        InsertRowIndex++;
+                        worksheet.Cells[string.Format("A{0}", InsertRowIndex)].Value = item.Date;
+                        worksheet.Cells[string.Format("B{0}", InsertRowIndex)].Value = item.InTime;
+                        worksheet.Cells[string.Format("C{0}", InsertRowIndex)].Value = item.OutTime;
+                        worksheet.Cells[string.Format("D{0}", InsertRowIndex)].Value = item.User?.Name;
+
+                    }
+
+                    using (var stream = new MemoryStream())
+                    {
+                        package.SaveAs(stream);
+
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "StudentReport.xlsx");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+        }
+        //****************//
+
+
+
+
 
         public IActionResult PermisonDisplay()
         {

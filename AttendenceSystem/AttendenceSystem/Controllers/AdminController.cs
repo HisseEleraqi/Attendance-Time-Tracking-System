@@ -25,6 +25,14 @@ namespace AttendenceSystem.Controllers
             _attendance = attendance;
         }
 
+
+        // instructor attendance report ***********//
+        public IActionResult PrintInstructorReport()
+        {
+
+            var tracks = Track.GetAllTracks();
+            return View(tracks);
+        }
         public IActionResult GetAllAttendanceInstructor([FromRoute] int Id)
         {
             var Instructor = _attendance.GetAttendencesTrackId(Id, UserTypeEnum.Instructor);
@@ -86,6 +94,11 @@ namespace AttendenceSystem.Controllers
             }
 
         }
+
+        //**************//
+
+
+
         public IActionResult PrintStudentReport()
         {
 
