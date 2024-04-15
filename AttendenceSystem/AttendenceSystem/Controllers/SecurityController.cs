@@ -151,6 +151,25 @@ namespace AttendenceSystem.Controllers
 
 
 
+        [HttpPost]
+        public IActionResult ConfirmLeaving( [FromRoute] int id)
+        {
+            DateTime date = DateTime.Now;
+            DateTime currentdate = date.Date;
+            var attendance = _attendance.GetStudentAttendence(id, currentdate);
+            if(attendance != null)
+            {
+                attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm:ss"));
+                _attendance.SaveChanges();
+            }
+
+            return RedirectToAction("GetAllTracks");
+
+
+        }
+
+
+
         // Get Tracks Instructors works in
         public IActionResult GetAllInstructorsTracks()
         {
@@ -171,7 +190,7 @@ namespace AttendenceSystem.Controllers
 
         // Instructor confirmation attendance
 
-        [HttpPost]
+        [HttpPost("ConfirmInstructorAttendance/{Id}")]
         public IActionResult ConfirmInstructorAttendance([FromRoute] int Id)
         {
             DateTime instructortDate = DateTime.Now;
@@ -202,7 +221,7 @@ namespace AttendenceSystem.Controllers
             }
             _attendance.ConfirmStudentAttendance(instructorAttendance);
 
-            return RedirectToAction("GetInstructors");
+             return RedirectToAction("GetAllInstructorsTracks");
 
 
         }
