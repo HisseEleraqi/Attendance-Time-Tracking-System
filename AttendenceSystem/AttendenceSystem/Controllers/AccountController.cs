@@ -95,11 +95,11 @@ namespace AttendenceSystem.Controllers
             }
             else if (userRoles.Contains("Supervisor") && userRoles.Contains("Instructor"))
             {
-                return RedirectToAction("Index", "SupervisorDashboar");
+                return RedirectToAction("Index", "Supervisor");
             }
             else if (userRoles.Contains("Instructor"))
             {
-                return RedirectToAction("Index", "InstructorDashboard");
+                return RedirectToAction("Index", "Instructor");
             }
             else if (userRoles.Contains("Admin"))
             {
