@@ -17,19 +17,22 @@
                 <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(Images/logo.jpg);"></a>
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
-	            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                    <a asp-action="Index" asp-controller="Schedules">Schedule</a>
-                </li>
-                <li>
-                   <a asp-action="studentpermissions" asp-controller="Permission">Permission</a>
-                </li>
-                <li>
-                                <a asp-action="Student" asp-controller="instructor">Students</a>
-                </li>
-                           
-	            </ul>
+                @*Hide if not Supervisotr*@
+                @if(User.IsInRole("Supervisor"))
+                        {
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a asp-action="Index" asp-controller="Schedules">Schedule</a>
+                        </li>
+                        <li>
+                            <a asp-action="studentpermissions" asp-controller="Permission">Permission</a>
+                        </li>
+                        <li>
+                            <a asp-action="Student" asp-controller="instructor">Students</a>
+                        </li>
+                    </ul>
+                }
 	          </li>
 	          <li>
                         <a asp-action="Index" asp-controller="Instructor">Profile</a>
