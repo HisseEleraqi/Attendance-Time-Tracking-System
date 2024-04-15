@@ -9,6 +9,7 @@ using System.Security.Claims;
 namespace AttendenceSystem.Controllers
 {
     //Authorize For Instructor Or SuperVisor
+    [Authorize(Roles = "Instructor, Supervisor")]
     public class InstructorController : Controller
     {
         private readonly DataContext _db=new DataContext();
@@ -16,6 +17,10 @@ namespace AttendenceSystem.Controllers
         //list of String of Roles
         private List<string> roles;
 
+        public bool IsSuperVisor()
+        {
+            return roles.Contains("Supervisor");
+        }
 
         public IActionResult Index()
         {
@@ -30,6 +35,9 @@ namespace AttendenceSystem.Controllers
             var model = _db.Instructors.FirstOrDefault(a => a.Id == userId);
             if (model == null)
                 return NotFound();
+
+            // Add IsSuperVisor to ViewBag
+            ViewBag.IsSuperVisor = IsSuperVisor();
 
             return View(model);
         }
