@@ -67,11 +67,19 @@ namespace AttendenceSystem.Controllers
 
 
             claim3 = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
-            claim4 = new Claim(ClaimTypes.Role, user.Roles.ToString());
+            var userRoles2 = user.Roles.Select(r => r.Role); // Assuming RoleName property holds the role name
+
+            foreach (var role in userRoles2)
+            {
+                var roleClaim = new Claim(ClaimTypes.Role, role.RoleName); // Assuming RoleName property holds the role name
+                claimsIdentity.AddClaim(roleClaim);
+            }
+
+
             claimsIdentity.AddClaim(claim1);
             claimsIdentity.AddClaim(claim2);
             claimsIdentity.AddClaim(claim3);
-            claimsIdentity.AddClaim(claim4);
+            //claimsIdentity.AddClaim(claim4);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
@@ -95,11 +103,11 @@ namespace AttendenceSystem.Controllers
             }
             else if (userRoles.Contains("Supervisor") && userRoles.Contains("Instructor"))
             {
-                return RedirectToAction("Index", "SupervisorDashboar");
+                return RedirectToAction("Index", "Instructor");
             }
             else if (userRoles.Contains("Instructor"))
             {
-                return RedirectToAction("Index", "InstructorDashboard");
+                return RedirectToAction("Index", "Instructor");
             }
             else if (userRoles.Contains("Admin"))
             {

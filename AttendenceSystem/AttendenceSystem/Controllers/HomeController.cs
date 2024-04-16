@@ -17,7 +17,10 @@ namespace AttendenceSystem.Controllers
         {
             return View();
         }
-
+        public IActionResult NotAuthorized()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

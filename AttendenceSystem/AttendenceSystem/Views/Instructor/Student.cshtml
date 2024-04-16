@@ -1,0 +1,53 @@
+﻿@model List<AttendenceSystem.Models.Student>
+@using AttendenceSystem.Models
+
+@{
+    ViewData["Title"] = "Student";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<h1>Student</h1>
+
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th> ID </th>
+            <th> Name</th>
+            <th>Email</th>
+            <th>Degree</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.Email</td>
+                    <td>@student.Degree</td>
+                   @*  <td>@student.Track.Name</td> *@
+                <td>
+                    <a asp-action="EditDegree" asp-route-id="@student.Id">Edit Degree</a>
+                </td>
+                </tr>
+            }
+
+    </tbody>
+</table>
+
+
+@section Header {
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+
+}
+@section Scripts {
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
+}

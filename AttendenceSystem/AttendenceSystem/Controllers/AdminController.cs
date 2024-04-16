@@ -27,7 +27,7 @@ namespace AttendenceSystem.Controllers
 
         }
         //display the instructor Data
-        public IActionResult Index()
+        public IActionResult ShowInstructors()
         {
             var instructors = Instructor.GetAllInstructors(); 
             var instructorDetails = new List<InstructorDetails>();

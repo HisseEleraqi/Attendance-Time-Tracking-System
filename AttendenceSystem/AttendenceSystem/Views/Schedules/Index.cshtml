@@ -1,0 +1,116 @@
+﻿@model IEnumerable<AttendenceSystem.Models.Schedule>
+
+@{
+    string TrackName = ViewData["TrackName"] as string;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Instructor.cshtml";
+}
+<style>
+    .fa-pencil {
+        color: #337f33;
+        font-size: 1.2rem;
+        background-color: #b7e1b6;
+        width: 100%;
+        text-align: center;
+        padding: 3px;
+        border-radius: 7px;
+    }
+
+    .fa-trash-o {
+        color: #ff5c80;
+        font-size: 1.2rem;
+        padding: 3px;
+        background-color: #fbcbd6;
+        text-align: center;
+        border-radius: 7px;
+        width: 100%;
+    }
+
+    .fa-eye {
+        color: #4789f7;
+        font-size: 1.2rem;
+        background-color: #dae6f9;
+        padding: 3px;
+        text-align: center;
+        border-radius: 7px;
+        width: 100%;
+    }
+</style>
+
+<h1>@TrackName</h1>
+
+
+
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+
+            <th style="width:71px">Edit</th>
+            <th style="width:71px">View</th>
+            <th style="width:71px">Delete</th>
+           
+  
+           
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+      
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye"></i></a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash-o"></i></a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="col right">
+    <a class="btn btn-warning" asp-action="Create" asp-controller="schedules">Add + </a>
+</div>
+@* @section SideBar {
+
+    <li>
+        <a href="/Permissions">Permissions</a>
+    </li>
+    <li>
+        <a href="/Schedules">Schedule</a>
+    </li>
+
+} *@
+@section Header {
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+
+}
+@section Scripts {
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
+}
