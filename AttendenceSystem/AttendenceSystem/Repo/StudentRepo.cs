@@ -2,6 +2,7 @@
 using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AttendenceSystem.Repo
@@ -158,7 +159,24 @@ namespace AttendenceSystem.Repo
             return null; // Return null if student not found
         }
 
+        public async Task<List<Student>> GetPendingStudentsAsync()
+        {
+            
+            return await context.Students.Where(s => s.IsAccepted == false).ToListAsync();
+        }
+        public void UpdateStudentState(int Id)
+        {
+            
+                // Update the student's status in the database
+                var student = GetStudentById(Id);
+               
+                    student.IsAccepted = true;
+                    context.SaveChanges();
+                   
+                
+            
 
+        }
 
     }
 }

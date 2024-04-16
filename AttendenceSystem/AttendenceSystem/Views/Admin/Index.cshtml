@@ -1,0 +1,54 @@
+﻿<!-- HTML code for the bell icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div class="notification-icon" id="notificationIcon" title="Click to view pending students" style="position: fixed; right: 20px;">
+    <i class="fas fa-bell" style="color: #ffc107;"></i> <!-- Use the Font Awesome bell icon -->
+    <span class="badge" id="notificationCount" style="color: #575a89;">@ViewBag.PendingStudentCount</span>
+</div>
+
+<!-- Toast notification -->
+<div id="toastContainer" aria-live="polite" aria-atomic="true" style="display: none; position: fixed; top: 200px; right: 20px; min-height: 200px; max-width: 300px;">
+    <!-- Position the toasts -->
+    <div>
+
+        <!-- Add a toast for each pending student -->
+        @foreach (var student in ViewBag.PendingStudents)
+        {
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                <div class="toast-header">
+                    <strong class="mr-auto" style="color: #575a89;">New Student accept him!</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body toast-clickable" style="color: #ffc107;">
+                    @student.Name is a pending student.
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Event listener for click on the bell icon
+        $('#notificationIcon').click(function () {
+            // Show the toast notifications when the bell icon is clicked
+            $('#toastContainer').show();
+            $('.toast').toast('show');
+        });
+
+        // Event listener for closing the toast
+        $(document).on('click', '.toast .close', function () {
+            // Hide the toast when the close button is clicked
+            $(this).closest('.toast').toast('hide');
+        });
+
+        // Event listener for clicking on a toast body
+        $(document).on('click', '.toast-clickable', function () {
+            // Redirect to the page displaying all pending students
+            window.location.href = '/Admin/PendingStudents'; // Adjust the URL as per your route
+        });
+    });
+</script>
