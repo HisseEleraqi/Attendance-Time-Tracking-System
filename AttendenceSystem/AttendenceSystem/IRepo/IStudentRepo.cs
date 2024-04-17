@@ -33,6 +33,16 @@ namespace AttendenceSystem.IRepo
         List<Attendence> GetAttendancesByStudentId(int studentId);
         Permision GetPermissionByStudentId(int studentId);
         public List<Attendence> GetStudentAttendances(int studentId, DateOnly date);
+        public List<Student> GetAllAcceptedStudents();
+        public void DeleteStudent(int studentid);
+        public List<Track> GetTracks();
+        public Track GetStudentTrack(int studentid);
+        public void EditStudent(Student editedstudent);
+        public int AllActiveTracks();
+        public int AllInActiveTracks();
+        public int AllAccepptedStudent();
+        public int Allinstructor();
+        public int AllSupervisor();
 
     }
 

@@ -154,14 +154,6 @@
         <a class="btn btn-warning" asp-action="AddInstructor" asp-controller="Admin">Add + </a>
     </div>
 </div>
-<div class="row search">
-    <div class="input-group">
-        <input type="text" id="searchText" class="form-control" placeholder="Search" />
-        <div class="input-group-append">
-            <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
-    </div>
-</div>
 <div class="container">
     <table class="table table-border table-responsive table-hover">
         <thead>
@@ -200,6 +192,13 @@
 
 @section Scripts2 {
     <script>
+           $(document).ready(function () {
+                $('#myTable').DataTable({
+                    paging: true,
+                    pageLength: 10,
+                    searching: true,
+                    ordering: true,
+                    info: true
         $(document).ready(function () {
             $('#searchText').on('keyup', function () {
                 var searchText = $(this).val().toLowerCase();

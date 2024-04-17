@@ -279,8 +279,14 @@ namespace AttendenceSystem.Controllers
         {
             int pendingStudentCount = await notificationService.GetPendingStudentCountAsync();
             ViewBag.PendingStudentCount = pendingStudentCount;
-           List< Student>students = await studentRepo.GetPendingStudentsAsync();
+            List< Student>students = await studentRepo.GetPendingStudentsAsync();
             ViewBag.PendingStudents = students;
+            ViewBag.Students = studentRepo.AllAccepptedStudent();
+            ViewBag.ActiveTracks = studentRepo.AllActiveTracks();
+            ViewBag.InActiveTracks = studentRepo.AllInActiveTracks();
+            ViewBag.Instructor = studentRepo.Allinstructor();
+            ViewBag.Supervisor = studentRepo.AllSupervisor();
+
             return View();
         }
         public async Task<IActionResult> PendingStudents()
