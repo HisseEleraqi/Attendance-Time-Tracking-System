@@ -5,10 +5,12 @@ using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AttendenceSystem.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
 

@@ -6,18 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
 using AttendenceSystem.Repo;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AttendenceSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        
         private readonly InstructorIRepo Instructor;
         private readonly IEmpRepo EmpRepo;
         private readonly TrackIRepo Track;
 
         private readonly IStudentRepo studentRepo;
         private readonly INotificationService notificationService;
-
+        
 
         public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo, IStudentRepo _studentRepo, INotificationService _notificationService)
 

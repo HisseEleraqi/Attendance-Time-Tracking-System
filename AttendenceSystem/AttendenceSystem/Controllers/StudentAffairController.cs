@@ -2,10 +2,12 @@
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using AttendenceSystem.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
+    [Authorize(Roles = "StudentAffair")]
     public class StudentAffairController : Controller
     {
         private readonly IStudentService studentService;
