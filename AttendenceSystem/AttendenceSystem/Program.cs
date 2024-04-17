@@ -27,13 +27,14 @@ namespace AttendenceSystem
             builder.Services.AddTransient<IAccountRepo, AccountRepo>();
             builder.Services.AddTransient<IStudentRepo, StudentRepo>();
             builder.Services.AddTransient<IStudentService, StudentService>();
-
+            builder.Services.AddTransient<IUserRepo, UserRepo>();
+            builder.Services.AddTransient<INotificationService, NotificationService>();
 
 
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

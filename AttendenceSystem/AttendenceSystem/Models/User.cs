@@ -26,6 +26,7 @@ namespace AttendenceSystem.Models
         [JsonIgnore]
 
         public virtual ICollection<UserRole> Roles { get; set; }=new List<UserRole>();
+        public virtual ICollection<Attendence> Attendances { get; set; } = new List<Attendence>();
 
     }
 }

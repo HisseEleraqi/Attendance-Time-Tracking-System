@@ -1,4 +1,11 @@
-﻿<!doctype html>
+﻿@using System.Security.Claims
+@{
+	var user = Context.User;
+    var roles = ((ClaimsIdentity)User.Identity).Claims
+               .Where(c => c.Type == ClaimTypes.Role)
+               .Select(c => c.Value);
+    }
+<!doctype html>
 <html lang="en">
   <head>
   	<title>Sidebar</title>
@@ -6,21 +13,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/css/mainLayout.css">
     @RenderSection("Header", required: false)
   </head>
-  <body>	
+  <body>
+    
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
-            <div class="p-4 pt-5">
+            @if (User.IsInRole("Admin"))
+            {
 
-                <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(Images/logo.jpg);"></a>
+
+                <div class="p-4 pt-5">
+                    <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/Images/admin.jpg);"></a>
 	        <ul class="list-unstyled components mb-5">
 	          <li class="active">
 	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
 	            <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a asp-action="Index" asp-controller="Admin">Instructors</a>
+                    <a asp-action="ShowInstructors" asp-controller="Admin">Instructors</a>
                 </li>
                 <li>
                   <a asp-action="ShowStudents" asp-controller="Admin">Students</a>
@@ -41,6 +53,117 @@
 	          </li>
 	        </ul>
 	      </div>
+          }
+         
+            @if (User.IsInRole("Student"))
+            {
+
+                <div class="p-4 pt-5">
+
+                    <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/Images/student.jpg);"></a>
+                    <ul class="list-unstyled components mb-5">
+                        <li class="active">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li>
+                                    <a asp-action="AttendenceDetails" asp-controller="Student">Attendence</a>
+                                </li>
+                                <li>
+                                    <a asp-action="StudentScdule" asp-controller="Student">Schehule</a>
+                                </li>
+                                <li>
+                                    <a asp-action="PermisonDisplay" asp-controller="Student">Permission</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            @if (User.IsInRole("Instructor"))
+            {
+
+                <div class="p-4 pt-5">
+
+                    <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/Images/instructor.jpg);"></a>
+                    <ul class="list-unstyled components mb-5">
+                        <li class="active">
+                            @*Hide if not Supervisotr*@
+                            @if (User.IsInRole("Supervisor"))
+                            {
+                                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                                <ul class="collapse list-unstyled" id="homeSubmenu">
+                                    <li>
+                                        <a asp-action="Index" asp-controller="Schedules">Schedule</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="studentpermissions" asp-controller="Permission">Permission</a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="Student" asp-controller="instructor">Students</a>
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                        <li>
+                            <a asp-action="Index" asp-controller="Instructor">Profile</a>
+                        </li>
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            @if (User.IsInRole("StudentAffair"))
+            {
+
+                <div class="p-4 pt-5">
+
+                    <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/Images/affair.jpg);"></a>
+                    <ul class="list-unstyled components mb-5">
+                        <li class="active">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li>
+                                    <a asp-action="Attendance" asp-controller="StudentAffair">Attendence</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            @if (User.IsInRole("Security"))
+            {
+                <div class="p-4 pt-5">
+                    <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/Images/seccutity.jpg);"></a>
+                    <ul class="list-unstyled components mb-5">
+                        <li class="active">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li>
+                                    <a asp-action="" asp-controller="">Take Attendance</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            }
     	</nav>
       <div id="content" class="p-4 p-md-5">
 
@@ -54,10 +177,13 @@
                    
           </div>
         </nav>
+
             @RenderBody()
 
 		</div>
     </div>  
+   
+    
  @RenderSection("Scripts", required: false)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

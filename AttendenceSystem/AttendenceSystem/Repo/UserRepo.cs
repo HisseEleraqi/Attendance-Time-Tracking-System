@@ -15,6 +15,17 @@ namespace AttendenceSystem.Repo
                       .Where(u => u.Roles.Any(r => r.Role.RoleName == roleName))
                       .ToList();
         }
+        public List<User> GetStudentsWithAttendance(string roleName)
+        {
+            var x = db.Users
+                    .Include(u => u.Attendances) // Include attendance records for eager loading
+                    .Where(u => u.Roles.Any(r => r.Role.RoleName == roleName) && u.Attendances.Any())
+                    .ToList();
+            Console.WriteLine(x);
+            
+            return x;
+        }
+      
 
     }
 }

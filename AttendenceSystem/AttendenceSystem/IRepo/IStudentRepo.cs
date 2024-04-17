@@ -9,8 +9,9 @@ namespace AttendenceSystem.IRepo
         public List<Student> GetAllStudents();
         public void AddStudent(Student student);
 
+        Task<List<Student>> GetPendingStudentsAsync();
+        public void UpdateStudentState(int Id);
 
-  
         public Schedule StudentSchedule(int id);
 
 

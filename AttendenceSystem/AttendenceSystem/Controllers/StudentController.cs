@@ -1,24 +1,28 @@
 ﻿using AttendenceSystem.IRepo;
 
-
+using System.Text.Json;
 using AttendenceSystem.Models;
+using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AttendenceSystem.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
 
         private readonly IStudentRepo studentRepo;
-
-        public StudentController(IStudentRepo _studentRepo)
+        private readonly IUserRepo userRepo;
+        public StudentController(IStudentRepo _studentRepo,IUserRepo _userRepo)
 
         {
             studentRepo = _studentRepo;
+            userRepo= _userRepo;
         }
-
+        
 
         public IActionResult AttendenceDetails()
         {
