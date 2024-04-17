@@ -1,5 +1,4 @@
-﻿using AttendenceSystem.CustomFilter;
-using AttendenceSystem.Data;
+﻿using AttendenceSystem.Data;
 using AttendenceSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +7,8 @@ using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
-
     //Only Supervisor
-    [Authorize(Roles = "Supervisor")]
+   [Authorize(Roles = "Supervisor")]
     public class PermissionController : Controller
 
 

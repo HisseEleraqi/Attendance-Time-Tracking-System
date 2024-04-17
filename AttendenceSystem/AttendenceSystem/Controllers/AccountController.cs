@@ -169,10 +169,6 @@ namespace AttendenceSystem.Controllers
         {
             return View();
         }
-        public IActionResult AccessError()
-        {
-            return View();
-        }
 
     }
 }

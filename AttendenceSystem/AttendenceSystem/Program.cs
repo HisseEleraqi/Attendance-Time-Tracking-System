@@ -4,7 +4,6 @@ using AttendenceSystem.Repo;
 using AttendenceSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem
 {
@@ -16,9 +15,10 @@ namespace AttendenceSystem
 
             // Add services to the container.
 
-         
+
 
           
+            builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
             builder.Services.AddTransient<IEmpRepo, EmpRepo>();
             builder.Services.AddTransient<TrackIRepo, TrackRepo>();
@@ -30,19 +30,9 @@ namespace AttendenceSystem
             builder.Services.AddTransient<IUserRepo, UserRepo>();
             builder.Services.AddTransient<INotificationService, NotificationService>();
 
-            builder.Services.AddSession();
-            builder.Services.AddControllersWithViews(option => 
-            { option.Filters.Add<AuthFilter>();
-            });
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie
-                (option =>
-                {
-                    option.AccessDeniedPath = "/Account/AccessError";
-                    option.LoginPath = "/Account/Login";
-                }
 
-                );
-            
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.
@@ -58,13 +48,12 @@ namespace AttendenceSystem
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
 
-                pattern: "{controller=Student}/{action=DisplayAllStudent}");
+                pattern: "{controller=Account}/{action=login}");
 
 
             app.Run();
