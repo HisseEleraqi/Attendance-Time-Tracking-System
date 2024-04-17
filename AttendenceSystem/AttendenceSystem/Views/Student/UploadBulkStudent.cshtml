@@ -1,4 +1,4 @@
-﻿@model IFormFile
+﻿@* @model IFormFile
 
 <h2>Upload Excel File</h2>
 
@@ -7,5 +7,44 @@
 {
     <input type="file" name="excelFile" accept=".xlsx" />
     <input type="submit" value="Upload" />
-}
+} *@
+<h2>Upload Excel File</h2>
 
+<form method="post" action="@Url.Action("DownloadStudentExcel", "Student")">
+    <button type="submit" class="btn btn-success" style="margin-top:20px;">Import</button>
+</form>
+
+<form id="uploadForm" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">Upload BulK Student</label>
+        <input type="file" class="btn btn-success" style="margin-top:20px;visibility:hidden;" id="file" name="file" accept=".xlsx,.xls">
+    </div>
+</form>
+
+<script>
+
+    document.getElementById('file').addEventListener('change', function () {
+        debugger;
+
+        var fileInput = document.getElementById('file');
+        debugger;
+        var file = fileInput.files[0];
+        console.log("file is" + file)
+        var formData = new FormData();
+        formData.append('file', file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Student/UploadBulkStudent', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // File uploaded successfully
+                console.log('File uploaded successfully');
+            } else {
+                // Error occurred while uploading file
+                console.error('Error occurred while uploading file');
+            }
+        };
+        xhr.send(formData);
+    });
+
+</script>

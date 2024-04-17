@@ -198,7 +198,7 @@ namespace AttendenceSystem.Controllers
             DateTime instructortDate = DateTime.Now;
             DateTime dateOnly = instructortDate.Date;
             string studentTime = instructortDate.ToString("hh:mm:ss");
-            string correctTime = String.Format("09:00:00");
+            string correctTime = String.Format("12:0:00");
 
             Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
             //if ()
