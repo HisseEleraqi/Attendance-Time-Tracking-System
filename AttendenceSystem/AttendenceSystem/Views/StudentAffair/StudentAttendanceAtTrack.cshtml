@@ -189,10 +189,14 @@
                     </td>
                     <td>@viewModel.Permission.Status</td>
                     <td>
-                        <a asp-action="EditDegree" asp-controller="StudentAffair" asp-route-id="@viewModel.Id">
-                            <i class="fa fa-pencil"></i>
-                        </a>
+                        @if (viewModel.Permission.Status == PermisionStatus.Approved)
+                        {
+                            <a asp-action="EditDegree" asp-controller="StudentAffair" asp-route-id="@viewModel.Id">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        }
                     </td>
+
 
                 </tr>
             }

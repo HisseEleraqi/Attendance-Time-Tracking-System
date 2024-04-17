@@ -121,7 +121,7 @@ namespace AttendenceSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Student_affairsDashboard");
+                    return RedirectToAction("Attendance", "StudentAffair");
                 }
             }
             
