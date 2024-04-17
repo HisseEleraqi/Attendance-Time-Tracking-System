@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
 
     //Only Supervisor
     [Authorize(Roles = "Supervisor")]

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
     [Authorize(Roles = "StudentAffair")]
     public class StudentAffairController : Controller
     {

@@ -9,7 +9,6 @@ using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
 
     //Authorize For Instructor Or SuperVisor
     [Authorize(Roles = "Instructor, Supervisor")]

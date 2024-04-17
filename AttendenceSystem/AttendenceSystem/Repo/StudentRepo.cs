@@ -188,6 +188,7 @@ namespace AttendenceSystem.Repo
 
             context.Entry(editedstudent).State = EntityState.Modified;
             context.SaveChanges();
+        }
         public async Task<List<Student>> GetPendingStudentsAsync()
         {
             

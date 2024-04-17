@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
     [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {

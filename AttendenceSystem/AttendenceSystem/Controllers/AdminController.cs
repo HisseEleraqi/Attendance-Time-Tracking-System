@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {

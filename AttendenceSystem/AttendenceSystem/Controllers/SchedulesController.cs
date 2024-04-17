@@ -13,8 +13,6 @@ using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
-
     //Only Supervisor
     [Authorize(Roles = "Supervisor")]
     public class SchedulesController : Controller
