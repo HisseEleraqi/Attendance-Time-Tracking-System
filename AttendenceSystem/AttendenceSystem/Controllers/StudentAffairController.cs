@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
-    [Authorize(Roles = "StudentAffair")]
+    [Authorize(Roles = "Employee")]
     public class StudentAffairController : Controller
     {
         private readonly IStudentService studentService;
@@ -62,19 +62,13 @@ namespace AttendenceSystem.Controllers
                 return NotFound();
             }
 
-            return View(student); // Pass the student model to the view
+            studentRepo.UpdateStudentDegree(id);
+
+            return RedirectToAction("StudentAttendanceAtTrack","StudentAffair");
         }
 
-        [HttpPost]
-      
-        public IActionResult EditDegree(int id, Student viewModel)
-        {
-           
-
-            studentRepo.UpdateStudentDegree(id, viewModel.Degree);
-
-            return RedirectToAction("Attendance", "StudentAffair");
-        }
+        
+       
 
 
 
