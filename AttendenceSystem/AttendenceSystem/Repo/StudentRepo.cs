@@ -129,13 +129,13 @@ namespace AttendenceSystem.Repo
 
             return attendances;
         }
-        public StudentAttendanceViewModel UpdateStudentDegree(int id, int newDegree)
+        public StudentAttendanceViewModel UpdateStudentDegree(int id)
         {
             var existingStudent = context.Students.FirstOrDefault(s => s.Id == id);
 
             if (existingStudent != null)
             {
-                existingStudent.Degree = newDegree;
+                existingStudent.Degree = existingStudent.Degree + 5;
                 context.Students.Update(existingStudent);
                 context.SaveChanges();
 

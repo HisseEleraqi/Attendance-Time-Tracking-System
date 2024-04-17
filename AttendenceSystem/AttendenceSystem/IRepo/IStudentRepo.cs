@@ -16,7 +16,7 @@ namespace AttendenceSystem.IRepo
 
 
         public Student GetStudentById(int userId);
-        public StudentAttendanceViewModel UpdateStudentDegree(int id, int newDegree);
+        public StudentAttendanceViewModel UpdateStudentDegree(int id);
 
         public int GetStudentLateDays(int id);
 

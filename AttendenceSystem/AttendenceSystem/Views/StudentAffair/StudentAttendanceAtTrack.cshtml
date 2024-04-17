@@ -9,7 +9,7 @@
     table tr th {
         background-color: #FCFCFD;
         color: #788193;
-        width: 167px;
+        width: 220px;
     }
 
     table {
@@ -192,8 +192,11 @@
                         @if (viewModel.Permission.Status == PermisionStatus.Approved)
                         {
                             <a asp-action="EditDegree" asp-controller="StudentAffair" asp-route-id="@viewModel.Id">
-                                <i class="fa fa-pencil"></i>
+                                <img src="~/Images/5-stars (2).png" style="width: 50px;" />
                             </a>
+                        }
+                        else {
+                            <p>---</p>
                         }
                     </td>
 
