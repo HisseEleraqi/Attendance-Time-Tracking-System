@@ -4,12 +4,14 @@ using AttendenceSystem.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
+using AttendenceSystem.CustomFilter;
 using AttendenceSystem.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AttendenceSystem.Controllers
 {
+    [AuthFilter]
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
