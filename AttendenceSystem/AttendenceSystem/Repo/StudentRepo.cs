@@ -158,10 +158,6 @@ namespace AttendenceSystem.Repo
 
             return null; // Return null if student not found
         }
-        public List<Student> GetAllAcceptedStudents()
-        {
-            return context.Students.Where(s=>s.IsAccepted==true).ToList();
-        } 
 
         public void DeleteStudent(int studentid)
         {
@@ -189,6 +185,7 @@ namespace AttendenceSystem.Repo
             context.Entry(editedstudent).State = EntityState.Modified;
             context.SaveChanges();
         }
+
         public async Task<List<Student>> GetPendingStudentsAsync()
         {
             
@@ -204,7 +201,9 @@ namespace AttendenceSystem.Repo
                     context.SaveChanges();
                    
                 
-         }
+            
+
+        }
 
     }
 }

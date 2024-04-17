@@ -5,11 +5,9 @@ using AttendenceSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
 
     //Authorize For Instructor Or SuperVisor
     [Authorize(Roles = "Instructor, Supervisor")]
