@@ -7,6 +7,7 @@ using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
+
     //Only Supervisor
    [Authorize(Roles = "Supervisor")]
     public class PermissionController : Controller

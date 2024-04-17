@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace AttendenceSystem.Controllers
 {
+
     //Authorize For Instructor Or SuperVisor
     [Authorize(Roles = "Instructor, Supervisor")]
     public class InstructorController : Controller
