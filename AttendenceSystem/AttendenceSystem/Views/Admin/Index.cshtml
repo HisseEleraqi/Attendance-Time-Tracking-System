@@ -1,15 +1,90 @@
-﻿<!-- HTML code for the bell icon -->
+﻿<style>
+    .header {
+        padding: 6px;
+        background-color: #fff;
+        border: 2px solid #575a89;
+        border-radius: 43px;
+        margin-bottom: 20px;
+    }
+
+    .fa-volume-up {
+        color: #575a89;
+    }
+
+    .summary-container {
+        display: flex;
+        justify-content: center; 
+        gap: 20px;
+    }
+
+    .summary-item {
+        width: 25%;
+        margin-right: 14px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #575a89;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+        .summary-item h4 {
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        .summary-item p {
+            font-size: 24px;
+            color: black;
+        }
+
+    .today {
+        color: #ffc107;
+        font-size: 2.3rem;
+    }
+
+    .fa-battery-full {
+        color: white;
+    }
+
+    .fa-battery-empty {
+        color: white;
+    }
+
+    .fa-calendar-times-o {
+        color: white;
+    }
+
+    .fa-graduation-cap {
+        color: white;
+    }
+
+    .fa-user {
+        color: white;
+    }
+
+    .circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%; /* Make the circle */
+        width: 47px;
+        height: 47px;
+        background-color: #FA5A7E; /* Set default background color */
+    }
+</style>
+
+<!-- HTML code for the bell icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <div class="notification-icon" id="notificationIcon" title="Click to view pending students" style="position: fixed; right: 20px;">
-    <i class="fas fa-bell" style="color: #ffc107;"></i> <!-- Use the Font Awesome bell icon -->
-    <span class="badge" id="notificationCount" style="color: #575a89;">@ViewBag.PendingStudentCount</span>
+    <i class="fas fa-bell" style="color: #ffc107;font-size: 2rem;"></i>
+    <span class="badge" id="notificationCount" style="color: #575a89;font-size: 1.2rem;">@ViewBag.PendingStudentCount</span>
 </div>
 
 <!-- Toast notification -->
 <div id="toastContainer" aria-live="polite" aria-atomic="true" style="display: none; position: fixed; top: 200px; right: 20px; min-height: 200px; max-width: 300px;">
     <!-- Position the toasts -->
     <div>
-
         <!-- Add a toast for each pending student -->
         @foreach (var student in ViewBag.PendingStudents)
         {
@@ -25,7 +100,43 @@
                 </div>
             </div>
         }
-
+    </div>
+</div>
+<div style="display:inline-block">
+    <h3 style="color:#575a89">Daily Summary</h3>
+</div>
+<div class="summary-container">
+    <div class="summary-item" style="background-color:#FFE2E6">
+        <h4>
+            <div class="circle">
+                <i class="fa fa-user"></i>
+            </div> <br>Total Instructor
+        </h4>
+        <p>@ViewBag.Instructor</p>
+    </div>
+    <div class="summary-item" style="background-color:#FFF4DE">
+        <h4>
+            <div class="circle" style="background-color:#FE947A">
+                <i class="fa fa-graduation-cap"></i>
+            </div> <br>Total Supervisor
+        </h4>
+        <p>@ViewBag.Supervisor</p>
+    </div>
+    <div class="summary-item" style="background-color:#DCFCE7">
+        <h4>
+            <div class="circle" style="background-color:#3DD856">
+                <i class="fa fa-battery-full"></i>
+            </div> <br>Active Tracks
+        </h4>
+        <p>@ViewBag.ActiveTracks</p>
+    </div>
+    <div class="summary-item" style="background-color:#e9dbf7">
+        <h4>
+            <div class="circle" style="background-color:#BF83FF">
+                <i class="fa fa-battery-empty"></i>
+            </div> <br>InActive Tracks
+        </h4>
+        <p>@ViewBag.InActiveTracks</p>
     </div>
 </div>
 

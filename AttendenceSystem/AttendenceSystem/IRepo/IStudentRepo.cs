@@ -38,6 +38,11 @@ namespace AttendenceSystem.IRepo
         public List<Track> GetTracks();
         public Track GetStudentTrack(int studentid);
         public void EditStudent(Student editedstudent);
-    }
+        public int AllActiveTracks();
+        public int AllInActiveTracks();
+        public int AllAccepptedStudent();
+        public int Allinstructor();
+        public int AllSupervisor();
+}
 
 }

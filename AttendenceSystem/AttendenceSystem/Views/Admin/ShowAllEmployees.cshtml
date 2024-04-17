@@ -149,13 +149,6 @@
         </div>
     </div>
     </br>
-    <div class="row search">
-        <div class="input-group">
-            <input type="text" id="searchText" class="form-control" placeholder="Search" />
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-search"></i></span>
-            </div>
-        </div>
         <div class="container">
             <table id="myTable" class="tabel table-responsive-sm table-border table-hover ">
                 <tr>
@@ -196,15 +189,15 @@
 
 @section Scripts2 {
     <script>
-        $(document).ready(function () {
             $(document).ready(function () {
-                $('#myTable').DataTable({
-                    paging: true,
-                    pageLength: 10,
-                    searching: true,
-                    ordering: true,
-                    info: true
-                });
+
+            $('#myTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                searching: true,
+                ordering: true,
+                info: true
+            });
         });
     </script>
 }

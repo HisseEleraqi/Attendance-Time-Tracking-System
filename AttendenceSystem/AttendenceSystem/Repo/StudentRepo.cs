@@ -204,7 +204,26 @@ namespace AttendenceSystem.Repo
                     context.SaveChanges();
                    
                 
-         }
-
+        }
+        public int AllActiveTracks()
+        {
+            return context.Tracks.Count(t=>t.IsActive == true);
+        }
+        public int AllInActiveTracks()
+        {
+            return context.Tracks.Count(t => t.IsActive == false);
+        }
+        public int AllAccepptedStudent()
+        {
+            return context.Students.Count(s =>s.IsAccepted==true);
+        }
+        public int Allinstructor()
+        {
+            return context.Instructors.Count();
+        }
+        public int AllSupervisor()
+        {
+            return context.Tracks.Count(t=>t.Supervisor!=null);
+        }
     }
 }
