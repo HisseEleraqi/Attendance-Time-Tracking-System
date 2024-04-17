@@ -28,6 +28,8 @@ namespace AttendenceSystem
             builder.Services.AddTransient<IStudentRepo, StudentRepo>();
             builder.Services.AddTransient<IStudentService, StudentService>();
             builder.Services.AddTransient<IUserRepo, UserRepo>();
+            builder.Services.AddTransient<INotificationService, NotificationService>();
+
             builder.Services.AddSession();
             builder.Services.AddControllersWithViews(option => 
             { option.Filters.Add<AuthFilter>();

@@ -8,11 +8,13 @@ using System.Security.Claims;
 using AttendenceSystem.CustomFilter;
 using Microsoft.EntityFrameworkCore;
 
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace AttendenceSystem.Controllers
 {
     [AuthFilter]
-
+    [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
 

@@ -5,26 +5,34 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
 using AttendenceSystem.CustomFilter;
+using AttendenceSystem.Repo;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AttendenceSystem.Controllers
 {
     [AuthFilter]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        
         private readonly InstructorIRepo Instructor;
         private readonly IEmpRepo EmpRepo;
         private readonly TrackIRepo Track;
 
         private readonly IStudentRepo studentRepo;
+        private readonly INotificationService notificationService;
+        
 
+        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo, IStudentRepo _studentRepo, INotificationService _notificationService)
 
-        public AdminController(InstructorIRepo Repo, IEmpRepo empRepo,TrackIRepo trackrepo, IStudentRepo _studentRepo)
 
         {
             Instructor = Repo;
             EmpRepo = empRepo;
             Track = trackrepo;
             studentRepo = _studentRepo;
+           notificationService= _notificationService;
 
 
         }
@@ -269,6 +277,37 @@ namespace AttendenceSystem.Controllers
             }
             return RedirectToAction("DisplayTracks");
         }
+        public async Task<IActionResult> Index()
+        {
+            int pendingStudentCount = await notificationService.GetPendingStudentCountAsync();
+            ViewBag.PendingStudentCount = pendingStudentCount;
+           List< Student>students = await studentRepo.GetPendingStudentsAsync();
+            ViewBag.PendingStudents = students;
+            return View();
+        }
+        public async Task<IActionResult> PendingStudents()
+        {
+            List<Student> students = await studentRepo.GetPendingStudentsAsync();
+            
+            return View(students);
+        }
+        [HttpPost]
+        public IActionResult AcceptStudent(int studentId)
+        {
+            // Update the student's status in the database
+            var student = studentRepo.GetStudentById(studentId);
+            if (student != null)
+            {
+                studentRepo.UpdateStudentState(studentId);
+                return Ok(); // Return success status code
+            }
+            else
+            {
+                return NotFound(); // Return not found status code if student not found
+            }
+        }
+
+
 
     }
 }
