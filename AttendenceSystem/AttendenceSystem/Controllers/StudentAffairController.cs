@@ -1,4 +1,5 @@
-﻿using AttendenceSystem.IRepo;
+﻿using AttendenceSystem.CustomFilter;
+using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using AttendenceSystem.ViewModel;
@@ -6,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
+    [AuthFilter]
+
     public class StudentAffairController : Controller
     {
         private readonly IStudentService studentService;

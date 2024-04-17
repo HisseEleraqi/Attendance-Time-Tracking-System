@@ -1,9 +1,8 @@
-@model IEnumerable<Employee>;
+﻿@model IEnumerable<Student>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_mainLayout.cshtml";
 }
-
 <style>
 
     table tr th {
@@ -129,83 +128,80 @@
     .alert-danger {
         text-align: center;
     }
+
 </style>
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ShowAllEmployees</title>
-</head>
-<body>
-    <h1>AllEmployees</h1>
-    <div class="row">
-        <div class="col">
-            <hr />
-        </div>
-        <div class="col right">
-            <a class="btn btn-warning" asp-action="AddEmployee" asp-controller="Admin">Add + </a>
-        </div>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
     </div>
-    </br>
-    <div class="row search">
-        <div class="input-group">
-            <input type="text" id="searchText" class="form-control" placeholder="Search" />
-            <div class="input-group-append">
-                <span class="input-group-text"><i class="fa fa-search"></i></span>
-            </div>
-        </div>
-        <div class="container">
-            <table id="myTable" class="tabel table-responsive-sm table-border table-hover ">
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div id="errorMessage" class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="container">
+    <table id="myTable" class="table table-border table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Grade Year</th>
+                <th>Faculty</th>
+                <th>University</th>
+                <th>Mobile</th>
+                <th>Specification</th>
+                <th>Track</th>
+                <th style="width:71px">Edit</th>
+                <th style="width:71px">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
                 <tr>
-                    <th>Employee Name</th>
-                    <th>Employee Email</th>
-                    <th>Employee Phone</th>
-                    <th>Employee Type</th>
-                    <th style="width:71px">Edit</th>
-                    <th style="width:71px">Delete</th>
-                    <th style="width:71px">View</th>
+                    <td>@student.Name</td>
+                    <td>@student.Email</td>
+                    <td>@student.GraduationYear</td>
+                    <td>@student.Faculty</td>
+                    <td>@student.University</td>
+                    <td>@student.Mobile</td>
+                    <td>@student.Specification</td>
+                    <td>@student.Track.Name</td>
+
+                    <td><a asp-action="EditStudent" asp-controller="Student" asp-route-Studentid=@student.Id><i class="fa fa-pencil"></i></a></td>
+                    <td><a asp-action="DeleteStudent" asp-controller="Student" asp-route-Studentid=@student.Id><i class="fa fa-trash-o"></i></a></td>
                 </tr>
-                @foreach (var emp in Model)
-                {
-                    <tr>
-                        <td>@emp.Name</td>
-                        <td>@emp.Email</td>
-                        <td>@emp.Mobile</td>
-                        <td>@emp.EmpType</td>
-                        <td>
-                            <a asp-controller="Admin" asp-action="EditEmployee" asp-route-id="@emp.Id"><i class="fa fa-pencil"></i></a>
-                        </td>
+            }
+        </tbody>
+    </table>
+    <div class="alert alert-danger" id="noDataMessage" style="display: none;">No data found.</div>
 
-                        <td>
-                            <a asp-action="DeleteEmployee" asp-route-id="@emp.Id"><i class="fa fa-trash-o"></i></a>
-                        </td>
-
-                        <td>
-                            <a asp-action="DeatailsEmp" asp-route-id="@emp.Id"><i class="fa fa-eye"></i></a>
-                        </td>
-
-                    </tr>
-                }
-            </table>
-        </div>
-
-</body>
-</html>
-
+</div>
 @section Scripts2 {
     <script>
         $(document).ready(function () {
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    paging: true,
-                    pageLength: 10,
-                    searching: true,
-                    ordering: true,
-                    info: true
-                });
+            $('#myTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                searching: true,
+                ordering: true,
+                info: true
+            });
+
+
+            setTimeout(function () {
+                $('#successMessage').fadeOut('slow');
+            }, 5000);
+
+            setTimeout(function () {
+                $('#errorMessage').fadeOut('slow');
+            }, 5000);
         });
     </script>
-}
 
+}

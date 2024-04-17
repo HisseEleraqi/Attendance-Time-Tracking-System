@@ -4,9 +4,11 @@ using AttendenceSystem.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AttendenceSystem.ViewModel;
+using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem.Controllers
 {
+    [AuthFilter]
     public class AdminController : Controller
     {
         private readonly InstructorIRepo Instructor;
