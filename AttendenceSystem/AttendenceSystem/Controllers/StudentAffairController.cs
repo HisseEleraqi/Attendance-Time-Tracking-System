@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
-    [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Student_affairs")]
     public class StudentAffairController : Controller
     {
         private readonly IStudentService studentService;
@@ -47,14 +47,14 @@ namespace AttendenceSystem.Controllers
         [HttpGet]
         public IActionResult StudentAttendanceAtTrack(int trackId, DateOnly date)
         {
-            DateOnly date1 = new DateOnly(2024, 1, 4);
+            //DateOnly date1 = new DateOnly(2024, 1, 4);
             List<StudentAttendanceViewModel> viewModels = studentService.GetTrackAttendancedate(trackId, date);
 
             return PartialView("StudentAttendanceAtTrack", viewModels);
             //return Json(viewModels);
         }
-        [HttpGet]
-        public IActionResult EditDegree(int id)
+        [HttpPost]
+        public IActionResult EditDegree(int id , int perid)
         {
             Student student = studentRepo.GetStudentById(id);
             if (student == null)
@@ -62,13 +62,16 @@ namespace AttendenceSystem.Controllers
                 return NotFound();
             }
 
-            studentRepo.UpdateStudentDegree(id);
+            // Update student degree
+            studentRepo.UpdateStudentDegree(id,perid);
 
-            return RedirectToAction("StudentAttendanceAtTrack","StudentAffair");
+            // Return updated degree value (assuming you want to return it)
+            return Json(new { degree = student.Degree });
         }
 
-        
-       
+
+
+
 
 
 

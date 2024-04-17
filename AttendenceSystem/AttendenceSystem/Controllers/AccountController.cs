@@ -115,7 +115,7 @@ namespace AttendenceSystem.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-            else if (userRoles.Contains("Employee"))
+            else if (userRoles.Contains("Student_affairs"))
             {
                 if (userRoles.Contains("Security"))
                 {
@@ -167,6 +167,11 @@ namespace AttendenceSystem.Controllers
 
         public IActionResult PendingRegistration()
         {
+            return View();
+        }
+        public IActionResult AccessDenied()
+        {
+            
             return View();
         }
 
