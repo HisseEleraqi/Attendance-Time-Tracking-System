@@ -152,7 +152,7 @@
     </div>
 </div>
 <div class="container">
-    <table id="myTable" class="table table-border table-responsive table-hover">
+    <table class="table table-border table-responsive table-hover">
         <thead>
             <tr>
                 <th>Name</th>
@@ -249,15 +249,27 @@
                 });
             });
 
-                $('#myTable').DataTable({
-                    paging: true,
-                    pageLength: 10,
-                    searching: true,
-                    ordering: true,
-                    info: true
+
+            $('#searchText').on('keyup', function () {
+                var searchText = $(this).val().toLowerCase();
+                var isAnyRowVisible = false;
+
+                $('tbody tr').each(function () {
+                    var rowData = $(this).text().toLowerCase();
+                    if (rowData.indexOf(searchText) === -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                        isAnyRowVisible = true;
+                    }
                 });
 
-
+                if (isAnyRowVisible) {
+                    $('#noDataMessage').hide();
+                } else {
+                    $('#noDataMessage').show();
+                }
+            });
         });
     </script>
 }

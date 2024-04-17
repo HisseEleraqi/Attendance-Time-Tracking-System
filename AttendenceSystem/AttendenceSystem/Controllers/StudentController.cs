@@ -5,9 +5,6 @@ using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using AttendenceSystem.CustomFilter;
-using Microsoft.EntityFrameworkCore;
-
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -19,29 +16,27 @@ namespace AttendenceSystem.Controllers
 
         private readonly IStudentRepo studentRepo;
         private readonly IUserRepo userRepo;
-        private readonly InstructorIRepo instructor;
-        public StudentController(IStudentRepo _studentRepo, IUserRepo _userRepo, InstructorIRepo _insRepo)
+        public StudentController(IStudentRepo _studentRepo,IUserRepo _userRepo)
 
         {
             studentRepo = _studentRepo;
-            userRepo = _userRepo;
-            instructor = _insRepo;
+            userRepo= _userRepo;
         }
-
+        
 
         public IActionResult AttendenceDetails()
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var userId = int.Parse(userIdClaim);
 
-            ViewBag.LateDays = studentRepo.GetStudentLateDays(userId);
+            ViewBag.LateDays= studentRepo.GetStudentLateDays(userId);
             ViewBag.AbsentDays = studentRepo.GetStudentAbsentDays(userId);
             ViewBag.Degree = studentRepo.GetStudentDegrees(userId);
             ViewBag.CurrentDate = DateTime.Today.ToShortDateString();
-            return View();
+             return View();
         }
 
-        public IActionResult Index()
+        public IActionResult  Index()
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var userId = int.Parse(userIdClaim);
@@ -54,11 +49,11 @@ namespace AttendenceSystem.Controllers
 
         public IActionResult StudentScdule()
         {
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            var userId = int.Parse(userIdClaim);
-            var user = studentRepo.StudentSchedule(userId);
-            return View(user);
-
+           var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+           var userId = int.Parse(userIdClaim);
+           var user=studentRepo.StudentSchedule(userId);
+           return View(user);
+           
         }
 
 
@@ -66,7 +61,7 @@ namespace AttendenceSystem.Controllers
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var userId = int.Parse(userIdClaim);
-            var permisions = studentRepo.GetStudentPermision(userId);
+            var permisions=studentRepo.GetStudentPermision(userId);
             return View(permisions);
         }
         [HttpGet]
@@ -95,56 +90,6 @@ namespace AttendenceSystem.Controllers
         {
             studentRepo.Deletpermision(permisionId);
             return RedirectToAction("PermisonDisplay");
-        }
-
-        public IActionResult DisplayAllStudent()
-        {
-            var students = studentRepo.GetAllAcceptedStudents();
-            return View(students);
-        }
-        public IActionResult DeleteStudent(int Studentid)
-        {
-            try
-            {
-                studentRepo.DeleteStudent(Studentid);
-                TempData["SuccessMessage"] = "Student deleted successfully.";
-
-
-            }
-            catch
-            {
-                TempData["ErrorMessage"] = "An error occurred while deleting the student.";
-
-            }
-            return RedirectToAction("DisplayAllStudent");
-        }
-        [HttpGet]
-        public IActionResult EditStudent(int Studentid)
-        {
-            var student = studentRepo.GetStudentById(Studentid);
-            ViewBag.tracks = studentRepo.GetTracks();
-            ViewBag.studentTrack = studentRepo.GetStudentTrack(Studentid);
-            return View(student);
-        }
-        [HttpPost]
-        public IActionResult EditStudent(int Studentid, Student editedstudent)
-        {
-            ViewBag.tracks = studentRepo.GetTracks();
-            ViewBag.studentTrack = studentRepo.GetStudentTrack(Studentid);
-            if (ModelState.IsValid)
-            {
-                if (!instructor.ISEmailExistE(Studentid, editedstudent.Email))
-                {
-
-                    editedstudent.Id = Studentid; 
-                    studentRepo.EditStudent(editedstudent);
-                    TempData["SuccessMessage"] = "Student edited successfully.";
-                    return RedirectToAction("DisplayAllStudent");
-                }
-
-            }
-
-            return View(editedstudent);
         }
 
     }

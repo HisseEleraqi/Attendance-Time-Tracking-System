@@ -123,7 +123,7 @@ namespace AttendenceSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Student_affairsDashboard");
+                    return RedirectToAction("Attendance", "StudentAffair");
                 }
             }
             
@@ -166,10 +166,6 @@ namespace AttendenceSystem.Controllers
         }
 
         public IActionResult PendingRegistration()
-        {
-            return View();
-        }
-        public IActionResult AccessError()
         {
             return View();
         }
