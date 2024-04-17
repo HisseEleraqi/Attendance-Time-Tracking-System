@@ -9,12 +9,9 @@ using AttendenceSystem.Data;
 using AttendenceSystem.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
-
     //Only Supervisor
     [Authorize(Roles = "Supervisor")]
     public class SchedulesController : Controller

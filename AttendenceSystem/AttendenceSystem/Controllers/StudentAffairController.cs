@@ -1,5 +1,4 @@
-﻿using AttendenceSystem.CustomFilter;
-using AttendenceSystem.IRepo;
+﻿using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using AttendenceSystem.ViewModel;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
     [Authorize(Roles = "StudentAffair")]
     public class StudentAffairController : Controller
     {

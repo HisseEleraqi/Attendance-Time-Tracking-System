@@ -1,12 +1,9 @@
-using AttendenceSystem.CustomFilter;
 using AttendenceSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace AttendenceSystem.Controllers
 {
-    [AuthFilter]
-
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
