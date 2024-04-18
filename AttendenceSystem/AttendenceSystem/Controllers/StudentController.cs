@@ -220,44 +220,53 @@ namespace AttendenceSystem.Controllers
 
                     if (rowCount > 1)
                     {
-                        for (int row = 2; row <= rowCount; row++)
+                        
+                        try
                         {
-                            // Access the cell values using the row and column indexes
-                            userName = worksheet.Cells[row, 1].Value?.ToString();
-                            userEmail = worksheet.Cells[row, 2].Value?.ToString();
-                            userMobile = worksheet.Cells[row, 3].Value?.ToString();
-
-
-
-                            studentDegree = (int)Convert.ToDouble(worksheet.Cells[row, 4].Value); //int.Parse(worksheet.Cells[row, 5].Value);
-                            studentSpec = worksheet.Cells[row,5].Value?.ToString();
-                            graduation = (int)Convert.ToDouble(worksheet.Cells[row, 6].Value); //int.Parse(worksheet.Cells[row, 6].Value?.ToString());
-                            studentFaculty = worksheet.Cells[row, 7].Value?.ToString();
-                            studentUniversity = worksheet.Cells[row, 8].Value?.ToString();
-                            //password
-                            // userPassword = int.Parse(worksheet.Cells[row, 9].Value?.ToString());
-                            //track id
-                             studentTrackId= int.Parse(worksheet.Cells[row, 11].Value?.ToString());
-
-
-                            if (string.IsNullOrEmpty(userName)||string.IsNullOrEmpty(userEmail)
-                                || string.IsNullOrEmpty(userMobile) || string.IsNullOrEmpty(studentSpec)
-                                || string.IsNullOrEmpty(studentFaculty) || string.IsNullOrEmpty(studentUniversity)
-                                || (studentDegree == null || studentDegree == 0)
-                                || (graduation == null || graduation == 0))
+                            for (int row = 2; row <= rowCount; row++)
                             {
-                                return BadRequest("fileIsEmpty");
+                                // Access the cell values using the row and column indexes
+                                userName = worksheet.Cells[row, 1].Value?.ToString();
+                                userEmail = worksheet.Cells[row, 2].Value?.ToString();
+                                userMobile = worksheet.Cells[row, 3].Value?.ToString();
+
+
+
+                                studentDegree = (int)Convert.ToDouble(worksheet.Cells[row, 4].Value); //int.Parse(worksheet.Cells[row, 5].Value);
+                                studentSpec = worksheet.Cells[row, 5].Value?.ToString();
+                                graduation = (int)Convert.ToDouble(worksheet.Cells[row, 6].Value); //int.Parse(worksheet.Cells[row, 6].Value?.ToString());
+                                studentFaculty = worksheet.Cells[row, 7].Value?.ToString();
+                                studentUniversity = worksheet.Cells[row, 8].Value?.ToString();
+                                //password
+                                userPassword = int.Parse(worksheet.Cells[row, 9].Value?.ToString());
+                                //track id
+                                studentTrackId = int.Parse(worksheet.Cells[row, 10].Value?.ToString());
+
+
+                                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userEmail)
+                                    || string.IsNullOrEmpty(userMobile) || string.IsNullOrEmpty(studentSpec)
+                                    || string.IsNullOrEmpty(studentFaculty) || string.IsNullOrEmpty(studentUniversity)
+                                    || (studentDegree == null || studentDegree == 0)
+                                    || (graduation == null || graduation == 0))
+                                {
+                                    return BadRequest("fileIsEmpty");
+                                }
+
+                                // var studentTrackId= int.Parse(worksheet.Cells[row, 11].Value?.ToString());
+
+                                Student student = new Student() { Name = userName, Email = userEmail, Password = userPassword.ToString(), Mobile = userMobile, Degree = studentDegree, Specification = studentSpec, GraduationYear = graduation, Faculty = studentFaculty, University = studentUniversity, TrackID = studentTrackId };
+                                StudentList.Add(student);
+                                //studentRepo.AddStudent(student);
+
                             }
-                           
-                            // var studentTrackId= int.Parse(worksheet.Cells[row, 11].Value?.ToString());
-
-                            Student student = new Student() { Name = userName,   Email = userEmail, Mobile = userMobile, Degree = studentDegree, Specification = studentSpec, GraduationYear = graduation, Faculty = studentFaculty, University = studentUniversity,TrackID= studentTrackId };
-                            StudentList.Add(student);
-                            //studentRepo.AddStudent(student);
-
+                            context.Students.AddRange(StudentList);
                         }
-                        context.Students.AddRange(StudentList);
-                        context.SaveChanges();
+                        catch(Exception ex)
+                        {
+                            ViewBag.Error = "Error saving the data!";
+                            return View("AdminError");
+                        }
+
                     }
                     else
                         return BadRequest("fileIsEmpty");
@@ -266,6 +275,8 @@ namespace AttendenceSystem.Controllers
             else
                 return BadRequest("file Not Support");
             // Redirect to a success page or return a JSON response indicating success
+            context.SaveChanges();
+
             return RedirectToAction("Index", "Student");
         }
 

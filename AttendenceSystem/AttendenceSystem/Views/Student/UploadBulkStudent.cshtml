@@ -16,8 +16,10 @@
 
 <form id="uploadForm" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="file">Upload BulK Student</label>
-        <input type="file" class="btn btn-success" style="margin-top:20px;visibility:hidden;" id="file" name="file" accept=".xlsx,.xls">
+
+        <button type="button" class="btn btn-outline-success" style="margin-top:20px;" onclick="document.getElementById('file').click()">Upload Bulk File</button>
+        <input type="file" style="visibility:hidden;position:absolute;" id="file" name="file" accept=".xlsx,.xls">
+
     </div>
 </form>
 

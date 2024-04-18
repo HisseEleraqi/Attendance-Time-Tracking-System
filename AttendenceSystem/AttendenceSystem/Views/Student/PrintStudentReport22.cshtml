@@ -22,6 +22,15 @@
                 <label for="endDate">End Date:</label>
                 <input type="date" class="form-control" id="endDate">
             </div>
+            <div class="form-group">
+                <label for="attendanceStatus">Attendance Status:</label>
+                <select class="form-control" id="attendanceStatus">
+                    <option value="all">All</option>
+                    <option value="absent">Absent</option>
+                    <option value="late">Late</option>
+                    <option value="present">Present</option>
+                </select>
+            </div>
             <br />
             <button type="button" class="btn btn-primary" id="filterBtn">Filter</button>
         </form>
@@ -31,6 +40,7 @@
         </form>
     </div>
 
+
     <table id="departmentTable" class="table table-bordered table-hover m-3">
         <thead>
         <th>Date</th>
@@ -39,6 +49,8 @@
         <th>Is Present</th>
         <th>Is Late</th>
         <th>Is Absent</th>
+        <th>Grade</th>
+
         <th>UserName</th>
         </thead>
         <tbody>
@@ -59,6 +71,7 @@
                         <td>@item.IsPresent</td>
                         <td>@item.IsLate</td>
                         <td>@item.IsAbsent</td>
+
                         <td>@item.User?.Name</td>
                     </tr>
                 }
@@ -72,16 +85,24 @@
             $("#filterBtn").click(function () {
                 var startDate = new Date($("#startDate").val());
                 var endDate = new Date($("#endDate").val());
+                var statusFilter = $("#attendanceStatus").val();
 
-                filterData(startDate, endDate);
+                filterData(startDate, endDate, statusFilter);
             });
         });
 
-        function filterData(startDate, endDate) {
+        function filterData(startDate, endDate, statusFilter) {
             $("tbody tr").each(function () {
                 var rowDate = new Date($(this).find("td:first").text());
+                var isAbsent = $(this).find("td:nth-child(6)").text() === "True";
+                var isLate = $(this).find("td:nth-child(7)").text() === "True";
+                var isPresent = $(this).find("td:nth-child(8)").text() === "True";
 
-                if (rowDate >= startDate && rowDate <= endDate) {
+                if ((rowDate >= startDate && rowDate <= endDate) &&
+                    (statusFilter === "all" ||
+                        (statusFilter === "absent" && isAbsent) ||
+                        (statusFilter === "late" && isLate) ||
+                        (statusFilter === "present" && isPresent))) {
                     $(this).show();
                 } else {
                     $(this).hide();
