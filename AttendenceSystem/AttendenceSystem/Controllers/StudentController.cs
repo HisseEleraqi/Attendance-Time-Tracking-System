@@ -16,13 +16,16 @@ namespace AttendenceSystem.Controllers
 
         private readonly IStudentRepo studentRepo;
         private readonly IUserRepo userRepo;
-        public StudentController(IStudentRepo _studentRepo,IUserRepo _userRepo)
+        private readonly InstructorIRepo instructor;
+
+        public StudentController(IStudentRepo _studentRepo,IUserRepo _userRepo, InstructorIRepo _insRepo)
 
         {
             studentRepo = _studentRepo;
             userRepo= _userRepo;
+            instructor = _insRepo;
         }
-        
+
 
         public IActionResult AttendenceDetails()
         {
@@ -91,6 +94,68 @@ namespace AttendenceSystem.Controllers
             studentRepo.Deletpermision(permisionId);
             return RedirectToAction("PermisonDisplay");
         }
+
+
+
+
+
+        //////////new code nyira////////////////
+
+        public IActionResult DisplayAllStudent()
+        {
+            var students = studentRepo.GetAllAcceptedStudents();
+            return View(students);
+        }
+        public IActionResult DeleteStudent(int Studentid)
+        {
+            try
+            {
+                studentRepo.DeleteStudent(Studentid);
+                TempData["SuccessMessage"] = "Student deleted successfully.";
+
+
+            }
+            catch
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the student.";
+
+            }
+            return RedirectToAction("DisplayAllStudent");
+        }
+        [HttpGet]
+        public IActionResult EditStudent(int Studentid)
+        {
+            var student = studentRepo.GetStudentById(Studentid);
+            ViewBag.tracks = studentRepo.GetTracks();
+            ViewBag.studentTrack = studentRepo.GetStudentTrack(Studentid);
+            return View(student);
+        }
+        [HttpPost]
+        public IActionResult EditStudent(int Studentid, Student editedstudent)
+        {
+            ViewBag.tracks = studentRepo.GetTracks();
+            ViewBag.studentTrack = studentRepo.GetStudentTrack(Studentid);
+            if (ModelState.IsValid)
+            {
+                if (!instructor.ISEmailExistE(Studentid, editedstudent.Email))
+                {
+
+                    editedstudent.Id = Studentid;
+                    studentRepo.EditStudent(editedstudent);
+                    TempData["SuccessMessage"] = "Student edited successfully.";
+                    return RedirectToAction("DisplayAllStudent");
+                }
+
+            }
+
+            return View(editedstudent);
+        }
+
+
+
+
+
+
 
     }
 }

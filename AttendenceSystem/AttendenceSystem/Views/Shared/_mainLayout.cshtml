@@ -35,9 +35,9 @@
                                 <li>
                                     <a asp-action="ShowInstructors" asp-controller="Admin">Instructors</a>
                                 </li>
-                                <li>
+                                @* <li>
                                     <a asp-action="ShowStudents" asp-controller="Admin">Students</a>
-                                </li>
+                                </li> *@
                                 <li>
                                     <a asp-action="ShowAllEmployees" asp-controller="Admin">Employees</a>
                                 </li>
@@ -77,9 +77,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">Profile</a>
-                        </li>
+                       
                         <li>
                             <a asp-action="Login" asp-controller="Account">Log Out</a>
                         </li>

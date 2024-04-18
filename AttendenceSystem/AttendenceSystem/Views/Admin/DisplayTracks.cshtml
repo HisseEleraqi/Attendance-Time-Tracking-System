@@ -127,10 +127,9 @@
         cursor: pointer;
     }
 
-    .alert-danger,.alert-success {
+    .alert-danger, .alert-success {
         text-align: center;
     }
-
 </style>
 @if (TempData.ContainsKey("SuccessEdit"))
 {
@@ -149,14 +148,6 @@
     <div class="col">
         <h1>Tracks</h1>
         <hr />
-    </div>
-</div>
-<div class="row search">
-    <div class="input-group">
-        <input type="text" id="searchText" class="form-control" placeholder="Search" />
-        <div class="input-group-append">
-            <span class="input-group-text"><i class="fa fa-search"></i></span>
-        </div>
     </div>
 </div>
 <div class="container">
@@ -189,15 +180,15 @@
                     </td>
                     <td>@Track.Capacity</td>
                     <td>@Track.Program.Name</td>
-                        @if (ViewBag.numberofstudent.ContainsKey(Track.Id))
-                        {
+                    @if (ViewBag.numberofstudent.ContainsKey(Track.Id))
+                    {
                         <td class="Absent">@ViewBag.numberofstudent[Track.Id]</td>
-                        }
-                        else
-                        {
+                    }
+                    else
+                    {
                         <td class="Absent">0</td>
 
-                        }
+                    }
                     <td>
                         <div class="form-check form-switch" style="text-align:center">
                             <input class="form-check-input track-activity"
@@ -257,16 +248,15 @@
                 });
             });
 
-                $('#myTable').DataTable({
-                    paging: true,
-                    pageLength: 10,
-                    searching: true,
-                    ordering: true,
-                    info: true
-                });
+            $('#myTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                searching: true,
+                ordering: true,
+                info: true
+            });
 
 
         });
     </script>
 }
-

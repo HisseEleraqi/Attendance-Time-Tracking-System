@@ -14,6 +14,8 @@ namespace AttendenceSystem.Repo
         private readonly DataContext context = new DataContext();
 
         private readonly TrackIRepo trackIRepo;
+
+        ///
         public StudentRepo(TrackIRepo _trackIRepo)
         {
 

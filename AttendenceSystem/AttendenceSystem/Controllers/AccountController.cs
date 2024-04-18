@@ -93,7 +93,7 @@ namespace AttendenceSystem.Controllers
                 var student = studentRepo.GetStudentById(user.Id); // Implement a method to retrieve student by email
                 if (student != null && student.IsAccepted)
                 {
-                    return RedirectToAction("Index", "Student"); // Redirect to student dashboard
+                    return RedirectToAction("AttendenceDetails", "Student"); // Redirect to student dashboard
                 }
                 else
                 {
@@ -117,16 +117,17 @@ namespace AttendenceSystem.Controllers
             }
             else if (userRoles.Contains("Student_affairs"))
             {
-                if (userRoles.Contains("Security"))
-                {
-                    return RedirectToAction("Index", "SecurityDashboard");
-                }
-                else
-                {
+                
+                
+              
                     return RedirectToAction("Attendance", "StudentAffair");
-                }
+                
             }
-            
+           else if (userRoles.Contains("Security"))
+            {
+                return RedirectToAction("Index", "SecurityDashboard");
+            }
+
 
             else
             {
