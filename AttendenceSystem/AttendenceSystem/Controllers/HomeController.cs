@@ -1,4 +1,5 @@
 using AttendenceSystem.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,12 +16,10 @@ namespace AttendenceSystem.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
-        public IActionResult NotAuthorized()
-        {
-            return View();
-        }
+        
         public IActionResult Privacy()
         {
             return View();

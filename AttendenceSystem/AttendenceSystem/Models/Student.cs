@@ -13,6 +13,8 @@ namespace AttendenceSystem.Models
        public int TrackID {  get; set; }
         [JsonIgnore]
         public virtual  Track Track { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Permision> Permisions { get; set; } = new List<Permision>();
 
     }
 }

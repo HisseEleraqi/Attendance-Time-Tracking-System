@@ -4,6 +4,7 @@ using AttendenceSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendenceSystem.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240417192331_permission-reviewed")]
+    partial class permissionreviewed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,7 +184,7 @@ namespace AttendenceSystem.Migrations
                         new
                         {
                             Id = 3,
-                            RoleName = "Student_affairs"
+                            RoleName = "Employee"
                         },
                         new
                         {
@@ -192,11 +195,6 @@ namespace AttendenceSystem.Migrations
                         {
                             Id = 5,
                             RoleName = "Supervisor"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            RoleName = "Security"
                         });
                 });
 
@@ -411,7 +409,7 @@ namespace AttendenceSystem.Migrations
             modelBuilder.Entity("AttendenceSystem.Models.Permision", b =>
                 {
                     b.HasOne("AttendenceSystem.Models.Student", "Student")
-                        .WithMany("Permisions")
+                        .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -547,11 +545,6 @@ namespace AttendenceSystem.Migrations
             modelBuilder.Entity("AttendenceSystem.Models.Instructor", b =>
                 {
                     b.Navigation("TrackInstructors");
-                });
-
-            modelBuilder.Entity("AttendenceSystem.Models.Student", b =>
-                {
-                    b.Navigation("Permisions");
                 });
 #pragma warning restore 612, 618
         }
