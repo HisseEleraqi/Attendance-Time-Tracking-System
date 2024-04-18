@@ -178,6 +178,7 @@ namespace AttendenceSystem.Controllers
         {
 
             var tracks = _trackIRepo.GetAllTracks();
+
             return View(tracks);
         }
 
@@ -188,6 +189,8 @@ namespace AttendenceSystem.Controllers
         {
             var instructors = _trackIRepo.GetTrackInstructors(id);
             ViewBag.ID = id;
+            var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
+            ViewBag.TodayAttend = trackAttendToday;
             return View(instructors);
         }
 
