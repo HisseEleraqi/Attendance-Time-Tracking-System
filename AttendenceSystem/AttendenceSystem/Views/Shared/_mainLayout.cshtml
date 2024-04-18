@@ -1,63 +1,61 @@
 ﻿@using System.Security.Claims
 @{
-	var user = Context.User;
+    var user = Context.User;
     var roles = ((ClaimsIdentity)User.Identity).Claims
                .Where(c => c.Type == ClaimTypes.Role)
                .Select(c => c.Value);
-    }
+}
 <!doctype html>
 <html lang="en">
-  <head>
-  	<title>Sidebar</title>
+<head>
+    <title>Sidebar</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-@*     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
- *@    <link rel="stylesheet" href="/css/mainLayout.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="stylesheet" href="/css/mainLayout.css">
     @RenderSection("Header", required: false)
-  </head>
-  <body>
-    
-		<div class="wrapper d-flex align-items-stretch">
-			<nav id="sidebar">
+</head>
+<body>
+
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
             @if (User.IsInRole("Admin"))
             {
 
 
                 <div class="p-4 pt-5">
                     <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(/Images/admin.jpg);"></a>
-	        <ul class="list-unstyled components mb-5">
-	          <li class="active">
-	            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
-	            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                    <a asp-action="ShowInstructors" asp-controller="Admin">Instructors</a>
-                </li>
-                <li>
-                  <a asp-action="ShowStudents" asp-controller="Admin">Students</a>
-                </li>
-                <li>
-                    <a asp-action="ShowAllEmployees" asp-controller="Admin">Employees</a>
-                </li>
-                            <li>
-                                <a asp-action="DisplayTracks" asp-controller="Admin">Track</a>
-                            </li>
-	            </ul>
-	          </li>
-	          <li>
-              <a href="#">Profile</a>
-	          </li>
-	          <li>
-              <a asp-action="Login" asp-controller="Account">Log Out</a>
-	          </li>
-	        </ul>
-	      </div>
-          }
-         
+                    <ul class="list-unstyled components mb-5">
+                        <li class="active">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dashboard</a>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li>
+                                    <a asp-action="ShowInstructors" asp-controller="Admin">Instructors</a>
+                                </li>
+                                <li>
+                                    <a asp-action="ShowStudents" asp-controller="Admin">Students</a>
+                                </li>
+                                <li>
+                                    <a asp-action="ShowAllEmployees" asp-controller="Admin">Employees</a>
+                                </li>
+                                <li>
+                                    <a asp-action="DisplayTracks" asp-controller="Admin">Track</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <a asp-action="Login" asp-controller="Account">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+
             @if (User.IsInRole("Student"))
             {
 
@@ -135,7 +133,7 @@
                                 <li>
                                     <a asp-action="Attendance" asp-controller="StudentAffair">Attendence</a>
                                 </li>
-                                
+
                             </ul>
                         </li>
                         <li>
@@ -158,7 +156,7 @@
                                 <li>
                                     <a asp-action="" asp-controller="">Take Attendance</a>
                                 </li>
-                                
+
                             </ul>
                         </li>
                         <li>
@@ -167,32 +165,36 @@
                     </ul>
                 </div>
             }
-    	</nav>
-      <div id="content" class="p-4 p-md-5">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-
-            <button type="button" id="sidebarCollapse" class="btn btn-primary">
-              <i class="fa fa-bars"></i>
-              <span class="sr-only">Toggle Menu</span>
-            </button>
-                   
-          </div>
         </nav>
+        <div id="content" class="p-4 p-md-5">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+
+                </div>
+            </nav>
 
             @RenderBody()
 
-		</div>
-    </div>  
-   
-    
- @RenderSection("Scripts", required: false)
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-@RenderSection("Scripts2", required: false)
 
-<script src="~/js/mainLayout.js"></script>
-  </body>
+        </div>
+    </div>
+
+
+    @RenderSection("Scripts", required: false)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    @RenderSection("Scripts2", required: false)
+
+
+    <script src="~/js/mainLayout.js"></script>
+</body>
 </html>
