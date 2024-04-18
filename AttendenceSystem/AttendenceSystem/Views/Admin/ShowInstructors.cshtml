@@ -134,14 +134,14 @@
 </style>
 @if (ViewBag.SuccessMessage != null)
 {
-    <div class="alert alert-success" role="alert">
+    <div id="successMessage" class="alert alert-success">
         @ViewBag.SuccessMessage
     </div>
 }
 
 @if (ViewBag.DeleteErrorMessage != null)
 {
-    <div class="alert alert-danger" role="alert">
+    <div id="errorMessage" class="alert alert-danger">
         @ViewBag.DeleteErrorMessage
     </div>
 }
@@ -154,8 +154,16 @@
         <a class="btn btn-warning" asp-action="AddInstructor" asp-controller="Admin">Add + </a>
     </div>
 </div>
+<div class="row search">
+    <div class="input-group">
+        <input type="text" id="searchText" class="form-control" placeholder="Search" />
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+        </div>
+    </div>
+</div>
 <div class="container">
-    <table class="table table-border table-responsive table-hover">
+    <table id="myTable"  class="table table-border table-responsive table-hover">
         <thead>
             <tr>
                 <th>Name</th>
@@ -192,35 +200,27 @@
 
 @section Scripts2 {
     <script>
-           $(document).ready(function () {
+        $(document).ready(function () {
+
+            $(document).ready(function () {
                 $('#myTable').DataTable({
                     paging: true,
                     pageLength: 10,
                     searching: true,
                     ordering: true,
                     info: true
-        $(document).ready(function () {
-            $('#searchText').on('keyup', function () {
-                var searchText = $(this).val().toLowerCase();
-                var isAnyRowVisible = false; 
-
-                $('tbody tr').each(function () {
-                    var rowData = $(this).text().toLowerCase();
-                    if (rowData.indexOf(searchText) === -1) {
-                        $(this).hide();
-                    } else {
-                        $(this).show();
-                        isAnyRowVisible = true;
-                    }
                 });
+            setTimeout(function () {
+                $('#successMessage').fadeOut('slow');
+            }, 5000);
 
-            
-                if (isAnyRowVisible) {
-                    $('#noDataMessage').hide();
-                } else {
-                    $('#noDataMessage').show();
-                }
-            });
+            setTimeout(function () {
+                $('#errorMessage').fadeOut('slow');
+            }, 5000);
+
+
+
         });
     </script>
 }
+
