@@ -50,9 +50,10 @@ namespace AttendenceSystem.Data
                 new Role { Id = 2, RoleName = "Student" },
                 //new Role { Id = 3, RoleName = "Security" },
                // new Role { Id = 4, RoleName = "Student_affairs" },
-                new Role {Id=3,RoleName="Employee"},
+                new Role {Id=3,RoleName= "Student_affairs" },
                 new Role { Id = 4, RoleName = "Instructor" },
-                new Role { Id = 5, RoleName = "Supervisor" }
+                new Role { Id = 5, RoleName = "Supervisor" },
+                new Role { Id = 6, RoleName = "Security" }
 
                 )
             );

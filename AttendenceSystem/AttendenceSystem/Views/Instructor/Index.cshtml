@@ -5,92 +5,94 @@
     Layout = "~/Views/Shared/_mainLayout.cshtml";
 
 }
+<style>
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px / 1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        color: #ffc107;
+    }
+</style>
 
 <h1>Instructor Details</h1>
 
-<table class="table table-bordered">
-    <tr>
-        <th>InstructorId</th>
-        <td>@Model.Id</td>
-    </tr>
-    <tr>
-        <th>InstructorName</th>
-        <td>@Model.Name</td>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <td>@Model.Email</td>
-    </tr>
-    <tr>
-        <th>Mobile</th>
-        <td>@Model.Mobile</td>
-    </tr>
+<div>
+    <h4>@Model.Name Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-4">
+            InstructorId
+        </dt>
+        <dd class="col-sm-8">
+            @Model.Id
+        </dd>
+        <dt class="col-sm-4">
+            InstructorName
+        </dt>
+        <dd class="col-sm-8">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-4">
+            Email
+        </dt>
+        <dd class="col-sm-8">
+            @Model.Email
+        </dd>
+        <dt class="col-sm-4">
+            Mobile
+        </dt>
+        <dd class="col-sm-8">
+            @Model.Mobile
+        </dd>
+
+        @{
+            string trackNames = string.Join(", ", Model.TrackInstructors.Select(ti => ti.Track.Name));
+        }
+        <dt class="col-sm-4">
+            tracks
+        </dt>
+        <dd class="col-sm-8">
+            @trackNames
+        </dd>
+
+        <dt class="col-sm-4">
+            HireDate
+        </dt>
+        <dd class="col-sm-8">
+            @Model.HireDate
+        </dd>
+
+        <dt class="col-sm-4">
+            Salary
+        </dt>
+        <dd class="col-sm-8">
+            @Model.Salary
+        </dd>
+
+
+        @{
+            var matchedTrackInstructors = Model.TrackInstructors
+            .Where(ti => ti.Track.SupervisorId == ti.Instructor.Id);
+            string trackSupervisor = string.Join(", ", matchedTrackInstructors.Select(ti => ti.Track.Name));
+        }
+        @if (trackSupervisor.Length > 1)
+        {
+            <dt class="col-sm-4">
+                Supervisor On Track
+            </dt>
+            <dd class="col-sm-8">
+                @trackSupervisor
+            </dd>
+
+        }
+
+
+    </dl>
+</div>
 
 
 
-    @{
-        string trackNames = string.Join(", ", Model.TrackInstructors.Select(ti => ti.Track.Name));
-    }
 
-    <tr>
-        <th>Tracks</th>
-        <td>@trackNames</td>
-    </tr>
-
-
-    @* @{
-    string trackSupervisor = string.Join(", ", Model.TrackInstructors.Select(ti => ti.Track.SupervisorId));
-    }
-
-    <tr>
-    <th>Tracks</th>
-    <td>@trackSupervisor</td>
-    </tr>
-    *@
-
-
-
-    @*  <tr>
-    <th>Track</th>
-    <td>@Model.TrackInstructors</td>
-    </tr> *@
-    <tr>
-        <th>HireDate</th>
-        <td>@Model.HireDate</td>
-    </tr>
-    <tr>
-        <th>Salary</th>
-        <td>@Model.Salary</td>
-    </tr>
-
-    @{
-        var matchedTrackInstructors = Model.TrackInstructors
-        .Where(ti => ti.Track.SupervisorId == ti.Instructor.Id);
-        string trackSupervisor = string.Join(", ", matchedTrackInstructors.Select(ti => ti.Track.Name));
-    }
-    @if (trackSupervisor.Length > 1)
-    {
-        <tr>
-            <th>Supervisor On Track</th>
-            <td>@trackSupervisor</td>
-        </tr>
-    }
-
-
-
-
-</table>
 <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-
-@* <a asp-action="ViewProfile" asp-controller="Instructor" asp-route-id="@Model.Id" class="btn btn-primary">Back</a> *@
-
-@* @section SideBar {
-
-    <li>
-        <a href="/Permissions">Permissions</a>
-    </li>
-    <li>
-        <a href="/Schedules">Schedule</a>
-    </li>
-
-} *@

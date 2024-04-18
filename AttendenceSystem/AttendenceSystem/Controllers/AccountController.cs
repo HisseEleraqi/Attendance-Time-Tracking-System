@@ -115,7 +115,7 @@ namespace AttendenceSystem.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-            else if (userRoles.Contains("Employee"))
+            else if (userRoles.Contains("Student_affairs"))
             {
                 if (userRoles.Contains("Security"))
                 {
@@ -123,7 +123,7 @@ namespace AttendenceSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Student_affairsDashboard");
+                    return RedirectToAction("Attendance", "StudentAffair");
                 }
             }
             
@@ -169,8 +169,9 @@ namespace AttendenceSystem.Controllers
         {
             return View();
         }
-        public IActionResult AccessError()
+        public IActionResult AccessDenied()
         {
+            
             return View();
         }
 
