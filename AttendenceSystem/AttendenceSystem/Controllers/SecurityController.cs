@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
 using OfficeOpenXml;
+using System;
 
 namespace AttendenceSystem.Controllers
 {
@@ -48,11 +49,11 @@ namespace AttendenceSystem.Controllers
         [HttpGet("GetStudentByTrackID/{id}")]
         public IActionResult GetStudentByTrackID([FromRoute] int id)
         {
-            var students = _trackIRepo.GetStudentsByTrackId(id);
+            //var students = _trackIRepo.GetStudentsByTrackId(id);
             ViewBag.ID = id;
             var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
             ViewBag.TodayAttend= trackAttendToday;
-            return View(students);
+            return View(trackAttendToday);
         }
 
         //[HttpPost("ExportToExcel/{ID}")]
@@ -114,42 +115,84 @@ namespace AttendenceSystem.Controllers
 
         // Student confirmation attendance
 
-
         [HttpPost]
-        public IActionResult ConfirmStudentAttendace([FromRoute]int Id,int id2)
+        public IActionResult ConfirmStudentAttendace([FromRoute] int Id, int id2)
         {
-            DateTime studentDate = DateTime.Now;
-            DateTime dateOnly = studentDate.Date;
-            string studentTime = studentDate.ToString("hh:mm:ss");
-            string correctTime = String.Format("09:00:00");
+            var ShiftTime = context.Schedules.AsNoTracking().OrderByDescending(a=>a.Id).FirstOrDefault(a => a.TrackId == id2);
+            DateTime date = DateTime.Now;
+            DateTime currentdate = date.Date;
+            string studentTime = date.ToString("hh:mm:ss");
+            var correctTime = ShiftTime?.StartTime.Add(new TimeSpan(15)).ToTimeSpan();// String.Format("09:00:00");
 
-            Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id,UserType= UserTypeEnum.Student,TrackId=id2 };
-
+            var attendance = _attendance.GetStudentAttendence(Id, currentdate);
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
-            TimeSpan correctTimeSpan = TimeSpan.Parse(correctTime);
+            TimeSpan correctTimeSpan = correctTime.Value;
 
             int comparison = TimeSpan.Compare(studentTimeSpan, correctTimeSpan);
 
             if (comparison == 0)
             {
-              
-                studentAttendance.IsPresent = true;
+                attendance.IsPresent = true;
+                attendance.IsAbsent = false;
             }
             else if (comparison > 0)
             {
-                studentAttendance.IsLate = true;
+                attendance.IsLate = true;
+                attendance.IsAbsent = false;
             }
             else
             {
-                studentAttendance.IsPresent = true;
+                attendance.IsPresent = true;
+                attendance.IsAbsent = false;
             }
-           _attendance.ConfirmStudentAttendance(studentAttendance);
-           
-            return RedirectToAction("GetAllTracks");
+
+             attendance.InTime = TimeOnly.Parse(date.ToString("hh:mm:ss"));
+             attendance.UserType = UserTypeEnum.Student;
+             attendance.TrackId = id2;
+             _attendance.SaveChanges();
             
 
+            return RedirectToAction("GetAllTracks");
+
+
         }
+
+        //[HttpPost]
+        //public IActionResult ConfirmStudentAttendace([FromRoute]int Id,int id2)
+        //{
+        //    DateTime studentDate = DateTime.Now;
+        //    DateTime dateOnly = studentDate.Date;
+        //    string studentTime = studentDate.ToString("hh:mm:ss");
+        //    string correctTime = String.Format("09:00:00");
+
+        //    Attendence studentAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId =Id,UserType= UserTypeEnum.Student,TrackId=id2 };
+
+
+        //    TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
+        //    TimeSpan correctTimeSpan = TimeSpan.Parse(correctTime);
+
+        //    int comparison = TimeSpan.Compare(studentTimeSpan, correctTimeSpan);
+
+        //    if (comparison == 0)
+        //    {
+
+        //        studentAttendance.IsPresent = true;
+        //    }
+        //    else if (comparison > 0)
+        //    {
+        //        studentAttendance.IsLate = true;
+        //    }
+        //    else
+        //    {
+        //        studentAttendance.IsPresent = true;
+        //    }
+        //   _attendance.ConfirmStudentAttendance(studentAttendance);
+
+        //    return RedirectToAction("GetAllTracks");
+
+
+        //}
 
 
         // Student Leaving Action

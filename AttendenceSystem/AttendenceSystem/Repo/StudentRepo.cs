@@ -13,6 +13,9 @@ namespace AttendenceSystem.Repo
 
     {
         private readonly IReportService _reportService;
+        public StudentRepo()
+        {
+        }
         public StudentRepo(IReportService reportService)
         {
             _reportService = reportService;
@@ -95,6 +98,24 @@ namespace AttendenceSystem.Repo
             var students =  context.Students.Where(s => s.TrackID == TrackId).ToList();
             var report = await _reportService.DownloadReport(students.ToList(), "StudentReport", rendertype);
             return report.MainStream;
+        }
+
+        public void GetAllUsers()
+        {
+            DateTime studentDate = DateTime.Now;
+            DateTime dateOnly = studentDate.Date;
+            List<Attendence> AttendenceList = new();
+            var Users = context.Users.Select(a => a.Id).ToList();
+
+            foreach (var Id in Users)
+            {
+                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Id, IsAbsent = true };
+                AttendenceList.Add(Attendance);
+
+            }
+
+            context.Attendences.AddRange(AttendenceList);
+            context.SaveChanges();
         }
     }
 }

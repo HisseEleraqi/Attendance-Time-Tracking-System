@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Student>
+﻿@model IEnumerable<Attendence>
 
 @{
     ViewData["Title"] = "GetStudentByTrackID";
@@ -62,31 +62,41 @@
                 {
                     string buttonstate="";
                     string buttonleavstate = "";
-                    if (todayAtted.Any(att=>att.UserId==item.Id))
+
+                    if (todayAtted.Any(att => att.User.Id == item.UserId))
                     {
                         buttonstate = "disabled";
-                        if (todayAtted.Any(att => att.UserId == item.Id && att.OutTime != null))
+                        if (todayAtted.Any(att => att.UserId == item.UserId && att.OutTime != null))
                         {
                             buttonleavstate = "disabled";
                         }
                     }
+
+                    @* if (todayAtted.Any(att=>att.User.Id==item.UserId))
+                    {
+                        buttonstate = "disabled";
+                        if (todayAtted.Any(att => att.UserId == item.UserId && att.OutTime != null))
+                        {
+                            buttonleavstate = "disabled";
+                        }
+                    } *@
                     
                     <tr >
                         <td>@item.Id</td>
-                        <td>@item.Name</td>
-                        <td>@item.Email</td>
+                        <td>@item.User.Name</td>
+                        <td>@item.User.Email</td>
 
                         <td align="center">
                             <form method="post" onsubmit="confirmAttendance(this.querySelector('button'));"
                                   asp-action="ConfirmStudentAttendace" asp-controller="Security"
-                                  asp-route-id="@item.Id" asp-route-id2="@item.TrackID">
+                                  asp-route-id="@item.UserId" asp-route-id2="@item.TrackId">
                                 <button type="submit" class="btn btn-outline-primary m-3" @buttonstate>Confirm Attendance</button>
                             </form>
                         </td>
 
 
                         <td align="center">
-                            <form method="post" asp-action="ConfirmStudentLeaving" asp-controller="Security" asp-route-id="@item.Id"asp-route-id2="@item.TrackID">
+                            <form method="post" asp-action="ConfirmStudentLeaving" asp-controller="Security" asp-route-id="@item.Id" asp-route-id2="@item.TrackId">
                                 <button type="submit" class="btn btn-outline-primary m-3" @buttonleavstate >Confirm Leave</button>
                             </form>
                         </td>

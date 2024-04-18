@@ -31,6 +31,7 @@ namespace AttendenceSystem.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server =.; database = AttendenceDB; integrated security = true; trustservercertificate = true");
+            //optionsBuilder.UseLazyLoadingProxies().UseSqlServer("name=DefaultConnection");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

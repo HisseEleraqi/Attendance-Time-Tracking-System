@@ -24,6 +24,7 @@ namespace AttendenceSystem.IRepo
         public void Deletpermision(int permisionId);
         public void AddUser(User user);
         public void AddStudent(Student user);
+        public void GetAllUsers();
         Task<byte[]> PrintStudentReport(RenderType rendertype,int TrackId);
     }
 
