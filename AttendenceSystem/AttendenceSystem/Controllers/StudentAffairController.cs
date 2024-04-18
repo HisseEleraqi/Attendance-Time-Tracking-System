@@ -1,5 +1,4 @@
-﻿using AttendenceSystem.CustomFilter;
-using AttendenceSystem.IRepo;
+﻿using AttendenceSystem.IRepo;
 using AttendenceSystem.Models;
 using AttendenceSystem.Repo;
 using AttendenceSystem.ViewModel;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AttendenceSystem.Controllers
 {
-    [Authorize(Roles = "StudentAffair")]
+    [Authorize(Roles = "Student_affairs")]
     public class StudentAffairController : Controller
     {
         private readonly IStudentService studentService;
@@ -48,14 +47,14 @@ namespace AttendenceSystem.Controllers
         [HttpGet]
         public IActionResult StudentAttendanceAtTrack(int trackId, DateOnly date)
         {
-            DateOnly date1 = new DateOnly(2024, 1, 4);
+            //DateOnly date1 = new DateOnly(2024, 1, 4);
             List<StudentAttendanceViewModel> viewModels = studentService.GetTrackAttendancedate(trackId, date);
 
             return PartialView("StudentAttendanceAtTrack", viewModels);
             //return Json(viewModels);
         }
-        [HttpGet]
-        public IActionResult EditDegree(int id)
+        [HttpPost]
+        public IActionResult EditDegree(int id , int perid)
         {
             Student student = studentRepo.GetStudentById(id);
             if (student == null)
@@ -63,19 +62,16 @@ namespace AttendenceSystem.Controllers
                 return NotFound();
             }
 
-            return View(student); // Pass the student model to the view
+            // Update student degree
+            studentRepo.UpdateStudentDegree(id,perid);
+
+            // Return updated degree value (assuming you want to return it)
+            return Json(new { degree = student.Degree });
         }
 
-        [HttpPost]
-      
-        public IActionResult EditDegree(int id, Student viewModel)
-        {
-           
 
-            studentRepo.UpdateStudentDegree(id, viewModel.Degree);
 
-            return RedirectToAction("Attendance", "StudentAffair");
-        }
+
 
 
 

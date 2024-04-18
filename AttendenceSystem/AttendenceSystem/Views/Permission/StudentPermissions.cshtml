@@ -4,6 +4,17 @@
     string TrackName = ViewData["TrackName"] as string;
     Layout = "~/Views/Shared/Instructor.cshtml";
   }
+
+<style>
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px / 1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        color: #ffc107;
+    }
+</style>
  
 <h5>Students Permissions in track:@TrackName</h5>
 

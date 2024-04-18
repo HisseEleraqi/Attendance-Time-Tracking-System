@@ -15,9 +15,6 @@ namespace AttendenceSystem
 
             // Add services to the container.
 
-
-
-
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<InstructorIRepo, InstructorRepo>();
             builder.Services.AddTransient<IEmpRepo, EmpRepo>();

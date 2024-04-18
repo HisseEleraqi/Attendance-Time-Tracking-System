@@ -129,13 +129,16 @@ namespace AttendenceSystem.Repo
 
             return attendances;
         }
-        public StudentAttendanceViewModel UpdateStudentDegree(int id, int newDegree)
+        public StudentAttendanceViewModel UpdateStudentDegree(int id, int perid)
         {
             var existingStudent = context.Students.FirstOrDefault(s => s.Id == id);
 
             if (existingStudent != null)
             {
-                existingStudent.Degree = newDegree;
+                existingStudent.Degree = existingStudent.Degree + 5;
+                var per = context.Permisions.FirstOrDefault(s => s.Id == perid);
+                per.IsReviewed = true;
+                context.Permisions.Update(per);
                 context.Students.Update(existingStudent);
                 context.SaveChanges();
 
@@ -158,10 +161,6 @@ namespace AttendenceSystem.Repo
 
             return null; // Return null if student not found
         }
-        public List<Student> GetAllAcceptedStudents()
-        {
-            return context.Students.Where(s=>s.IsAccepted==true).ToList();
-        } 
 
         public void DeleteStudent(int studentid)
         {
@@ -189,6 +188,7 @@ namespace AttendenceSystem.Repo
             context.Entry(editedstudent).State = EntityState.Modified;
             context.SaveChanges();
         }
+
         public async Task<List<Student>> GetPendingStudentsAsync()
         {
             
@@ -203,7 +203,6 @@ namespace AttendenceSystem.Repo
                     student.IsAccepted = true;
                     context.SaveChanges();
                    
-                
         }
         public int AllActiveTracks()
         {
@@ -224,6 +223,7 @@ namespace AttendenceSystem.Repo
         public int AllSupervisor()
         {
             return context.Tracks.Count(t=>t.Supervisor!=null);
-        }
+        }     
+
     }
 }
