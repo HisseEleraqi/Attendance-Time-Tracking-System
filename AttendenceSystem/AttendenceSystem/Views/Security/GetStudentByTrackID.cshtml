@@ -11,6 +11,7 @@
 @{
     Layout = null;
     var ID = ViewBag.ID;
+    List<Attendence> todayAtted = ViewBag.TodayAttend;
 }
 
 <!DOCTYPE html>
@@ -59,25 +60,34 @@
             {
                 foreach (var item in Model)
                 {
+                    string buttonstate="";
+                    string buttonleavstate = "";
+                    if (todayAtted.Any(att=>att.UserId==item.Id))
+                    {
+                        buttonstate = "disabled";
+                        if (todayAtted.Any(att => att.UserId == item.Id && att.OutTime != null))
+                        {
+                            buttonleavstate = "disabled";
+                        }
+                    }
+                    
                     <tr >
                         <td>@item.Id</td>
                         <td>@item.Name</td>
                         <td>@item.Email</td>
 
                         <td align="center">
-                           
-                            <form method="post" asp-action="ConfirmStudentAttendace" asp-controller="Security" asp-route-id="@item.Id" asp-route-id2="@item.TrackID">
-                                <button type="submit" class="btn btn-outline-primary m-3">Confirm Attendance</button>
+                            <form method="post" onsubmit="confirmAttendance(this.querySelector('button'));"
+                                  asp-action="ConfirmStudentAttendace" asp-controller="Security"
+                                  asp-route-id="@item.Id" asp-route-id2="@item.TrackID">
+                                <button type="submit" class="btn btn-outline-primary m-3" @buttonstate>Confirm Attendance</button>
                             </form>
-                            
-                            @* <form method="post" action="@Url.Action("ConfirmStudentAttendace", "Security", new { Id = @item.Id,ID = ID })">
-                                <button type="submit" class="btn btn-success" style="margin-top:20px;">Confirm Attendance</button>
-                            </form> *@
                         </td>
+
 
                         <td align="center">
                             <form method="post" asp-action="ConfirmStudentLeaving" asp-controller="Security" asp-route-id="@item.Id"asp-route-id2="@item.TrackID">
-                                <button type="submit" class="btn btn-outline-primary m-3">Confirm Leave</button>
+                                <button type="submit" class="btn btn-outline-primary m-3" @buttonleavstate >Confirm Leave</button>
                             </form>
                         </td>
                         
@@ -148,7 +158,14 @@
                 }
             }
         }
+            function confirmAttendance(button) {
+                // Disable the button to prevent multiple submissions
+                button.disabled = true;
+
+                // Perform any additional logic here, such as submitting the form asynchronously
+            }
     </script>
+
 
 
 

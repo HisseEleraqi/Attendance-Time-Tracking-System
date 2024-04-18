@@ -73,8 +73,12 @@ namespace AttendenceSystem.Repo
             var students = context.Students.AsNoTracking().Where(s=>s.TrackID == trackId).ToList();
             return students;
         }
-        
 
+        public List<Attendence> GetTodayAttendForTrackByDateAndTrackId(int TrackId)
+        {
+            var res=context.Attendences.Where(att=>att.TrackId == TrackId&&att.Date==DateOnly.FromDateTime(DateTime.Now)).ToList();
+       return res;
+        }
     }
 
 }

@@ -50,6 +50,8 @@ namespace AttendenceSystem.Controllers
         {
             var students = _trackIRepo.GetStudentsByTrackId(id);
             ViewBag.ID = id;
+            var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
+            ViewBag.TodayAttend= trackAttendToday;
             return View(students);
         }
 

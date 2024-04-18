@@ -14,7 +14,7 @@ namespace AttendenceSystem.IRepo
         public int EditeActiveState(int TrackId, bool ActiveState);
         public List<Student> GetStudentsByTrackId(int trackId);
 
-
+        List<Attendence> GetTodayAttendForTrackByDateAndTrackId(int TrackId);
 
     }
 }
