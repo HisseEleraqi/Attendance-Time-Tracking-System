@@ -5,7 +5,6 @@ using AttendenceSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using AttendenceSystem.CustomFilter;
 
 namespace AttendenceSystem.Controllers
 {

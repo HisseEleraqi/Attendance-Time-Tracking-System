@@ -36,5 +36,6 @@ namespace AttendenceSystem.Models
         public int StudentId { get; set; }
         [JsonIgnore]
         public virtual Student Student { get; set; }
+        public bool IsReviewed { get; set; }
     }
 }

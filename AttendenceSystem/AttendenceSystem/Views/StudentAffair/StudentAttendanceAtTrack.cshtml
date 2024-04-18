@@ -9,7 +9,7 @@
     table tr th {
         background-color: #FCFCFD;
         color: #788193;
-        width: 167px;
+        width: 220px;
     }
 
     table {
@@ -131,6 +131,7 @@
     }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="row search">
     <div class="input-group">
         <input type="text" id="searchText" class="form-control" placeholder="Search" />
@@ -157,7 +158,7 @@
                 <tr>
                     <td>@viewModel.Name</td>
                     <td>@viewModel.Email</td>
-                    <td>@viewModel.Degree</td>
+                    <td id="degree-@viewModel.Id">@viewModel.Degree</td> <!-- Add unique identifier -->
                     <td>
                         @if (viewModel.Attendances != null && viewModel.Attendances.Any())
                         {
@@ -188,30 +189,60 @@
                         }
                     </td>
                     <td>@viewModel.Permission.Status</td>
-                    <td>
-                        <a asp-action="EditDegree" asp-controller="StudentAffair" asp-route-id="@viewModel.Id">
-                            <i class="fa fa-pencil"></i>
-                        </a>
-                    </td>
+                    <td style="align-content:center" class="degreeicon">
+                        @if (viewModel.Permission.Status == PermisionStatus.Approved && viewModel.Degree < 250 && viewModel.Permission.IsReviewed == false)
+                        {
 
+                            <img src="~/Images/5-stars (2).png" style="width: 50px;" class="editDegree" data-student-id="@viewModel.Id" data-permission-id="@viewModel.Permission.Id"/>
+                            
+                        }
+                        else
+                        {
+                            <p>---</p>
+                        }
+                    </td>
                 </tr>
             }
+
         </tbody>
     </table>
     <div class="alert alert-danger" id="noDataMessage" style="display: none;">No data found.</div>
 </div>
-@section Scripts2 {
+
+
     <script>
         $(document).ready(function () {
-            $('#searchText').on('keyup', function () {
-                var searchText = $(this).val().toLowerCase();
-                $('tbody tr').each(function () {
-                    var rowData = $(this).text().toLowerCase();
-                    $(this).toggle(rowData.indexOf(searchText) > -1);
+            // $('#searchText').on('keyup', function () {
+            //     var searchText = $(this).val().toLowerCase();
+            //     $('tbody tr').each(function () {
+            //         var rowData = $(this).text().toLowerCase();
+            //         $(this).toggle(rowData.indexOf(searchText) > -1);
+            //     });
+            //     var visibleRows = $('tbody tr:visible').length;
+            //     $('#noDataMessage').toggle(visibleRows === 0);
+            // });
+
+            $('.editDegree').on('click', function (){
+                var id = $(this).data('student-id');
+            var perid = $(this).data('permission-id')
+                $.ajax({
+                    url: '/StudentAffair/EditDegree', // Update the URL as needed
+                    type: 'POST',
+                    data: { id: id, perid: perid },
+                    dataType: 'Json',
+                    success: function (data) {
+                        $('#degree-' + id).text(data.degree);
+                    $('.degreeicon').text("---");
+                       
+                  
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
                 });
-                var visibleRows = $('tbody tr:visible').length;
-                $('#noDataMessage').toggle(visibleRows === 0);
             });
         });
     </script>
-}
+
+
+
