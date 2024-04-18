@@ -164,7 +164,7 @@ namespace AttendenceSystem.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
-
+        // edits
         public IActionResult PendingRegistration()
         {
             return View();
