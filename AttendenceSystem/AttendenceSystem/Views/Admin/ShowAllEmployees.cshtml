@@ -189,15 +189,14 @@
 
 @section Scripts2 {
     <script>
-            $(document).ready(function () {
-
+        $(document).ready(function () {
             $('#myTable').DataTable({
                 paging: true,
                 pageLength: 10,
                 searching: true,
                 ordering: true,
                 info: true
-        $(document).ready(function () {
+
             $('#searchText').on('keyup', function () {
                 var searchText = $(this).val().toLowerCase();
                 var isAnyRowVisible = false;
@@ -217,8 +216,9 @@
                     $('#noDataMessage').hide();
                 } else {
                     $('#noDataMessage').show();
-                }
+                
             });
+
         });
     </script>
 }
