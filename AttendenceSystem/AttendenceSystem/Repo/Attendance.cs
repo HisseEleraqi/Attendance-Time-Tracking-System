@@ -18,7 +18,7 @@ namespace AttendenceSystem.Repo
         public List<Attendence> GetAttendencesTrackId(int trackId, UserTypeEnum UserType)
         {
 
-            var students = db.Attendences.AsNoTracking().Where(s => s.TrackId == trackId && s.UserType == UserType).ToList();
+            var students = db.Attendences.Include(a=>a.User).AsNoTracking().Where(s => s.TrackId == trackId && s.UserType == UserType).ToList();
             return students;
         }
 

@@ -102,20 +102,44 @@ namespace AttendenceSystem.Repo
 
         public void GetAllUsers()
         {
+
             DateTime studentDate = DateTime.Now;
             DateTime dateOnly = studentDate.Date;
             List<Attendence> AttendenceList = new();
-            var Users = context.Users.Select(a => a.Id).ToList();
 
-            foreach (var Id in Users)
+            var  Instructors = context.Instructors.Select(a => a.Id).ToList();
+            var InstructorsUsers = context.instructorTracks.Where(a=> Instructors.Contains(a.InstructorId));
+
+            foreach (var Item in InstructorsUsers)
             {
-                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Id, IsAbsent = true };
+                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Item.InstructorId, TrackId = Item.TrackId, IsAbsent = true };
                 AttendenceList.Add(Attendance);
+            }
+            var Students = context.Students.ToList();
 
+            foreach (var Item in Students)
+            {
+                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Item.Id, TrackId = Item.TrackID, IsAbsent = true };
+                AttendenceList.Add(Attendance);
             }
 
             context.Attendences.AddRange(AttendenceList);
             context.SaveChanges();
+
+            //DateTime studentDate = DateTime.Now;
+            //DateTime dateOnly = studentDate.Date;
+            //List<Attendence> AttendenceList = new();
+            //var Users = context.Users.Select(a => a.Id).ToList();
+
+            //foreach (var Id in Users)
+            //{
+            //    Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Id, IsAbsent = true };
+            //    AttendenceList.Add(Attendance);
+
+            //}
+
+            //context.Attendences.AddRange(AttendenceList);
+            //context.SaveChanges();
         }
     }
 }

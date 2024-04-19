@@ -64,6 +64,7 @@ namespace AttendenceSystem
 
             var student = new StudentRepo();
 
+            //RecurringJob.AddOrUpdate(() => student.GetAllUsers(), Cron.MinuteInterval(1));
             RecurringJob.AddOrUpdate(() => student.GetAllUsers(), Cron.Daily(0));
 
 

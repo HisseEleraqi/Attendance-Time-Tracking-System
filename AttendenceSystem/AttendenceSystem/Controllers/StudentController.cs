@@ -74,6 +74,9 @@ namespace AttendenceSystem.Controllers
             //var Students = context.Attendences.AsNoTracking().Include(a => a.User).Where(a => a.TrackId == Id);
             var Students = _attendance.GetAttendencesTrackId(Id, UserTypeEnum.Student);
             ViewBag.ID = Id;
+            var StudentsGrade = context.Students.AsNoTracking().Where(a => a.Id == Id);
+            ViewBag.StudentsGrade = StudentsGrade;
+
             return View(Students);
 
         }

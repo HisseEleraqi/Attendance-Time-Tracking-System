@@ -2,6 +2,7 @@
 @{
     Layout = null;
     var ID = ViewBag.ID;
+    var StudentsGrade = ViewBag.StudentsGrade;
 }
 
 <!DOCTYPE html>
@@ -71,7 +72,12 @@
                         <td>@item.IsPresent</td>
                         <td>@item.IsLate</td>
                         <td>@item.IsAbsent</td>
+                        @foreach (var item1 in StudentsGrade)
+                        {
+                            <td>@item1.Degree</td>
 
+                        } 
+ 
                         <td>@item.User?.Name</td>
                     </tr>
                 }

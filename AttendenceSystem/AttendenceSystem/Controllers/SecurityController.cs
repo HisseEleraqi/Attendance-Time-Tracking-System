@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
 using OfficeOpenXml;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AttendenceSystem.Controllers
 {
@@ -122,10 +123,14 @@ namespace AttendenceSystem.Controllers
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
             string studentTime = date.ToString("hh:mm:ss");
-            var correctTime = ShiftTime?.StartTime.Add(new TimeSpan(15)).ToTimeSpan();// String.Format("09:00:00");
+            var correctTime = ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan();// String.Format("09:00:00");
 
             var attendance = _attendance.GetStudentAttendence(Id, currentdate);
+            if (attendance is null)
+            {
+                return StatusCode(404);
 
+            }
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
             TimeSpan correctTimeSpan = correctTime.Value;
 
@@ -230,54 +235,122 @@ namespace AttendenceSystem.Controllers
        // [HttpGet("GetTrackInstructors/{id}")]
         public IActionResult GetTrackInstructors([FromRoute] int id)
         {
-            var instructors = _trackIRepo.GetTrackInstructors(id);
+            //var instructors = _trackIRepo.GetTrackInstructors(id);
+            //ViewBag.ID = id;
+            //var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
+            //ViewBag.TodayAttend = trackAttendToday;
+            //return View(instructors);
+
+            //var students = _trackIRepo.GetStudentsByTrackId(id);
             ViewBag.ID = id;
             var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
             ViewBag.TodayAttend = trackAttendToday;
-            return View(instructors);
+            return View(trackAttendToday);
         }
 
 
         // Instructor confirmation attendance
 
+
         [HttpPost("ConfirmInstructorAttendance/{Id}")]
         public IActionResult ConfirmInstructorAttendance([FromRoute] int Id, int id2)
         {
+
+            var ShiftTime = context.Schedules.AsNoTracking().OrderByDescending(a => a.Id).FirstOrDefault(a => a.TrackId == id2);
+
+
             DateTime instructortDate = DateTime.Now;
             DateTime dateOnly = instructortDate.Date;
             string studentTime = instructortDate.ToString("hh:mm:ss");
-            string correctTime = String.Format("12:0:00");
+            var a=new  TimeSpan(00, 15, 00);
+            var correctTime = ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan();//String.Format("12:0:00");
 
-            Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
+            //Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
             //if ()
             //{
 
             //}
+            var attendance = _attendance.GetStudentAttendence(Id, dateOnly);
+
+            if (attendance is null)
+            {
+                return StatusCode(404);
+
+            }
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
-            TimeSpan correctTimeSpan = TimeSpan.Parse(correctTime);
+            TimeSpan correctTimeSpan = correctTime.Value; // TimeSpan.Parse(correctTime);
 
             int comparison = TimeSpan.Compare(studentTimeSpan, correctTimeSpan);
 
             if (comparison == 0)
             {
 
-                instructorAttendance.IsPresent = true;
+                attendance.IsPresent = true;
+                attendance.IsAbsent = false;
+
             }
             else if (comparison > 0)
             {
-                instructorAttendance.IsLate = true;
+                attendance.IsLate = true;
+                attendance.IsAbsent = false;
+
             }
             else
             {
-                instructorAttendance.IsPresent = true;
+                attendance.IsPresent = true;
+                attendance.IsAbsent = false;
             }
-            _attendance.ConfirmStudentAttendance(instructorAttendance);
+            attendance.InTime = TimeOnly.Parse(dateOnly.ToString("hh:mm:ss"));
+            attendance.UserType = UserTypeEnum.Instructor;
+            attendance.TrackId = id2;
+            _attendance.SaveChanges();
 
-             return RedirectToAction("GetAllInstructorsTracks");
+           // _attendance.ConfirmStudentAttendance(instructorAttendance);
+
+            return RedirectToAction("GetAllInstructorsTracks");
 
 
         }
+
+        //[HttpPost("ConfirmInstructorAttendance/{Id}")]
+        //public IActionResult ConfirmInstructorAttendance([FromRoute] int Id, int id2)
+        //{
+        //    DateTime instructortDate = DateTime.Now;
+        //    DateTime dateOnly = instructortDate.Date;
+        //    string studentTime = instructortDate.ToString("hh:mm:ss");
+        //    string correctTime = String.Format("12:0:00");
+
+        //    Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
+        //    //if ()
+        //    //{
+
+        //    //}
+
+        //    TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
+        //    TimeSpan correctTimeSpan = TimeSpan.Parse(correctTime);
+
+        //    int comparison = TimeSpan.Compare(studentTimeSpan, correctTimeSpan);
+
+        //    if (comparison == 0)
+        //    {
+
+        //        instructorAttendance.IsPresent = true;
+        //    }
+        //    else if (comparison > 0)
+        //    {
+        //        instructorAttendance.IsLate = true;
+        //    }
+        //    else
+        //    {
+        //        instructorAttendance.IsPresent = true;
+        //    }
+        //    _attendance.ConfirmStudentAttendance(instructorAttendance);
+
+        //     return RedirectToAction("GetAllInstructorsTracks");
+
+
+        //}
 
         // Instructor Leaving
 
