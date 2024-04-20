@@ -74,9 +74,9 @@ namespace AttendenceSystem.Repo
             return students;
         }
 
-        public List<Attendence> GetTodayAttendForTrackByDateAndTrackId(int TrackId)
+        public List<Attendence> GetTodayAttendForTrackByDateAndTrackId(int TrackId, UserTypeEnum UserType)
         {
-            var res=context.Attendences.Include(a=>a.User).Where(att=>att.TrackId == TrackId&&att.Date==DateOnly.FromDateTime(DateTime.Now)).ToList();
+            var res=context.Attendences.Include(a=>a.User).Where(att=>att.TrackId == TrackId&&att.Date==DateOnly.FromDateTime(DateTime.Now)&&att.UserType== UserType).ToList();
        return res;
         }
     }

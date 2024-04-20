@@ -52,7 +52,7 @@ namespace AttendenceSystem.Controllers
         {
             //var students = _trackIRepo.GetStudentsByTrackId(id);
             ViewBag.ID = id;
-            var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
+            var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id, UserTypeEnum.Student);
             ViewBag.TodayAttend= trackAttendToday;
             return View(trackAttendToday);
         }
@@ -246,7 +246,7 @@ namespace AttendenceSystem.Controllers
 
             //var students = _trackIRepo.GetStudentsByTrackId(id);
             ViewBag.ID = id;
-            var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id);
+            var trackAttendToday = _trackIRepo.GetTodayAttendForTrackByDateAndTrackId(id, UserTypeEnum.Instructor);
             ViewBag.TodayAttend = trackAttendToday;
             return View(trackAttendToday);
         }

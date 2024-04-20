@@ -114,6 +114,7 @@ namespace AttendenceSystem.Controllers
         {
             //var Students = context.Attendences.AsNoTracking().Include(a => a.User).Where(a => a.TrackId == Id);
             var Students = _attendance.GetAttendencesTrackId(Id, UserTypeEnum.Student);
+            ViewBag.ID=Id;
             List<AttendanceReportResponse> reportResult = new List<AttendanceReportResponse>();
             foreach (var attendance in Students)
             {

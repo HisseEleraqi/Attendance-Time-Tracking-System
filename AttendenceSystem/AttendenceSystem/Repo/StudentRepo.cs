@@ -112,14 +112,14 @@ namespace AttendenceSystem.Repo
 
             foreach (var Item in InstructorsUsers)
             {
-                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Item.InstructorId, TrackId = Item.TrackId, IsAbsent = true };
+                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Item.InstructorId, TrackId = Item.TrackId, IsAbsent = true, UserType= UserTypeEnum.Instructor };
                 AttendenceList.Add(Attendance);
             }
             var Students = context.Students.ToList();
 
             foreach (var Item in Students)
             {
-                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Item.Id, TrackId = Item.TrackID, IsAbsent = true };
+                Attendence Attendance = new() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), UserId = Item.Id, TrackId = Item.TrackID, IsAbsent = true, UserType = UserTypeEnum.Student };
                 AttendenceList.Add(Attendance);
             }
 
