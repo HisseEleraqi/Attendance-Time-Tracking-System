@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Attendence>
+﻿@model IEnumerable<AttendanceReportResponse>
 @{
     Layout = null;
     var ID = ViewBag.ID;
-    var StudentsGrade = ViewBag.StudentsGrade;
+    var StudentsGrade = ViewBag.Students;
 }
 
 <!DOCTYPE html>
@@ -14,26 +14,29 @@
 </head>
 <body>
     <div class="container mt-5">
-        <form>
+        <form method="post" asp-action="FilterAttendanceReport" asp-controller="Student">
+
             <div class="form-group">
                 <label for="startDate">Start Date:</label>
-                <input type="date" class="form-control" id="startDate">
+                <input type="date" class="form-control" id="startDate" name="startDate">
             </div>
             <div class="form-group">
                 <label for="endDate">End Date:</label>
-                <input type="date" class="form-control" id="endDate">
+                <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
+
             <div class="form-group">
                 <label for="attendanceStatus">Attendance Status:</label>
-                <select class="form-control" id="attendanceStatus">
-                    <option value="all">All</option>
-                    <option value="absent">Absent</option>
-                    <option value="late">Late</option>
-                    <option value="present">Present</option>
+                <select class="form-control" id="attendanceStatus" name="attendanceStatus">
+                    <option value="2">Absent</option>
+                    <option value="1">Late</option>
+                    <option value="3">Present</option>
                 </select>
             </div>
+
             <br />
-            <button type="button" class="btn btn-primary" id="filterBtn">Filter</button>
+            <button type="submit" class="btn btn-primary" id="filterBtn">Filter</button>
+
         </form>
 
         <form method="post" action="@Url.Action("ExportToExcel", "Student", new { ID = ID })">
@@ -42,51 +45,111 @@
     </div>
 
 
-    <table id="departmentTable" class="table table-bordered table-hover m-3">
-        <thead>
-        <th>Date</th>
-        <th>InTime</th>
-        <th>OutTime</th>
-        <th>Is Present</th>
-        <th>Is Late</th>
-        <th>Is Absent</th>
-        <th>Grade</th>
 
-        <th>UserName</th>
-        </thead>
-        <tbody>
-            @if (Model.Count() == 0)
-            {
-                <tr>
-                    <td colspan="7">NO Attendance Data</td>
-                </tr>
-            }
-            else
-            {
-                foreach (var item in Model)
+    @if(Model.Count() == 0)
+    {
+
+        <table id="departmentTable" class="table table-bordered table-hover m-3">
+            <thead>
+            <th>Date</th>
+            <th>InTime</th>
+            <th>OutTime</th>
+
+              
+                <th>Is Present</th>
+             
+
+              
+                <th>Is Late</th>
+             
+              
+                <th>Is Absent</th>
+              
+
+            <th>Grade</th>
+
+            <th>UserName</th>
+            </thead>
+            </table>
+        <h1>No Data Exist</h1>
+        
+    }else{
+
+
+        <table id="departmentTable" class="table table-bordered table-hover m-3">
+            <thead>
+            <th>Date</th>
+            <th>InTime</th>
+            <th>OutTime</th>
+
+                @if (Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.IsPresent || Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.All)
+                {
+                <th>Is Present</th>
+                }
+
+                @if (Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.IsLate || Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.All)
+                {
+                <th>Is Late</th>
+                }
+                @if (Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.IsApsent || Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.All)
+                {
+                <th>Is Absent</th>
+                }
+
+            <th>Grade</th>
+
+            <th>UserName</th>
+            </thead>
+            <tbody>
+                @if (Model.Count() == 0)
                 {
                     <tr>
-                        <td>@item.Date</td>
-                        <td>@item.InTime</td>
-                        <td>@item.OutTime</td>
-                        <td>@item.IsPresent</td>
-                        <td>@item.IsLate</td>
-                        <td>@item.IsAbsent</td>
-                        @foreach (var item1 in StudentsGrade)
-                        {
-                            <td>@item1.Degree</td>
-
-                        } 
- 
-                        <td>@item.User?.Name</td>
+                        <td colspan="7">NO Attendance Data</td>
                     </tr>
                 }
-            }
-        </tbody>
-    </table>
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.InDate</td>
+                            <td>@item.InTime</td>
+                            <td>@item.OutTime</td>
+
+                            @if (Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.IsPresent || Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.All)
+                            {
+                                <td>@item.IsPresent</td>
+                            }
+                           
+
+
+                            @if (Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.IsLate || Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.All)
+                            {
+                                <td>@item.IsLate</td>
+                            }
+
+
+                            @if (Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.IsApsent || Model.FirstOrDefault().AttendanceStatue == AttendanceEnum.All)
+                            {
+                                <td>@item.IsAbsent</td>
+                            }
+
+                            <td>@item.Grade</td>
+                            <td>@item.userName</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+
+
+    }
+
+ 
 
     <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script>
+    <sc@* ript>
         $(document).ready(function () {
             $("#filterBtn").click(function () {
                 var startDate = new Date($("#startDate").val());
@@ -114,7 +177,7 @@
                     $(this).hide();
                 }
             });
-        }
+        } *@
     </script>
 </body>
 </html>

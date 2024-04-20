@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AttendenceSystem.Repo
 {
 
-    public class Attendance : IAttendance
+    public class AttendanceRepo : IAttendance
     {
 
         private readonly DataContext db = new DataContext();
@@ -36,9 +36,30 @@ namespace AttendenceSystem.Repo
             return studentAttendence;
 
         }
+
+
+        // filtering with date and attendance state
+        public List<Attendence> GetAbsentStudents(DateOnly startDate, DateOnly endDate)
+        {
+            return db.Attendences.Where(a => a.IsAbsent == true && a.Date >= startDate && a.Date <= endDate).ToList();
+
+        }
+
+        public List<Attendence> GetLateStudents(DateOnly startDate, DateOnly endDate)
+        {
+            return db.Attendences.Where(a => a.IsLate == true && a.Date >= startDate && a.Date <= endDate).ToList();
+        }
+
+        public List<Attendence> GetPresentStudents(DateOnly startDate, DateOnly endDate)
+        {
+            return db.Attendences.Where(a => a.IsPresent == true && a.Date >= startDate && a.Date <= endDate).ToList();
+        }
         public void SaveChanges()
         {
             db.SaveChanges();
         }
+
+
+        
     }
 }

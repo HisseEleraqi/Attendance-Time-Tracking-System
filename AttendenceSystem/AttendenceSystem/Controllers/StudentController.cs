@@ -68,16 +68,64 @@ namespace AttendenceSystem.Controllers
 
         //student attendance report ****//
 
+        // filtering with date and attendance state
+        [HttpPost]
+        public IActionResult FilterAttendanceReport(DateOnly startDate, DateOnly endDate, AttendanceEnum attendanceStatus)
+        {
+            List<Attendence> filteredAttendance = new List<Attendence>();
+
+            switch (attendanceStatus)
+            {
+                case AttendanceEnum.IsApsent:
+                    filteredAttendance = _attendance.GetAbsentStudents(startDate, endDate);
+                    break;
+
+                case AttendanceEnum.IsLate:
+                    filteredAttendance = _attendance.GetLateStudents(startDate, endDate);
+                    break;
+
+                case AttendanceEnum.IsPresent:
+                    filteredAttendance = _attendance.GetPresentStudents(startDate, endDate);
+                    break;
+
+                default:
+
+                    break;
+            }
+
+           
+            List<AttendanceReportResponse> reportResult = new List<AttendanceReportResponse>();
+           foreach(var attendance in filteredAttendance)
+            {
+
+                var  student = context.Students.AsNoTracking().Where(a => a.Id == attendance.UserId).FirstOrDefault();
+               
+                reportResult.Add(new AttendanceReportResponse() {AttendanceStatue = attendanceStatus , InDate = attendance.Date, OutTime = attendance.OutTime , InTime = attendance.InTime  , Grade = student.Degree  , IsAbsent = attendance.IsAbsent , IsLate = attendance.IsLate ,  IsPresent = attendance.IsPresent  , userName = student.Name});
+
+            }
+
+
+
+          return View("PrintStudentReport22" , reportResult);
+        }
+
 
         public IActionResult PrintStudentReport22([FromRoute] int Id)
         {
             //var Students = context.Attendences.AsNoTracking().Include(a => a.User).Where(a => a.TrackId == Id);
             var Students = _attendance.GetAttendencesTrackId(Id, UserTypeEnum.Student);
-            ViewBag.ID = Id;
-            var StudentsGrade = context.Students.AsNoTracking().Where(a => a.Id == Id);
-            ViewBag.StudentsGrade = StudentsGrade;
+            List<AttendanceReportResponse> reportResult = new List<AttendanceReportResponse>();
+            foreach (var attendance in Students)
+            {
 
-            return View(Students);
+                var student = context.Students.AsNoTracking().Where(a => a.Id == attendance.UserId).FirstOrDefault();
+
+                reportResult.Add(new AttendanceReportResponse() {InDate = attendance.Date, OutTime = attendance.OutTime, InTime = attendance.InTime, Grade = student.Degree, IsAbsent = attendance.IsAbsent, IsLate = attendance.IsLate, IsPresent = attendance.IsLate, userName = student.Name });
+
+            }
+
+      
+            return View(reportResult);
 
         }
 

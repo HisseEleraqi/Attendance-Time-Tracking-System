@@ -39,7 +39,7 @@ namespace AttendenceSystem
 
             builder.Services.AddScoped<IEmpRepo, EmpRepo>();
             builder.Services.AddScoped<TrackIRepo, TrackRepo>();
-            builder.Services.AddScoped<IAttendance , Attendance>();         
+            builder.Services.AddScoped<IAttendance , AttendanceRepo>();         
 
 
 

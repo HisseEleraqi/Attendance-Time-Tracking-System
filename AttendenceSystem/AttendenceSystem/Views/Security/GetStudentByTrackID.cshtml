@@ -109,14 +109,14 @@
                             </td>
                         }
 
-                        @if (@item.InTime != null)
-                        {
+                       @*  @if (@item.InTime != null)
+                        { *@
                             <td align="center">
                                 <form method="post" asp-action="ConfirmStudentLeaving" asp-controller="Security" asp-route-id="@item.Id" asp-route-id2="@item.TrackId">
                                     <button type="submit" class="btn btn-outline-primary m-3">Confirm Leave</button>
                                 </form>
                             </td>
-                        }
+                        @* } *@
                        @*  else
                         {
                             <td align="center">
