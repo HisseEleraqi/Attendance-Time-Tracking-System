@@ -29,6 +29,13 @@ namespace AttendenceSystem.Repo
             return studentAttendence;
 
         }
+        public Attendence GetAttendence(int Id, DateTime date)
+        {
+            var studentAttendence = db.Attendences.FirstOrDefault(a => a.Id == Id && a.Date == DateOnly.Parse(date.ToString("yyyy-MM-dd")));
+
+            return studentAttendence;
+
+        }
         public void SaveChanges()
         {
             db.SaveChanges();

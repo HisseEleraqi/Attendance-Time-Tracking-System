@@ -123,9 +123,10 @@ namespace AttendenceSystem.Controllers
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
             string studentTime = date.ToString("hh:mm:ss");
-            var correctTime = ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan();// String.Format("09:00:00");
+            var correctTime = ShiftTime != null ? ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan() : new TimeSpan(00, 00, 00);// String.Format("09:00:00");
 
-            var attendance = _attendance.GetStudentAttendence(Id, currentdate);
+            //var attendance = _attendance.GetStudentAttendence(Id, currentdate);
+            var attendance = _attendance.GetAttendence(Id, currentdate);
             if (attendance is null)
             {
                 return StatusCode(404);
@@ -207,8 +208,10 @@ namespace AttendenceSystem.Controllers
         {
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
-            var attendance = _attendance.GetStudentAttendence(id, currentdate);
-            if(attendance != null)
+            //var attendance = _attendance.GetStudentAttendence(id, currentdate);
+            var attendance = _attendance.GetAttendence(id, currentdate);
+
+            if (attendance != null)
             {
                 attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm:ss"));
                 _attendance.SaveChanges();
@@ -263,14 +266,15 @@ namespace AttendenceSystem.Controllers
             DateTime dateOnly = instructortDate.Date;
             string studentTime = instructortDate.ToString("hh:mm:ss");
             var a=new  TimeSpan(00, 15, 00);
-            var correctTime = ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan();//String.Format("12:0:00");
+            var correctTime = ShiftTime!=null? ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan() : new TimeSpan(00, 00, 00);//String.Format("12:0:00");
 
             //Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
             //if ()
             //{
 
             //}
-            var attendance = _attendance.GetStudentAttendence(Id, dateOnly);
+            //var attendance = _attendance.GetStudentAttendence(Id, dateOnly);
+            var attendance = _attendance.GetAttendence(Id, dateOnly);
 
             if (attendance is null)
             {
@@ -279,7 +283,7 @@ namespace AttendenceSystem.Controllers
             }
 
             TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
-            TimeSpan correctTimeSpan = correctTime.Value; // TimeSpan.Parse(correctTime);
+            TimeSpan correctTimeSpan = correctTime.Value ; // TimeSpan.Parse(correctTime);
 
             int comparison = TimeSpan.Compare(studentTimeSpan, correctTimeSpan);
 
@@ -359,7 +363,9 @@ namespace AttendenceSystem.Controllers
         {
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
-            var attendance = _attendance.GetStudentAttendence(Id, currentdate);
+            //var attendance = _attendance.GetStudentAttendence(Id, currentdate);
+            var attendance = _attendance.GetAttendence(Id, currentdate);
+
             if (attendance != null)
             {
                 attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm:ss"));

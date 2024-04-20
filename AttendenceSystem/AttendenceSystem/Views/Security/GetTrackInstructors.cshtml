@@ -78,7 +78,7 @@
                         @if (@item.InTime != null)
                         {
                             <td align="center">
-                                <form method="post" asp-action="ConfirmInstructorAttendance" asp-controller="Security" asp-route-id="@item.UserId" asp-route-id2="@item.TrackId">
+                                <form method="post" asp-action="ConfirmInstructorAttendance" asp-controller="Security" asp-route-id="@item.Id" asp-route-id2="@item.TrackId">
                                     <button type="submit" disabled class="btn btn-outline-primary m-3">Confirm Attendance</button>
                                 </form>
                             </td>
@@ -87,7 +87,7 @@
                         else
                         {
                             <td align="center">
-                                <form method="post" asp-action="ConfirmInstructorAttendance" asp-controller="Security" asp-route-id="@item.UserId" asp-route-id2="@item.TrackId">
+                                <form method="post" asp-action="ConfirmInstructorAttendance" asp-controller="Security" asp-route-id="@item.Id" asp-route-id2="@item.TrackId">
                                     <button type="submit" class="btn btn-outline-primary m-3">Confirm Attendance</button>
                                 </form>
                             </td>
@@ -97,7 +97,7 @@
                         {
 
                             <td align="center">
-                                <form method="post" asp-action="ConfirmInstructorLeaving" asp-controller="Security" asp-route-id="@item.UserId">
+                                <form method="post" asp-action="ConfirmInstructorLeaving" asp-controller="Security" asp-route-id="@item.Id">
                                     <button type="submit" class="btn btn-outline-primary m-3">Confirm Leave</button>
                                 </form>
                             </td>
@@ -105,7 +105,7 @@
                         else
                         {
                             <td align="center">
-                                <form method="post" asp-action="ConfirmInstructorLeaving" asp-controller="Security" asp-route-id="@item.UserId">
+                                <form method="post" asp-action="ConfirmInstructorLeaving" asp-controller="Security" asp-route-id="@item.Id">
                                     <button type="submit" disabled class="btn btn-outline-primary m-3">Confirm Leave</button>
                                 </form>
                             </td>
