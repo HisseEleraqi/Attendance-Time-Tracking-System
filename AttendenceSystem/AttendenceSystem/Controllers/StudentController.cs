@@ -121,7 +121,7 @@ namespace AttendenceSystem.Controllers
 
                 var student = context.Students.AsNoTracking().Where(a => a.Id == attendance.UserId).FirstOrDefault();
 
-                reportResult.Add(new AttendanceReportResponse() {InDate = attendance.Date, OutTime = attendance.OutTime, InTime = attendance.InTime, Grade = student.Degree, IsAbsent = attendance.IsAbsent, IsLate = attendance.IsLate, IsPresent = attendance.IsLate, userName = student.Name });
+                reportResult.Add(new AttendanceReportResponse() {InDate = attendance.Date, OutTime = attendance.OutTime, InTime = attendance.InTime, Grade = student.Degree, IsAbsent = attendance.IsAbsent, IsLate = attendance.IsLate, IsPresent = attendance.IsPresent, userName = student.Name });
 
             }
 

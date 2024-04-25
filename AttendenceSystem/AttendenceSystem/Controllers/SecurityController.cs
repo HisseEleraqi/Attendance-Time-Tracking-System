@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
 using OfficeOpenXml;
 using System;
+using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AttendenceSystem.Controllers
@@ -122,7 +123,10 @@ namespace AttendenceSystem.Controllers
             var ShiftTime = context.Schedules.AsNoTracking().OrderByDescending(a=>a.Id).FirstOrDefault(a => a.TrackId == id2);
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
-            string studentTime = date.ToString("hh:mm:ss");
+            //var cultureAr = new CultureInfo("ar-EG");
+            var culture = new CultureInfo("en-US");
+
+            string studentTime = date.ToString("hh:mm");
             var correctTime = ShiftTime != null ? ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan() : new TimeSpan(00, 00, 00);// String.Format("09:00:00");
 
             //var attendance = _attendance.GetStudentAttendence(Id, currentdate);
@@ -141,19 +145,25 @@ namespace AttendenceSystem.Controllers
             {
                 attendance.IsPresent = true;
                 attendance.IsAbsent = false;
+                attendance.IsLate = false;
+
             }
             else if (comparison > 0)
             {
                 attendance.IsLate = true;
                 attendance.IsAbsent = false;
+                attendance.IsPresent = false;
+
             }
             else
             {
                 attendance.IsPresent = true;
                 attendance.IsAbsent = false;
+                attendance.IsLate = false;
+
             }
 
-             attendance.InTime = TimeOnly.Parse(date.ToString("hh:mm:ss"));
+            attendance.InTime = TimeOnly.Parse(date.ToString("hh:mm tt", culture));
              attendance.UserType = UserTypeEnum.Student;
              attendance.TrackId = id2;
              _attendance.SaveChanges();
@@ -210,10 +220,11 @@ namespace AttendenceSystem.Controllers
             DateTime currentdate = date.Date;
             //var attendance = _attendance.GetStudentAttendence(id, currentdate);
             var attendance = _attendance.GetAttendence(id, currentdate);
+            var culture = new CultureInfo("en-US");
 
             if (attendance != null)
             {
-                attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm:ss"));
+                attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm tt", culture));
                 _attendance.SaveChanges();
             }
 
@@ -264,8 +275,11 @@ namespace AttendenceSystem.Controllers
 
             DateTime instructortDate = DateTime.Now;
             DateTime dateOnly = instructortDate.Date;
-            string studentTime = instructortDate.ToString("hh:mm:ss");
-            var a=new  TimeSpan(00, 15, 00);
+            var culture = new CultureInfo("en-US");
+
+           var studentTime = instructortDate.ToString("hh:mm");
+
+            //var a=new  TimeSpan(00, 15, 00);
             var correctTime = ShiftTime!=null? ShiftTime?.StartTime.Add(new TimeSpan(00, 15, 00)).ToTimeSpan() : new TimeSpan(00, 00, 00);//String.Format("12:0:00");
 
             //Attendence instructorAttendance = new Attendence() { Date = DateOnly.Parse(dateOnly.ToString("yyyy-MM-dd")), InTime = TimeOnly.Parse(studentTime), UserId = Id, UserType = UserTypeEnum.Instructor, TrackId = id2 };
@@ -282,7 +296,7 @@ namespace AttendenceSystem.Controllers
 
             }
 
-            TimeSpan studentTimeSpan = TimeSpan.Parse(studentTime);
+            TimeSpan studentTimeSpan =  TimeSpan.Parse(studentTime);
             TimeSpan correctTimeSpan = correctTime.Value ; // TimeSpan.Parse(correctTime);
 
             int comparison = TimeSpan.Compare(studentTimeSpan, correctTimeSpan);
@@ -305,7 +319,7 @@ namespace AttendenceSystem.Controllers
                 attendance.IsPresent = true;
                 attendance.IsAbsent = false;
             }
-            attendance.InTime = TimeOnly.Parse(dateOnly.ToString("hh:mm:ss"));
+            attendance.InTime = TimeOnly.Parse(instructortDate.ToString("hh:mm tt", culture));
             attendance.UserType = UserTypeEnum.Instructor;
             attendance.TrackId = id2;
             _attendance.SaveChanges();
@@ -363,12 +377,14 @@ namespace AttendenceSystem.Controllers
         {
             DateTime date = DateTime.Now;
             DateTime currentdate = date.Date;
+            var culture = new CultureInfo("en-US");
+
             //var attendance = _attendance.GetStudentAttendence(Id, currentdate);
             var attendance = _attendance.GetAttendence(Id, currentdate);
 
             if (attendance != null)
             {
-                attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm:ss"));
+                attendance.OutTime = TimeOnly.Parse(DateTime.Now.ToString("hh:mm tt", culture));
                 _attendance.SaveChanges();
             }
 
